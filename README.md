@@ -41,7 +41,7 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 ### 1. Clone & set up the environment
 
 ```bash
-git clone https://github.com/<your-username>/everything-burger.git
+git clone https://github.com/xplosivex/everything-burger.git
 cd everything-burger
 
 python3 -m venv venv
