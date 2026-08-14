@@ -625,6 +625,14 @@ DAILY_QUEST_TYPES = {
         'max_count': 2,
         'base_crumbs': 50,
         'base_xp': 25
+    },
+    'save_pages': {
+        'name': 'Page Saver',
+        'description': 'Save {count} pages',
+        'min_count': 1,
+        'max_count': 5,
+        'base_crumbs': 40,
+        'base_xp': 20
     }
 }
 
@@ -790,7 +798,7 @@ class PageIteration(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     iteration_number = db.Column(db.Integer, nullable=False, default=0)
 
-    page = db.relationship('Page', foreign_keys=[page_id], backref='iterations')
+    page = db.relationship('Page', foreign_keys=[page_id], backref=db.backref('iterations', cascade='all, delete-orphan'))
     author = db.relationship('User', backref='iterations')
     parent = db.relationship('PageIteration', remote_side=[id], backref='children')
 
@@ -806,8 +814,8 @@ class WatcherVerdict(db.Model):
     mood = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    iteration = db.relationship('PageIteration', backref=db.backref('watcher_verdict', uselist=False))
-    page = db.relationship('Page', backref='watcher_verdicts')
+    iteration = db.relationship('PageIteration', backref=db.backref('watcher_verdict', uselist=False, cascade='all, delete-orphan'))
+    page = db.relationship('Page', backref=db.backref('watcher_verdicts', cascade='all, delete-orphan'))
 
     @property
     def points(self):

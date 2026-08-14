@@ -4,7 +4,6 @@ from mistralai.client import Mistral
 import os
 import json
 import math
-import requests
 import random
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
@@ -72,9 +71,6 @@ MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
 # SerpAPI key for Google image/news/video/shopping search (https://serpapi.com) -- REQUIRED
 SERP_API_KEY = os.environ.get("SERP_API_KEY", "")
 
-# ValueSERP key for profile picture / banner image search (https://www.valueserp.com)
-VALUE_SERP_API_KEY = os.environ.get("VALUE_SERP_API_KEY", "")
-
 # Model assignments -- tune these based on cost/quality tradeoffs
 CONTENT_MODEL = os.environ.get("CONTENT_MODEL", "mistral-large-latest")    # Best writing quality
 STRUCTURE_MODEL = os.environ.get("STRUCTURE_MODEL", "codestral-latest")    # Best at code/HTML generation
@@ -86,6 +82,7 @@ SMTP_SERVER = os.environ.get("SMTP_SERVER", "")
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "465"))
 SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+SMTP_ENABLED = bool(SMTP_SERVER and SMTP_USERNAME and SMTP_PASSWORD)
 
 # Public base URL used in password reset links (e.g. https://yourdomain.com)
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
@@ -2607,18 +2604,22 @@ def get_prompt_length(user_id):
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
+        username = (request.form.get('username') or '').strip()
+        email = (request.form.get('email') or '').strip()
+        password = request.form.get('password') or ''
 
         # Validate username contains only letters and numbers
-        if not username.isalnum() or ' ' in username:
+        if not username or not username.isalnum() or ' ' in username:
             flash_message('Username can only contain letters and numbers with no spaces', 'error')
             return redirect(url_for('signup'))
 
         # Validate email format
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        if not email or not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             flash_message('Invalid email address', 'error')
+            return redirect(url_for('signup'))
+
+        if not password:
+            flash_message('Password is required', 'error')
             return redirect(url_for('signup'))
 
         if db.session.query(User).filter_by(username=username).first():
@@ -2655,8 +2656,12 @@ def signup():
 @limiter.limit('30 per minute')
 def login():
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = (request.form.get('username') or '').strip()
+        password = request.form.get('password') or ''
+
+        if not username or not password:
+            flash_message('Username and password are required', 'error')
+            return render_template('login.html')
 
         user = db.session.query(User).filter(User.username.ilike(username)).first()
 
@@ -2699,13 +2704,14 @@ def sell_item(item_id):
     user = db.session.query(User).get(session['user_id'])
 
     # Add crumbs to user's balance
-    user.add_crumbs(item.crumb_value)
+    crumb_value = item.crumb_value or 0
+    user.add_crumbs(crumb_value)
 
     # Remove the item
     db.session.delete(item)
     db.session.commit()
 
-    flash_message(f'Successfully sold {item.name} for {item.crumb_value} crumbs!', 'success')
+    flash_message(f'Successfully sold {item.name} for {crumb_value} crumbs!', 'success')
     return redirect(url_for('inventory'))
 
 
@@ -2723,6 +2729,8 @@ def view_pages():
             pages = query.order_by(Page.score.desc()).all()
         elif sort_by == 'newest':
             pages = query.order_by(Page.created_at.desc()).all()
+        else:
+            pages = query.order_by(Page.view_count.desc()).all()
 
         page_ids = [p.id for p in pages]
         iteration_counts = {}
@@ -2785,6 +2793,15 @@ def vote(page_id, vote_type):
                 else:
                     page.downvote_count -= 1
                 db.session.delete(existing_vote)
+            else:
+                # Switch vote to the opposite type
+                if is_upvote:
+                    page.downvote_count -= 1
+                    page.upvote_count += 1
+                else:
+                    page.upvote_count -= 1
+                    page.downvote_count += 1
+                existing_vote.is_upvote = is_upvote
         else:
             # Add new vote if none exists
             vote = Vote(
@@ -2801,6 +2818,8 @@ def vote(page_id, vote_type):
         page.score = page.upvote_count - page.downvote_count
 
         db.session.commit()
+
+        update_quest_progress(session['user_id'], 'send_votes')
 
         return jsonify({
             'upvotes': page.upvote_count,
@@ -2873,51 +2892,67 @@ def update_profile():
         for i in range(1, 4):
             page_id = request.form.get(f'featured_page_{i}')
             if page_id:
+                try:
+                    page_id = int(page_id)
+                except (TypeError, ValueError):
+                    continue
                 page = db.session.query(Page).filter_by(id=page_id, creator_id=user.id).first()
                 if page:
                     setattr(user, f'featured_page_{i}_id', page.id)
                 else:
                     flash_message(f'Featured page {i} not found or unauthorized', 'error')
 
-        # Common parameters for image search
-        serp_params = {
-            'api_key': VALUE_SERP_API_KEY,
-            'search_type': 'images',
-            'num': '1',
-            'output': 'json',
-            'include_html': 'false',
-        }
-
         # Handle profile picture update
         profile_picture_query = request.form.get('profile_picture_query')
         if profile_picture_query:
-            serp_params['q'] = profile_picture_query
             logger.info(f"Searching for profile picture: {profile_picture_query}")
-            response = requests.get('https://api.valueserp.com/search', params=serp_params)
-            if response.status_code == 200:
-                data = response.json()
-                if 'image_results' in data and data['image_results']:
-                    user.profile_picture_url = data['image_results'][0]['image']
+            try:
+                params = {
+                    "api_key": SERP_API_KEY,
+                    "engine": "google_images",
+                    "q": profile_picture_query,
+                    "google_domain": "google.com",
+                    "hl": "en",
+                    "gl": "us",
+                    "safe": "off",
+                    "num": "1"
+                }
+                search = GoogleSearch(params)
+                results = search.get_dict()
+                images = results.get('images_results', [])
+                if images:
+                    user.profile_picture_url = images[0].get('original', images[0].get('thumbnail', ''))
                     logger.info(f"Successfully fetched profile picture: {user.profile_picture_url}")
                 else:
                     logger.error("No image results found in the response")
-            else:
-                logger.error(f"Failed to fetch profile picture. Status code: {response.status_code}")
+            except Exception as e:
+                logger.error(f"Failed to fetch profile picture: {e}")
 
         # Handle banner update
         banner_query = request.form.get('banner_query')
         if banner_query:
-            serp_params['q'] = banner_query
-            response = requests.get('https://api.valueserp.com/search', params=serp_params)
-            if response.status_code == 200:
-                data = response.json()
-                if 'image_results' in data and data['image_results']:
-                    user.banner_url = data['image_results'][0]['image']
+            logger.info(f"Searching for banner: {banner_query}")
+            try:
+                params = {
+                    "api_key": SERP_API_KEY,
+                    "engine": "google_images",
+                    "q": banner_query,
+                    "google_domain": "google.com",
+                    "hl": "en",
+                    "gl": "us",
+                    "safe": "off",
+                    "num": "1"
+                }
+                search = GoogleSearch(params)
+                results = search.get_dict()
+                images = results.get('images_results', [])
+                if images:
+                    user.banner_url = images[0].get('original', images[0].get('thumbnail', ''))
                     logger.info(f"Successfully fetched banner: {user.banner_url}")
                 else:
                     logger.error("No image results found in the response")
-            else:
-                logger.error(f"Failed to fetch banner. Status code: {response.status_code}")
+            except Exception as e:
+                logger.error(f"Failed to fetch banner: {e}")
 
         db.session.commit()
         flash_message('Profile updated successfully', 'success')
@@ -2936,6 +2971,10 @@ def update_profile():
 @app.route('/forgot_password', methods=['GET', 'POST'])
 @limiter.limit('10 per hour')
 def forgot_password():
+    if not SMTP_ENABLED:
+        flash_message('Password reset is not available', 'error')
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         email = request.form.get('email')
         user = db.session.query(User).filter_by(email=email).first()
@@ -2966,7 +3005,10 @@ def reset_password(token):
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        password = request.form.get('password')
+        password = request.form.get('password') or ''
+        if not password:
+            flash_message('Password is required', 'error')
+            return render_template('reset_password.html')
         user.password_hash = generate_password_hash(password)
         user.reset_token = None
         user.reset_token_expiry = None
@@ -2984,15 +3026,15 @@ def view_page(uuid):
         flash_message('Page not found', 'error')
         return redirect(url_for('dashboard'))
 
-    # Increment view count
-    page.view_count += 1
-    db.session.commit()
-
     # Check visibility permissions
     if page.visibility == 'private':
         if not session.get('user_id') or page.creator_id != session.get('user_id'):
             flash_message('You do not have permission to view this page', 'error')
             return redirect(url_for('dashboard'))
+
+    # Increment view count
+    page.view_count += 1
+    db.session.commit()
 
     # Only update quest progress if user is logged in
     if session.get('user_id'):
@@ -3033,12 +3075,19 @@ def save_page():
         flash_message(f'You have reached your maximum limit of {max_slots} saved pages', 'error')
         return redirect(url_for('dashboard'))
         
-    title = request.form.get('title')
+    title = (request.form.get('title') or '').strip()
     description = request.form.get('description', '')
     html_content = request.form.get('html_content')
     prompt = request.form.get('prompt', '')
     visibility = request.form.get('visibility', 'public')
     tags = request.form.get('tags', '')
+
+    if not title:
+        flash_message('Page title is required', 'error')
+        return redirect(url_for('dashboard'))
+
+    if visibility not in ('public', 'private', 'unlisted'):
+        visibility = 'public'
 
     if not html_content:
         flash_message('Page content is required', 'error')
@@ -3539,6 +3588,11 @@ def use_item(item_id):
 
 
 def _handle_generation(prompt, user_id, task_id):
+    prompt = (prompt or '').strip()
+    if not prompt:
+        flash_message('Please enter a prompt to generate a page', 'error')
+        return redirect(url_for('dashboard'))
+
     # Check active generations limit
     if count_active_generations(user_id) >= 3:
         flash_message('You can only have 3 active generations at a time. Please wait for existing generations to complete.', 'error')
@@ -3587,25 +3641,39 @@ def _handle_generation(prompt, user_id, task_id):
         if active_effects:
             update_achievement_progress(user_id, 'buffed_generation', 1)
 
+        update_quest_progress(user_id, 'generate_pages')
+
         try_reward_item(user_id, prompt)
 
     def generate_async():
         with app.app_context():
-            result = generate_html_optimized(prompt, user_id)
-            if not result or len(result.strip()) < 100:
-                generated_content[task_id]['error'] = "Generation produced insufficient content"
+            try:
+                result = generate_html_optimized(prompt, user_id)
+                if not result or len(result.strip()) < 100:
+                    generated_content[task_id]['error'] = "Generation produced insufficient content"
+                    generated_content[task_id]['completed'] = True
+                    return
+
+                generated_content[task_id]['html'] = result
                 generated_content[task_id]['completed'] = True
-                return
-            
-            generated_content[task_id]['html'] = result
-            generated_content[task_id]['completed'] = True
-            
-            socketio.emit('generation_complete', {
-                'html': result,
-                'prompt': prompt,
-                'task_id': task_id,
-                'status': 'success'
-            })
+
+                socketio.emit('generation_complete', {
+                    'html': result,
+                    'prompt': prompt,
+                    'task_id': task_id,
+                    'status': 'success'
+                })
+            except Exception as e:
+                logger.error(f"Generation failed for task {task_id}: {e}")
+                generated_content[task_id]['error'] = str(e)
+                generated_content[task_id]['completed'] = True
+                socketio.emit('generation_complete', {
+                    'html': None,
+                    'prompt': prompt,
+                    'task_id': task_id,
+                    'status': 'error',
+                    'message': str(e)
+                })
 
     gevent.spawn(generate_async)
     return redirect(url_for('result', task_id=task_id))
@@ -3614,7 +3682,10 @@ def _handle_generation(prompt, user_id, task_id):
 @login_required
 @limiter.limit('60 per minute')
 def generate():
-    user_input = request.form.get('prompt')
+    user_input = (request.form.get('prompt') or '').strip()
+    if not user_input:
+        flash_message('Please enter a prompt to generate a page', 'error')
+        return redirect(url_for('dashboard'))
     task_id = str(uuid.uuid4())
     user_id = session['user_id']
     logger.info(f"New generation request. Task ID: {task_id}")
@@ -3627,6 +3698,10 @@ def regenerate(task_id):
     logger.info(f"Regeneration requested for task {task_id}")
     if task_id not in generated_content:
         logger.warning(f"Task {task_id} not found for regeneration")
+        return redirect(url_for('dashboard'))
+
+    if generated_content[task_id]['user_id'] != session['user_id']:
+        flash_message('Unauthorized access to generation result', 'error')
         return redirect(url_for('dashboard'))
 
     prompt = generated_content[task_id]['prompt']
@@ -4091,6 +4166,11 @@ def buy_user_item(item_id):
     
     # Get buyer
     buyer = db.session.query(User).get(session['user_id'])
+    
+    # Check if item has a valid sale price
+    if not item.sale_price or item.sale_price <= 0:
+        flash_message('This item has an invalid sale price', 'error')
+        return redirect(url_for('emporium'))
     
     # Check if buyer has enough crumbs
     if buyer.current_crumbs < item.sale_price:
@@ -4572,7 +4652,7 @@ def utility_processor():
         else:
             # Return regular flashed messages for non-logged users
             return get_flashed_messages(with_categories=True)
-    return dict(get_messages=get_messages)
+    return dict(get_messages=get_messages, smtp_enabled=SMTP_ENABLED)
 
 
 
@@ -4651,29 +4731,32 @@ def generate_watcher_verdict(iteration_id):
             f"{previous_context}"
         )
 
-        client = Mistral(api_key=MISTRAL_API_KEY)
-        response = client.chat.complete(
-            model=SUMMARY_MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
-            ],
-            max_tokens=800,
-            temperature=0.9,
-            response_format={"type": "json_object"}
-        )
+        try:
+            client = Mistral(api_key=MISTRAL_API_KEY)
+            response = client.chat.complete(
+                model=SUMMARY_MODEL,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_message}
+                ],
+                max_tokens=800,
+                temperature=0.9,
+                response_format={"type": "json_object"}
+            )
 
-        data = json.loads(response.choices[0].message.content)
-        verdict = WatcherVerdict(
-            iteration_id=iteration.id,
-            page_id=iteration.page_id,
-            summary=data.get('summary', ''),
-            mood=str(data.get('mood', 'WATCHING')).upper(),
-            points_json=json.dumps(data.get('points', []))
-        )
-        db.session.add(verdict)
-        db.session.commit()
-        logger.info(f"Watcher verdict created for iteration {iteration_id}")
+            data = json.loads(response.choices[0].message.content)
+            verdict = WatcherVerdict(
+                iteration_id=iteration.id,
+                page_id=iteration.page_id,
+                summary=data.get('summary', ''),
+                mood=str(data.get('mood', 'WATCHING')).upper(),
+                points_json=json.dumps(data.get('points', []))
+            )
+            db.session.add(verdict)
+            db.session.commit()
+            logger.info(f"Watcher verdict created for iteration {iteration_id}")
+        except Exception as e:
+            logger.error(f"Watcher verdict failed for iteration {iteration_id}: {e}")
 
 
 @app.route('/iterate/<page_uuid>', methods=['POST'])
@@ -4695,7 +4778,12 @@ def iterate_page(page_uuid):
     if not parent_iteration_id:
         return jsonify({'error': 'No parent iteration found'}), 400
 
-    parent_iteration = PageIteration.query.get_or_404(int(parent_iteration_id))
+    try:
+        parent_iteration_id = int(parent_iteration_id)
+    except (TypeError, ValueError):
+        return jsonify({'error': 'Invalid parent iteration'}), 400
+
+    parent_iteration = PageIteration.query.get_or_404(parent_iteration_id)
     task_id = str(uuid.uuid4())
     user_id = session['user_id']
 

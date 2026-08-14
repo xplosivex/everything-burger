@@ -25,7 +25,7 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 | ORM / Migrations | Flask-SQLAlchemy + Flask-Migrate (Alembic) |
 | Server | gevent WSGIServer (WebSocket handler) |
 | AI | Mistral AI SDK |
-| Search | SerpAPI (Google) + ValueSERP |
+| Search | SerpAPI (Google) |
 | Scraping / Images | BeautifulSoup4, Pillow, Selenium (headless Chrome) |
 | Database | SQLite |
 | Frontend | Tailwind CSS (CDN), Socket.IO client, Google Fonts |
@@ -61,7 +61,6 @@ Then edit `.env` and fill in your keys. **At minimum you need `MISTRAL_API_KEY` 
 |---|---|---|---|
 | `MISTRAL_API_KEY` | ✅ | AI content generation, trinket naming, summaries | [console.mistral.ai](https://console.mistral.ai) |
 | `SERP_API_KEY` | ✅ | Google image/news/video/shopping search | [serpapi.com](https://serpapi.com) |
-| `VALUE_SERP_API_KEY` | ⬜ | Profile picture / banner image search | [valueserp.com](https://www.valueserp.com) |
 | `SMTP_SERVER` / `SMTP_PORT` / `SMTP_USERNAME` / `SMTP_PASSWORD` | ⬜ | Password reset + welcome emails | Your mail provider |
 | `BASE_URL` | ⬜ | Public URL used in password reset links | — |
 | `SECRET_KEY` | ⬜ | Session signing key (set a fixed value so logins survive restarts) | `python -c "import secrets; print(secrets.token_hex(32))"` |
@@ -112,10 +111,6 @@ The system prompts that drive generation are hardcoded in `app.py` under the **H
 ├── model.py                # SQLAlchemy models + item/achievement/quest definitions
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # Template for environment configuration
-├── backfill_iterations.py  # One-off: create root PageIteration rows for existing pages
-├── backfill_watcher.py     # One-off: generate Watcher verdicts for pending iterations
-├── set_crumb_values.py     # One-off: backfill crumb_value on existing items
-├── set_default_values_for_sale_columns.py  # One-off: backfill for_sale/sale_price
 ├── migrations/             # Alembic migrations
 ├── templates/              # 13 standalone Jinja2 templates
 └── static/

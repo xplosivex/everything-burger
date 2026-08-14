@@ -88,12 +88,14 @@
                         >
                             Need an account?
                         </a>
+                        {% if smtp_enabled %}
                         <a
                             href="/forgot_password"
                             class="retro-text w-full sm:w-auto text-center text-gray-600 hover:text-gray-800 transition-colors duration-200"
                         >
                             Forgot Password?
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </form>
