@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>GENERATE - Everything Burger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add retro fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <style>
+        .retro-title {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .retro-text {
+            font-family: 'VT323', monospace;
+            font-size: 1.2em;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .retro-heading {
+            font-family: 'Silkscreen', monospace;
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-200 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+            <h1 class="retro-title text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500 mb-6 md:mb-0 text-center md:text-left">
+                EVERYTHING BURGER 2
+                <span class="text-xl md:text-2xl font-bold text-gray-600 block">DASHBOARD</span>
+            </h1>
+            <div class="flex flex-wrap gap-3 md:gap-4 items-center justify-center md:justify-end">
+                <div class="retro-text text-lg font-semibold text-yellow-600 mr-4">
+                    <span class="mr-1">🍞</span>{{ crumb_balance['current'] }} Crumbs
+                </div>
+
+                <a href="{{ url_for('inventory') }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Inventory
+                    </span>
+                </a>
+                <a href="{{ url_for('emporium') }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        Emporium
+                    </span>
+                </a>
+                <a href="{{ url_for('view_pages') }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        View Pages
+                    </span>
+                </a>
+                <a href="{{ url_for('achievements') }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        Achievements
+                    </span>
+                </a>
+                <a href="{{ url_for('profile', username=session['username']) }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-gray-600 to-gray-700 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        Profile
+                    </span>
+                </a>
+                <a href="{{ url_for('logout') }}" class="retro-text w-full sm:w-auto transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    <span class="flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        Logout
+                    </span>
+                </a>
+                <div class="retro-text flex items-center bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg px-3 py-2 shadow-lg mr-4">
+                    <div class="flex flex-col items-center sm:flex-row sm:items-center">
+                        <div class="flex items-center">
+                            <span class="text-yellow-300 mr-2">⭐</span>
+                            <span class="font-bold">Lvl {{ user.level }}</span>
+                        </div>
+                        <div class="hidden sm:flex items-center ml-2">
+                            <div class="w-24 h-2 bg-gray-700 rounded-full mx-2">
+                                {% set xp_required = (100 * (1.2 ** (user.level - 1))) | int %}
+                                <div class="h-full bg-yellow-400 rounded-full" style="width: {{ (user.xp / xp_required * 100) | int }}%"></div>
+                            </div>
+                            <span class="text-xs whitespace-nowrap">{{ user.xp }}/{{ xp_required }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex justify-center w-full sm:w-auto">
+                    <button onclick="toggleNotifications()" class="relative transform hover:scale-105 transition-transform duration-200 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-bold p-2 md:p-3 rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 z-50">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        {% with messages = get_messages() %}
+                        {% if messages %}
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {{ messages|length }}
+                        </span>
+                        {% endif %}
+                        {% endwith %}
+                    </button>
+
+                    <div id="notifications-panel" class="hidden absolute right-0 md:right-0 mt-12 w-[calc(100vw-2rem)] sm:w-96 bg-white rounded-lg shadow-xl z-40 max-h-96 overflow-y-auto">
+                        {% with messages = get_messages() %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="retro-text p-4 {% if not loop.last %}border-b border-gray-200{% endif %} {% if category == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            <div class="p-2 border-t border-gray-200">
+                                <a href="{{ url_for('clear_messages') }}" class="retro-text block w-full text-center py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200">
+                                    Clear All Messages
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="retro-text p-4 text-center text-gray-600">
+                                No messages at the moment
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="max-w-3xl mx-auto">
+            <form action="/generate" method="POST" class="bg-white backdrop-blur-lg bg-opacity-90 shadow-2xl rounded-2xl px-8 pt-8 pb-8 mb-8 border border-gray-200">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="mb-6">
+                    <label class="retro-heading block text-gray-800 text-lg font-bold mb-4" for="prompt">
+                        What would you like to generate?
+                    </label>
+                    <textarea
+                        id="prompt"
+                        name="prompt"
+                        class="retro-text shadow-inner appearance-none border-2 border-gray-200 rounded-xl w-full py-3 px-4 text-gray-700 leading-relaxed focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 h-40 resize-none"
+                        placeholder="Let your imagination run wild! Describe the webpage you want to create..."
+                        maxlength="{{ prompt_length }}"
+                        required
+                    ></textarea>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button
+                        id="generate-button"
+                        class="retro-text bg-gradient-to-r from-blue-500 to-blue-700 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        type="submit"
+                    >
+                        <span class="flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Send to Kitchen
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Statistics Section with improved styling -->
+            <div class="bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-2xl p-8 mb-8">
+                <!-- Global Stats -->
+                <div class="mb-12">
+                    <h2 class="retro-heading text-3xl font-bold text-gray-800 mb-6 text-center">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Global Statistics</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Total Users -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-green-400 bg-green-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Total Users</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.total_users }}</div>
+                        </div>
+
+                        <!-- Total Generations -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-blue-400 bg-blue-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Pages Generated</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.total_generations }}</div>
+                        </div>
+
+                        <!-- Saved Pages -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-purple-400 bg-purple-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Saved Pages</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.total_saved_pages }}</div>
+                        </div>
+
+                        <!-- Community Activity -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-yellow-400 bg-yellow-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Community Activity</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.total_comments + stats.total_votes }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Stats -->
+                <div>
+                    <h2 class="retro-heading text-3xl font-bold text-gray-800 mb-6 text-center">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">Your Statistics</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- User's Pages Generated -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-blue-400 bg-blue-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Your Pages</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.user_stats.total_pages_generated }}</div>
+                        </div>
+
+                        <!-- User's Saved Pages -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-purple-400 bg-purple-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Your Saves</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.user_stats.total_saved_pages }}</div>
+                        </div>
+
+                        <!-- User's Comments -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-yellow-400 bg-yellow-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Your Comments</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.user_stats.total_comments }}</div>
+                        </div>
+
+                        <!-- User's Votes -->
+                        <div class="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-6 border border-gray-100">
+                            <div class="flex items-center mb-2">
+                                <div class="text-green-400 bg-green-100 p-2 rounded-lg mr-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                                <div class="retro-text text-gray-400 text-sm font-medium">Your Votes</div>
+                            </div>
+                            <div class="retro-text text-3xl font-bold text-gray-800">{{ stats.user_stats.total_votes }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const generateButton = document.getElementById('generate-button');
+
+        form.addEventListener('submit', () => {
+            generateButton.textContent = 'Cooking...';
+            generateButton.disabled = true;
+            generateButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+            generateButton.classList.remove('hover:scale-105', 'hover:shadow-xl');
+        });
+    </script>
+    <script>
+function updateCursor() {
+    fetch('/check_cursor_effect')
+        .then(response => response.json())
+        .then(data => {
+            if (data.has_dragon_cursor) {
+                // Create and append style tag for cursor
+                const styleTag = document.createElement('style');
+                styleTag.textContent = "* { cursor: url('data:image/x-icon;base64,AAACAAEAICAQAAEAAQDoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAADBl8AERFSgBeXmYACRd1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAIwACMAAAAAAAAAAAAAAAAAAwAwAAAAAAAAAAAAAAAAAAMzMAAAAAAAAAAAAAAAAAAEIjAAAAAAAAAAAAAAAAAABEIgAAAAAAAAAAAAAAAAAEQQMwAAAAAAAAAAAAAAABFEAAMAAAAAAAAAAAAAAABBQAAjAAAAAAAAAAAAAAAERAAAAAAAAAAAAAAAAAAAREEAAAAAAAAAAAAAAAAABEQQAAAAAAAAAAAAAAAAARFBEAAAAAAAAAAAAAAAAEEREQAAAAAAAAAAAAAAAARBFBEAAAAAAAAAAAAAAAAUEUQQAAAAAAAAAAAAAEQRFBREAAAAAAAAAAAAAABERBREQAAAAAAAAAAAAAAARERERAAAAAAAAAAAAAAAABFBREAAAAAAAAAAAAAAAARBREQAAAAAAAAAAAAAAAARFEQAAAAAAAAAAAAAAAAAFEQAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////////5////8P///+H////x///+cf///CH///4D////A////wP///8D///8Af//+BH///gh///wc///4H///4D///8A///+Af///AH//8AD//+AB///gA///4Af//+AP///AH///gD///4D///8D////n////w=='), pointer !important; }";
+                document.head.appendChild(styleTag);
+            } else {
+                // Remove any existing cursor style tags
+                const existingStyles = document.head.querySelectorAll('style');
+                existingStyles.forEach(style => {
+                    if (style.textContent.includes('cursor')) {
+                        style.remove();
+                    }
+                });
+            }
+        })
+        .catch(error => console.error('Error updating cursor:', error));
+}
+
+// Update cursor when page loads
+document.addEventListener('DOMContentLoaded', updateCursor);
+
+// Update cursor every hour to check for changes
+</script>
+<script>
+    function toggleNotifications() {
+        const panel = document.getElementById('notifications-panel');
+        panel.classList.toggle('hidden');
+    }
+
+    // Close notifications panel when clicking outside
+    document.addEventListener('click', function(event) {
+        const panel = document.getElementById('notifications-panel');
+        const notificationButton = event.target.closest('button');
+
+        if (!panel.classList.contains('hidden') && !panel.contains(event.target) && !notificationButton) {
+            panel.classList.add('hidden');
+        }
+    });
+</script>
+</body>
+</html>

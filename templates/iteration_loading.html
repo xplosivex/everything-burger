@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Iterating... - Everything Burger</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        .retro-text { font-family: 'VT323', monospace; font-size: 1.2em; }
+        .retro-title { font-family: 'Press Start 2P', cursive; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-200 min-h-screen flex items-center justify-center">
+
+    <div class="text-center w-80 px-4">
+        <h1 class="retro-title text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500 mb-2">
+            ITERATING
+        </h1>
+        <p class="retro-text text-gray-500 mb-6">Modifying <span class="text-gray-700 font-semibold">{{ page.title }}</span>...</p>
+
+        <img class="h-40 w-40 mx-auto" src="/static/page_assets/transparent_burger_animation.gif" alt="Loading">
+
+        <div id="loading-message" class="mt-4 retro-text text-xl text-gray-600 animate-pulse">Applying changes...</div>
+
+        <div class="mt-5 w-full bg-gray-200 rounded-full h-2.5">
+            <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full transition-all duration-500" style="width:0%"></div>
+        </div>
+        <div id="progress-pct" class="mt-1 text-sm text-gray-500">0%</div>
+
+        <p class="mt-6 text-xs text-gray-400">You'll be redirected automatically when it's ready.</p>
+    </div>
+
+    <script>
+    const TASK_ID   = "{{ task_id }}";
+    const PAGE_UUID = "{{ page_uuid }}";
+
+    const messages = [
+        "Applying changes...",
+        "Remixing the content...",
+        "Consulting the original...",
+        "Rewriting the narrative...",
+        "Polishing the HTML...",
+        "Adding the final touches...",
+        "Almost there...",
+    ];
+    let msgIdx = 0;
+    const msgEl = document.getElementById('loading-message');
+    setInterval(() => {
+        msgIdx = (msgIdx + 1) % messages.length;
+        msgEl.textContent = messages[msgIdx];
+    }, 2500);
+
+    let prog = 0;
+    const progBar = document.getElementById('progress-bar');
+    const progPct = document.getElementById('progress-pct');
+    const progTimer = setInterval(() => {
+        prog += (96 - prog) * 0.025;
+        progBar.style.width = prog.toFixed(1) + '%';
+        progPct.textContent = Math.floor(prog) + '%';
+    }, 600);
+
+    const socket = io();
+    socket.on('iteration_complete', function(data) {
+        if (data.task_id === TASK_ID) {
+            clearInterval(progTimer);
+            progBar.style.width = '100%';
+            progPct.textContent = '100%';
+            msgEl.textContent = 'Done!';
+            setTimeout(() => {
+                window.location.href = '/page/' + PAGE_UUID;
+            }, 400);
+        }
+    });
+    socket.on('iteration_error', function(data) {
+        if (data.task_id === TASK_ID) {
+            clearInterval(progTimer);
+            msgEl.textContent = 'Something went wrong.';
+            progBar.classList.replace('bg-indigo-500', 'bg-red-400');
+            setTimeout(() => {
+                window.location.href = '/page/' + PAGE_UUID;
+            }, 2000);
+        }
+    });
+    </script>
+</body>
+</html>
