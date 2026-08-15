@@ -79,7 +79,7 @@ flask db upgrade
 ### 4. Run it
 
 ```bash
-python app.py
+python run.py
 ```
 
 Then open <http://localhost:8000> and create an account.
@@ -101,14 +101,45 @@ The generation pipeline uses four Mistral models. Override them in `.env` to bal
 
 ### Prompt configuration
 
-The system prompts that drive generation are hardcoded in `app.py` under the **HTML GENERATION PIPELINE** section. Tweak them to change how pages are generated.
+The system prompts that drive generation are hardcoded in `app/generation/` (content, structure, and styling modules). Tweak them to change how pages are generated.
 
 ## Project Structure
 
 ```
 .
-├── app.py                  # Flask app: config, routes, generation pipeline, game logic
-├── model.py                # SQLAlchemy models + item/achievement/quest definitions
+├── run.py                  # Entry point: gevent WSGIServer + WebSocket handler
+├── app/
+│   ├── __init__.py         # App factory: config, extensions, blueprint registration
+│   ├── config.py           # Environment-based configuration (API keys, models, SMTP)
+│   ├── extensions.py       # Flask extensions (db, csrf, limiter, socketio, migrate)
+│   ├── models.py           # SQLAlchemy models + item/achievement/quest definitions
+│   ├── utils.py            # login_required decorator, flash_message helper
+│   ├── email.py            # SMTP password-reset + welcome emails
+│   ├── state.py            # In-memory generation state
+│   ├── generation/         # AI page generation pipeline
+│   │   ├── blocks.py       # Content block definitions (staple/common/exotic)
+│   │   ├── palette.py      # Weighted block palette selection
+│   │   ├── content.py      # Stage 1: content generation (Mistral)
+│   │   ├── structure.py    # Stage 2: HTML structure (Mistral)
+│   │   ├── styling.py      # Stage 3: Tailwind styling (Mistral)
+│   │   ├── images.py       # Google image fetching (SerpAPI)
+│   │   ├── serp.py         # News/video/shopping enrichment (SerpAPI)
+│   │   ├── effects.py      # Item effect application to generated HTML
+│   │   ├── achievements.py # Achievement checks + crumb/XP rewards
+│   │   ├── math.py         # create_complex_calculation helper
+│   │   ├── iterations.py   # Page iteration + Watcher verdict generation
+│   │   └── pipeline.py     # Main orchestrator
+│   └── routes/             # Flask blueprints
+│       ├── auth.py         # signup, login, logout, password reset
+│       ├── pages.py        # view/save/vote/comment/delete pages
+│       ├── profile.py      # profiles, featured pages, avatar/banner search
+│       ├── generation.py   # dashboard, generate, regenerate, result
+│       ├── inventory.py    # inventory, sell, use, toggle tradeable
+│       ├── emporium.py     # shop, buy, list for sale, trade-ups
+│       ├── achievements.py # achievements + daily quests
+│       ├── iterations.py   # iterate pages, watcher verdicts
+│       ├── misc.py         # clear-messages
+│       └── helpers.py      # shared quest/achievement helpers
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # Template for environment configuration
 ├── migrations/             # Alembic migrations
@@ -128,7 +159,7 @@ The system prompts that drive generation are hardcoded in `app.py` under the **H
 
 ## Deployment Notes
 
-- The built-in server (`python app.py`) is a gevent WSGIServer with WebSocket support — suitable for small-to-medium deployments.
+- The built-in server (`python run.py`) is a gevent WSGIServer with WebSocket support — suitable for small-to-medium deployments.
 - For production, put it behind a reverse proxy (nginx/Caddy) with TLS, and set `BASE_URL` to your real domain.
 - Sessions are signed with `SECRET_KEY` — set a fixed value in `.env` so users stay logged in across restarts.
 - The SQLite database lives in `instance/database.db`. Back it up regularly.
@@ -136,7 +167,7 @@ The system prompts that drive generation are hardcoded in `app.py` under the **H
 
 ## Known Limitations
 
-- **Single-file architecture** — `app.py` is large (~4,800 lines) and contains all routes, the generation pipeline, and game logic.
+- **Modular architecture** — the app is split into `app/generation/` (AI pipeline) and `app/routes/` (blueprints), with models, config, and helpers in separate modules.
 - **In-memory generation state** — pending/completed generations are stored in a process-local dict and lost on restart.
 - **SQLite** — fine for a personal project; swap to PostgreSQL for heavy multi-user traffic.
 - **No test suite** — the project has no automated tests yet.

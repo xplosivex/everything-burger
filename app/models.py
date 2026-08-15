@@ -14,13 +14,7 @@ import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
-
-MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
+from app.config import MISTRAL_API_KEY
 
 db = SQLAlchemy()
 
