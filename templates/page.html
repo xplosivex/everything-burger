@@ -25,8 +25,8 @@
         }
     </style></head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-200 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-4">
             <h1 class="retro-title text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500 mb-6 md:mb-0 text-center md:text-left">
                 EVERYTHING BURGER 2
                 <span class="retro-heading text-xl md:text-2xl font-bold text-gray-600 block">{{ page.title }}</span>
@@ -137,25 +137,25 @@
     <hr class="border-gray-200 mx-4">
 
     <!-- Iterations & Watcher Panel -->
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4 py-2">
 
         <!-- Generation Details (master collapsible) -->
-        <div id="gen-details" class="mb-4 rounded-xl overflow-hidden border border-gray-300 bg-white shadow-lg">
+        <div id="gen-details" class="mb-2 rounded-xl overflow-hidden border border-gray-300 bg-white shadow-lg">
             <button id="gen-details-toggle"
-                    class="w-full px-5 py-3 bg-gray-800 text-white retro-text text-left flex justify-between items-center hover:bg-gray-700 transition-colors">
+                    class="w-full px-4 py-2 bg-gray-800 text-white retro-text text-left flex justify-between items-center hover:bg-gray-700 transition-colors">
                 <span class="flex items-center gap-2 font-bold tracking-widest">&#128269; GENERATION DETAILS</span>
                 <span id="gen-details-chevron" class="transform transition-transform duration-200">&#9660;</span>
             </button>
-            <div id="gen-details-body" class="hidden p-4 space-y-4">
+            <div id="gen-details-body" class="hidden p-3 space-y-3">
 
                 <!-- The Watcher's Verdict -->
                 <div id="watcher-panel" class="rounded-xl overflow-hidden border border-purple-200 bg-white shadow-sm">
                     <button id="watcher-toggle"
-                            class="w-full px-5 py-3 bg-purple-50 border-b border-purple-200 retro-text text-left flex justify-between items-center hover:bg-purple-100 transition-colors">
+                            class="w-full px-4 py-2 bg-purple-50 border-b border-purple-200 retro-text text-left flex justify-between items-center hover:bg-purple-100 transition-colors">
                         <span class="flex items-center gap-2 text-purple-700 font-bold tracking-widest">&#128065; THE WATCHER'S VERDICT</span>
                         <span id="watcher-chevron" class="transform transition-transform duration-200 text-purple-400">&#9660;</span>
                     </button>
-                    <div id="watcher-body" class="hidden p-5">
+                    <div id="watcher-body" class="hidden p-4">
                         <div id="watcher-pending" class="flex items-center gap-2 animate-pulse">
                             <span class="retro-text text-purple-400 text-sm italic">The Watcher stirs...</span>
                         </div>
@@ -170,48 +170,48 @@
                 <!-- Nerd Stats -->
                 <div id="nerd-panel" class="rounded-xl overflow-hidden border border-cyan-200 bg-white shadow-sm">
                     <button id="nerd-toggle"
-                            class="w-full px-5 py-3 bg-cyan-50 border-b border-cyan-200 retro-text text-left flex justify-between items-center hover:bg-cyan-100 transition-colors">
+                            class="w-full px-4 py-2 bg-cyan-50 border-b border-cyan-200 retro-text text-left flex justify-between items-center hover:bg-cyan-100 transition-colors">
                         <span class="flex items-center gap-2 text-cyan-700 font-bold tracking-widest">&#129504; NERD STATS</span>
                         <span id="nerd-chevron" class="transform transition-transform duration-200 text-cyan-400">&#9660;</span>
                     </button>
-                    <div id="nerd-body" class="hidden p-5">
+                    <div id="nerd-body" class="hidden p-4">
                         <div id="nerd-content" class="text-sm text-gray-700 space-y-3">
                             <p class="text-gray-400 italic">Select an iteration to see what was randomly chosen for it.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Iterations -->
-                <div class="rounded-xl overflow-hidden border border-indigo-700 bg-white shadow-sm">
-                    <button id="iterations-toggle"
-                            class="w-full px-5 py-3 bg-indigo-600 text-white retro-text text-left flex justify-between items-center hover:bg-indigo-700 transition-colors">
-                        <span>&#8518; ITERATIONS</span>
-                        <span id="iterations-chevron" class="transform transition-transform duration-200">&#9660;</span>
-                    </button>
-                    <div id="iterations-body" class="hidden">
-                        <div id="iteration-tree" class="p-4 border-b border-gray-200 max-h-64 overflow-y-auto text-sm font-mono"></div>
-                        {% if session.get('user_id') %}
-                        <form id="iterate-form" class="p-4 flex flex-col gap-2" onsubmit="submitIterate(event)">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="flex gap-2">
-                                <input id="iterate-prompt" type="text" maxlength="{{ prompt_length }}"
-                                       placeholder="Describe your modification..."
-                                       oninput="document.getElementById('iter-char-count').textContent = this.value.length + '/{{ prompt_length }}'"
-                                       class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                                <input type="hidden" id="parent-iteration-id" value="{{ page.current_iteration_id or '' }}">
-                                <button type="submit" id="iterate-btn"
-                                        class="retro-text bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm whitespace-nowrap">
-                                    Iterate
-                                </button>
-                            </div>
-                            <div class="text-right text-xs text-gray-400 retro-text">
-                                <span id="iter-char-count">0/{{ prompt_length }}</span>
-                            </div>
-                        </form>
-                        {% endif %}
-                    </div>
-                </div>
+            </div>
+        </div>
 
+        <!-- Iterations -->
+        <div class="rounded-xl overflow-hidden border border-indigo-700 bg-white shadow-sm">
+            <button id="iterations-toggle"
+                    class="w-full px-4 py-2 bg-indigo-600 text-white retro-text text-left flex justify-between items-center hover:bg-indigo-700 transition-colors">
+                <span>&#8518; ITERATIONS</span>
+                <span id="iterations-chevron" class="transform transition-transform duration-200">&#9660;</span>
+            </button>
+            <div id="iterations-body" class="hidden">
+                <div id="iteration-tree" class="p-4 border-b border-gray-200 max-h-64 overflow-y-auto text-sm font-mono"></div>
+                {% if session.get('user_id') %}
+                <form id="iterate-form" class="p-4 flex flex-col gap-2" onsubmit="submitIterate(event)">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="flex gap-2">
+                        <input id="iterate-prompt" type="text" maxlength="{{ prompt_length }}"
+                               placeholder="Describe your modification..."
+                               oninput="document.getElementById('iter-char-count').textContent = this.value.length + '/{{ prompt_length }}'"
+                               class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <input type="hidden" id="parent-iteration-id" value="{{ page.current_iteration_id or '' }}">
+                        <button type="submit" id="iterate-btn"
+                                class="retro-text bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm whitespace-nowrap">
+                            Iterate
+                        </button>
+                    </div>
+                    <div class="text-right text-xs text-gray-400 retro-text">
+                        <span id="iter-char-count">0/{{ prompt_length }}</span>
+                    </div>
+                </form>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -220,7 +220,6 @@
     const PAGE_UUID = "{{ page.uuid }}";
     const CURRENT_ITERATION_ID = {{ page.current_iteration_id or 'null' }};
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').content;
-    const PAGE_META = {{ page_meta | tojson if page_meta else 'null' }};
 
     let activeIterationId = CURRENT_ITERATION_ID;
     let watcherPollTimer = null;
@@ -285,23 +284,46 @@
     function renderNerdStats(meta) {
         const container = document.getElementById('nerd-content');
         if (!container) return;
-        if (!meta) {
-            container.innerHTML = '<p class="text-gray-400 italic">No generation data for this iteration.</p>';
+        const m = meta;
+        if (!m) {
+            container.innerHTML = '<p class="text-gray-400 italic">No generation data for this page.</p>';
             return;
         }
+        const descs = m.element_descriptions;
+        const poolSize = m.element_pool_size;
+        const imgRange = `${m.image_range[0]}-${m.image_range[1]}`;
+        const twists = m.twists;
+        const modifiers = m.modifiers;
+        const elements = m.elements;
+
+        const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const tip = t => ` title="${esc(t)}"`;
+
+        const twistHtml = twists.map(t => `&ldquo;${esc(t)}&rdquo;`).join('<br>');
+        const modifierHtml = modifiers.map(x => `&ldquo;${esc(x)}&rdquo;`).join('<br>');
+        const elementHtml = elements.map(e => {
+            const d = descs[e] ? tip(descs[e]) : '';
+            return `<span class="underline decoration-dotted cursor-help"${d}>${esc(e)}</span>`;
+        }).join(', ');
+
         const rows = [
-            ['Archetype', meta.archetype || '?'],
-            ['Twists', (meta.twists || []).map(t => `&ldquo;${t}&rdquo;`).join('<br>') || 'none'],
-            ['Modifiers', (meta.modifiers || []).map(m => `&ldquo;${m}&rdquo;`).join('<br>') || 'none'],
-            ['Elements', (meta.elements || []).join(', ') || 'none'],
-            ['Image count', meta.image_count],
-            ['Temperature', meta.temperature],
-            ['Image multiplier', meta.image_multiplier],
-            ['Seeded from parent', meta.seed ? 'yes' : 'no'],
+            ['Archetype', m.archetype, 'The page format chosen for this generation.'],
+            ['Twists', `${twists.length} selected (1-2 possible, pool of 100)<br>${twistHtml}`,
+                'Writing twists injected into the content stage. 1-2 are picked from a pool of 100.'],
+            ['Modifiers', `${modifiers.length} selected (1-3 possible, pool of 300)<br>${modifierHtml}`,
+                'Structural/styling flourishes applied to the page. 1-3 are picked (weighted: 1 most common, 3 rarest) from a pool of 300.'],
+            ['Elements', `${elements.length} selected (3-9 possible, pool of ${poolSize})<br>${elementHtml}`,
+                `Format-specific content blocks. 3-9 are picked from this archetype's pool of ${poolSize}. Hover an element for its meaning.`],
+            ['Image count', `${m.image_count} (range ${imgRange})`,
+                'Number of images requested, drawn from the archetype range and multiplied by any image_count item effect.'],
+            ['Temperature', m.temperature, 'Sampling randomness. Higher = more chaotic output.'],
+            ['Image multiplier', m.image_multiplier, 'Multiplier from active image_count item effects.'],
+            ['Seeded from parent', m.seed ? 'yes' : 'no', 'Whether this was an iteration seeded with the parent page text.'],
         ];
-        container.innerHTML = rows.map(([k, v]) =>
+
+        container.innerHTML = rows.map(([k, v, t]) =>
             `<div class="flex flex-col sm:flex-row sm:gap-2 border-b border-gray-100 pb-2">
-                <span class="text-cyan-700 font-bold sm:w-40 shrink-0">${k}</span>
+                <span class="text-cyan-700 font-bold sm:w-44 shrink-0 cursor-help underline decoration-dotted"${tip(t)}>${esc(k)}</span>
                 <span class="text-gray-700">${v}</span>
             </div>`
         ).join('');
@@ -406,21 +428,13 @@
         const opening = body.classList.contains('hidden');
         body.classList.toggle('hidden');
         chevron.style.transform = opening ? 'rotate(180deg)' : '';
-        if (opening) {
-            // Auto-open the Watcher's verdict and load the iteration tree
-            const watcherBody = document.getElementById('watcher-body');
-            if (watcherBody.classList.contains('hidden')) {
-                watcherBody.classList.remove('hidden');
-                document.getElementById('watcher-chevron').style.transform = 'rotate(180deg)';
-            }
-            loadIterationTree();
-        } else {
-            // Closing the master closes all sub-panels
-            ['watcher-body', 'nerd-body', 'iterations-body'].forEach(id => {
+        if (!opening) {
+            // Closing the master closes the sub-panels inside it
+            ['watcher-body', 'nerd-body'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.add('hidden');
             });
-            ['watcher-chevron', 'nerd-chevron', 'iterations-chevron'].forEach(id => {
+            ['watcher-chevron', 'nerd-chevron'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.style.transform = '';
             });
@@ -450,8 +464,6 @@
                 .then(r => r.json())
                 .then(data => renderNerdStats(data.meta))
                 .catch(() => {});
-        } else if (PAGE_META) {
-            renderNerdStats(PAGE_META);
         }
     });
     </script>

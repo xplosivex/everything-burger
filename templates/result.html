@@ -18,7 +18,7 @@
                 <input type="hidden" name="html_content" id="html-content-input" value="{{ html_content }}">
                 <input id="prompt-input" type="hidden" name="prompt" value="{{ prompt }}">
                 <input type="hidden" name="archetype" value="{{ archetype or '' }}">
-                <input type="hidden" name="meta" value="{{ meta | tojson if meta else '' }}">
+                <input type="hidden" name="meta" value="{{ meta | tojson | forceescape if meta else '' }}">
                 <div class="mb-4">
                     <input type="text" name="title" placeholder="Page Title" maxlength="35" required class="w-full text-sm p-2 border border-gray-300 rounded">
                 </div>
@@ -187,7 +187,7 @@
             saveModal.classList.add('hidden');
         });
 
-        const regenerateForm = document.querySelector('form');
+        const regenerateForm = document.querySelector('form[action^="/regenerate/"]');
         const regenerateButton = regenerateForm.querySelector('button');
 
         regenerateForm.addEventListener('submit', (e) => {
@@ -270,7 +270,7 @@
             return '<html><head><style>'
                 + 'html,body{margin:0;padding:0;height:100%;overflow-x:hidden;}'
                 + 'body{display:flex;flex-direction:column;align-items:center;}'
-                + '.content-wrapper{padding:2rem;width:100%;max-width:1200px;box-sizing:border-box;min-height:100%;margin:0 auto;}'
+                + '.content-wrapper{padding:2rem;width:100%;box-sizing:border-box;min-height:100%;margin:0 auto;}'
                 + 'img{max-width:100%;height:auto;display:block;margin:0 auto;}'
                 + '*{box-sizing:border-box;word-wrap:break-word;}'
                 + '</style></head><body><div class="content-wrapper">'

@@ -63,13 +63,18 @@ def generate_html_optimized(prompt: str, user_id: int, archetype_key: str = None
         image_count = int(image_count * image_multiplier)
 
     # Nerd stats: everything that was randomly chosen for this generation
+    from app.generation.archetypes import element_description
+    selected_elements = archetype['params']['elements']
     meta = {
         'archetype': archetype['name'],
         'archetype_key': archetype['key'],
         'twists': twists,
         'modifiers': modifiers,
-        'elements': [e['name'] for e in archetype['params']['elements']],
+        'elements': [e['name'] for e in selected_elements],
+        'element_descriptions': {e['name']: element_description(e) for e in selected_elements},
+        'element_pool_size': archetype.get('element_pool_size', len(archetype['params']['elements'])),
         'image_count': image_count,
+        'image_range': [lo, hi],
         'temperature': round(temperature, 2),
         'image_multiplier': image_multiplier,
         'seed': bool(seed_text),

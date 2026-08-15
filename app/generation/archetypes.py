@@ -82,6 +82,7 @@ def _resolve(archetype: dict, key: str) -> dict:
             'image_count': random.choice(archetype['image_ranges']),
             'elements': random.sample(pool, k=count),
         },
+        'element_pool_size': len(pool),
     }
     return resolved
 
@@ -104,6 +105,17 @@ def get_archetype(key: str) -> dict:
 def random_archetype_key() -> str:
     """Pick a random archetype key (for backfilling pages without one)."""
     return random.choice(list(ARCHETYPES.keys()))
+
+
+def element_description(element: dict) -> str:
+    """Human-readable description of an element from its content fragment."""
+    content = element.get('content', '')
+    # Strip the marker prefix (e.g. 'SUPERLATIVES: [title]...') and brackets
+    desc = content.split(':', 1)[-1] if ':' in content else content
+    desc = desc.replace('[', '').replace(']', '').strip()
+    if not desc:
+        return element.get('name', '')
+    return desc
 
 
 def select_twists() -> list:
