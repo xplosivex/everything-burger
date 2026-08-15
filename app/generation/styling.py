@@ -1,6 +1,5 @@
 import logging
-from mistralai.client import Mistral
-from app.config import MISTRAL_API_KEY, STYLING_MODEL
+from app.ai import complete
 
 logger = logging.getLogger(__name__)
 
@@ -154,10 +153,9 @@ CRITICAL:
 def apply_styling(html: str) -> str:
     """Stage 3: Apply Tailwind CSS styling to the HTML."""
 
-    client = Mistral(api_key=MISTRAL_API_KEY)
-    response = client.chat.complete(
-        model=STYLING_MODEL,
-        messages=[
+    styled = complete(
+        'styling',
+        [
             {"role": "system", "content": STYLING_SYSTEM_PROMPT},
             {"role": "user", "content": html}
         ],
@@ -165,7 +163,5 @@ def apply_styling(html: str) -> str:
         temperature=0.4,
         top_p=0.95
     )
-
-    styled = response.choices[0].message.content.strip()
     logger.info(f"Stage 3 produced {len(styled)} chars of styled HTML")
     return styled

@@ -1,6 +1,5 @@
 import logging
-from mistralai.client import Mistral
-from app.config import MISTRAL_API_KEY, STRUCTURE_MODEL
+from app.ai import complete
 
 logger = logging.getLogger(__name__)
 
@@ -160,10 +159,9 @@ CRITICAL RULES:
 def build_html_structure(content: str) -> str:
     """Stage 2: Convert structured text content into semantic HTML5."""
 
-    client = Mistral(api_key=MISTRAL_API_KEY)
-    response = client.chat.complete(
-        model=STRUCTURE_MODEL,
-        messages=[
+    html = complete(
+        'structure',
+        [
             {"role": "system", "content": STRUCTURE_SYSTEM_PROMPT},
             {"role": "user", "content": content}
         ],
@@ -171,7 +169,5 @@ def build_html_structure(content: str) -> str:
         temperature=0.3,
         top_p=0.95
     )
-
-    html = response.choices[0].message.content.strip()
     logger.info(f"Stage 2 produced {len(html)} chars of HTML")
     return html

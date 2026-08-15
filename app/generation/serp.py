@@ -2,9 +2,9 @@ import json
 import random
 import logging
 from bs4 import BeautifulSoup
-from mistralai.client import Mistral
 from serpapi import GoogleSearch
-from app.config import MISTRAL_API_KEY, SERP_API_KEY, SUMMARY_MODEL
+from app.ai import complete
+from app.config import SERP_API_KEY
 
 logger = logging.getLogger(__name__)
 
@@ -14,10 +14,9 @@ def generate_search_queries(html_content: str) -> list:
         soup = BeautifulSoup(str(html_content), 'html.parser')
         text = soup.get_text()[:3000]
 
-        client = Mistral(api_key=MISTRAL_API_KEY)
-        response = client.chat.complete(
-            model=SUMMARY_MODEL,
-            messages=[
+        raw = complete(
+            'summary',
+            [
                 {"role": "system", "content": (
                     "Generate 7-10 different search queries based on this content. "
                     "Each query should be 5-12 words and search-friendly. "
@@ -28,11 +27,9 @@ def generate_search_queries(html_content: str) -> list:
             ],
             temperature=0.55,
             max_tokens=500,
-            response_format={"type": "json_object"}
+            json_mode=True
         )
 
-        import json
-        raw = response.choices[0].message.content.strip()
         data = json.loads(raw)
         queries = [q.strip() for q in data.get('queries', []) if isinstance(q, str) and q.strip()]
         return queries or ["Recommended Content"]
@@ -43,6 +40,8 @@ def generate_search_queries(html_content: str) -> list:
 
 def fetch_serp_content(query: str, search_type: str) -> dict | None:
     """Fetch news, video, or shopping results from SerpAPI."""
+    if not SERP_API_KEY:
+        return None
     engine_map = {
         'news': ('google_news', 'news_results'),
         'videos': ('google_videos', 'video_results'),

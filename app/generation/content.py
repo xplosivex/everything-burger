@@ -1,7 +1,6 @@
 import random
 import logging
-from mistralai.client import Mistral
-from app.config import MISTRAL_API_KEY, CONTENT_MODEL
+from app.ai import complete
 from app.generation.palette import select_block_palette, build_block_prompt_section
 from app.generation.effects import _get_style_instructions
 
@@ -150,10 +149,9 @@ Make sure to include:
 CRITICAL: The blocks should feel like ONE flowing piece. Reference earlier content in later blocks.
 Reuse character names, callback to jokes, escalate the absurdity. Transitions between blocks matter."""
 
-    client = Mistral(api_key=MISTRAL_API_KEY)
-    response = client.chat.complete(
-        model=CONTENT_MODEL,
-        messages=[
+    content = complete(
+        'content',
+        [
             {"role": "system", "content": system},
             {"role": "user", "content": enhanced_prompt}
         ],
@@ -161,7 +159,5 @@ Reuse character names, callback to jokes, escalate the absurdity. Transitions be
         temperature=temperature,
         top_p=0.92
     )
-
-    content = response.choices[0].message.content.strip()
     logger.info(f"Stage 1 produced {len(content)} chars of content")
     return content

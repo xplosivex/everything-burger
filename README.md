@@ -2,7 +2,7 @@
 
 **The burger that does everything.**
 
-Everything Burger is a gamified, AI-powered webpage generator. Type any prompt — no matter how nonsensical — and the app uses **Mistral AI** to generate a complete, styled HTML5 page enriched with real Google search results (images, news, videos, and shopping) via **SerpAPI**.
+Everything Burger is a gamified, AI-powered webpage generator. Type any prompt — no matter how nonsensical — and the app uses your AI backend of choice (**Mistral**, OpenAI, Claude, or Ollama) to generate a complete, styled HTML5 page, enriched with real Google search results (images, news, videos, and shopping) via **SerpAPI** when a key is configured.
 
 The whole thing is wrapped in an RPG-style progression system: generating pages earns you **crumbs** (in-app currency), **XP**, and **levels**. Crumbs buy **items** (consumables, artifacts, and trinkets) from the Emporium, which you can use, sell, trade, or trade up for rarer loot. You also earn **achievements**, complete **daily quests**, and compete on a community feed of generated pages with votes and comments.
 
@@ -25,7 +25,7 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 | ORM / Migrations | Flask-SQLAlchemy + Flask-Migrate (Alembic) |
 | Server | Waitress (threaded WSGI) |
 | Queue / State | Redis |
-| AI | Mistral AI SDK |
+| AI | Mistral / OpenAI / Claude / Ollama (BYOK) |
 | Search | SerpAPI (Google) |
 | Scraping / Images | BeautifulSoup4, Pillow, Selenium (headless Chrome) |
 | Database | SQLite (WAL mode) |
@@ -57,12 +57,16 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Then edit `.env` and fill in your keys. **At minimum you need `MISTRAL_API_KEY` and `SERP_API_KEY`** for page generation to work.
+Then edit `.env` and fill in your keys. **You need an API key for your AI backend of choice** (default: `MISTRAL_API_KEY`). A `SERP_API_KEY` is optional but recommended for richer pages.
 
 | Variable | Required | Description | Where to get it |
 |---|---|---|---|
-| `MISTRAL_API_KEY` | ✅ | AI content generation, trinket naming, summaries | [console.mistral.ai](https://console.mistral.ai) |
-| `SERP_API_KEY` | ✅ | Google image/news/video/shopping search | [serpapi.com](https://serpapi.com) |
+| `AI_BACKEND` | ⬜ | `mistral` (default), `openai`, `claude`, or `ollama` | — |
+| `MISTRAL_API_KEY` | one of | AI content generation, trinket naming, summaries | [console.mistral.ai](https://console.mistral.ai) |
+| `OPENAI_API_KEY` | one of | OpenAI backend | [platform.openai.com](https://platform.openai.com) |
+| `ANTHROPIC_API_KEY` | one of | Claude backend | [console.anthropic.com](https://console.anthropic.com) |
+| `OLLAMA_API_KEY` | for Ollama Cloud | Ollama backend (`AI_BACKEND=ollama`) | [ollama.com](https://ollama.com) |
+| `SERP_API_KEY` | ⬜ (recommended) | Google image/news/video/shopping search | [serpapi.com](https://serpapi.com) |
 | `SMTP_SERVER` / `SMTP_PORT` / `SMTP_USERNAME` / `SMTP_PASSWORD` | ⬜ | Password reset + welcome emails | Your mail provider |
 | `BASE_URL` | ⬜ | Public URL used in password reset links | — |
 | `SECRET_KEY` | ⬜ | Session signing key (set a fixed value so logins survive restarts) | `python -c "import secrets; print(secrets.token_hex(32))"` |
@@ -102,16 +106,28 @@ Then open <http://localhost:8000> and create an account.
 
 All configuration is read from environment variables (or `.env`). See [`.env.example`](.env.example) for the full list with comments.
 
+### AI provider (Bring Your Own Key)
+
+The app supports four AI backends, selected with `AI_BACKEND`. Each needs its own key (self-hosted Ollama excepted). Mistral is the default and recommended.
+
+| Backend | `AI_BACKEND` | Key env var | Console |
+|---|---|---|---|
+| Mistral (recommended) | `mistral` | `MISTRAL_API_KEY` | https://console.mistral.ai |
+| OpenAI | `openai` | `OPENAI_API_KEY` | https://platform.openai.com |
+| Claude | `claude` | `ANTHROPIC_API_KEY` | https://console.anthropic.com |
+| Ollama Cloud | `ollama` | `OLLAMA_API_KEY` | https://ollama.com |
+| Ollama (self-hosted) | `ollama` | none | set `OLLAMA_BASE_URL=http://localhost:11434` |
+
 ### Model tuning
 
-The generation pipeline uses four Mistral models. Override them in `.env` to balance cost vs. quality:
+Each backend has sensible defaults per stage; override them in `.env` to balance cost vs. quality:
 
-| Variable | Default | Role |
+| Variable | Default (per backend) | Role |
 |---|---|---|
-| `CONTENT_MODEL` | `mistral-large-latest` | Best writing quality |
-| `STRUCTURE_MODEL` | `codestral-latest` | Best at code/HTML generation |
-| `STYLING_MODEL` | `mistral-medium-latest` | Tailwind styling pass |
-| `SUMMARY_MODEL` | `mistral-small-latest` | Lightweight summaries |
+| `CONTENT_MODEL` | mistral-large-latest / gpt-5.6-terra / claude-sonnet-5 / llama3.2 | Best writing quality |
+| `STRUCTURE_MODEL` | codestral-latest / gpt-5.6-terra / claude-sonnet-5 / llama3.2 | Best at code/HTML generation |
+| `STYLING_MODEL` | mistral-medium-latest / gpt-5.6-terra / claude-sonnet-5 / llama3.2 | Tailwind styling pass |
+| `SUMMARY_MODEL` | mistral-small-latest / gpt-5.6-luna / claude-haiku-4-5 / llama3.2 | Lightweight summaries |
 
 ### Prompt configuration
 
@@ -169,7 +185,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ## How It Works
 
-1. **Generate** — you submit a prompt on the dashboard. The request is pushed onto a Redis queue; an embedded worker runs the 3-stage Mistral pipeline (content → structure → Tailwind styling), fetching real images/news/videos/shopping results from Google in parallel, and pushes the result to your page via Socket.IO.
+1. **Generate** — you submit a prompt on the dashboard. The request is pushed onto a Redis queue; an embedded worker runs the 3-stage pipeline (content → structure → Tailwind styling) using your configured AI backend (Mistral, OpenAI, Claude, or Ollama), fetching real images/news/videos/shopping results from Google in parallel when a SerpAPI key is present, and pushes the result to your page via Socket.IO.
 2. **Reward** — completing a generation rolls for item drops, grants crumbs/XP, and checks achievements and daily quests.
 3. **Iterate** — every page can be regenerated. Each version is stored as a `PageIteration`, and a "Watcher" AI scores it with a mood, summary, and points.
 4. **Play** — spend crumbs in the Emporium, use/sell/trade items, trade up rarities, and show off your best pages on your profile.

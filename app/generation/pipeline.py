@@ -2,6 +2,7 @@ import re
 import logging
 from bs4 import BeautifulSoup
 from app.models import Item, db
+from app.config import SERP_API_KEY
 from app.generation.content import generate_content
 from app.generation.structure import build_html_structure
 from app.generation.styling import apply_styling
@@ -68,12 +69,15 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
     num_images = fetch_all_images(soup)
     raw_html = str(soup)
 
-    # -- SERP ENRICHMENT --
-    logger.info("=== Injecting SERP content ===")
-    search_queries = generate_search_queries(raw_html)
-    soup = BeautifulSoup(raw_html, 'html.parser')
-    inject_serp_sections(soup, search_queries)
-    raw_html = str(soup)
+    # -- SERP ENRICHMENT (optional: requires a SerpAPI key) --
+    if SERP_API_KEY:
+        logger.info("=== Injecting SERP content ===")
+        search_queries = generate_search_queries(raw_html)
+        soup = BeautifulSoup(raw_html, 'html.parser')
+        inject_serp_sections(soup, search_queries)
+        raw_html = str(soup)
+    else:
+        logger.info("=== Skipping SERP enrichment (no SerpAPI key) ===")
 
     # -- STAGE 3: Styling --
     logger.info("=== Stage 3: Applying Tailwind styling ===")

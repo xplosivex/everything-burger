@@ -48,7 +48,7 @@ def update_profile():
 
         # Handle profile picture update
         profile_picture_query = request.form.get('profile_picture_query')
-        if profile_picture_query:
+        if profile_picture_query and SERP_API_KEY:
             logger.info(f"Searching for profile picture: {profile_picture_query}")
             try:
                 params = {
@@ -74,7 +74,7 @@ def update_profile():
 
         # Handle banner update
         banner_query = request.form.get('banner_query')
-        if banner_query:
+        if banner_query and SERP_API_KEY:
             logger.info(f"Searching for banner: {banner_query}")
             try:
                 params = {

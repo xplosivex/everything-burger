@@ -6,9 +6,15 @@ from app.config import SERP_API_KEY
 
 logger = logging.getLogger(__name__)
 
+# Without a SerpAPI key, images are skipped entirely and generated pages keep
+# their placeholder src attributes (the styling still renders them fine).
+SERP_ENABLED = bool(SERP_API_KEY)
+
 
 def fetch_image_for_tag(img_tag):
     """Fetch a real image URL for an <img> tag based on its alt text."""
+    if not SERP_ENABLED:
+        return
     alt = img_tag.get('alt', '').strip()
     if not alt:
         return
@@ -39,7 +45,9 @@ def fetch_image_for_tag(img_tag):
 
 
 def fetch_all_images(soup, max_workers=8):
-    """Fetch images in parallel using a thread pool."""
+    """Fetch images in parallel using a thread pool. No-op without a SerpAPI key."""
+    if not SERP_ENABLED:
+        return 0
     img_tags = soup.find_all('img')
     if not img_tags:
         return 0

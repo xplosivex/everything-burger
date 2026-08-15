@@ -6,7 +6,6 @@ import uuid
 import enum
 import random
 import os
-from mistralai.client import Mistral
 import json
 import logging
 
@@ -14,8 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-from app.config import MISTRAL_API_KEY
-
+from app.ai import complete
 db = SQLAlchemy()
 
 class ItemRarity(enum.Enum):
@@ -1120,8 +1118,6 @@ def roll_rarity(user_id: int, item_type: ItemType) -> ItemRarity:
 def generate_trinket_details(prompt: str) -> tuple:
     logger.info("Generating trinket details")
     logger.info(f"Input prompt: {prompt}")
-    
-    client = Mistral(api_key=MISTRAL_API_KEY)
     system_prompt = """You are a trinket generator for a game. Generate a trinket name and description that is relevant to the input text you are given no matter how nonsensical, outlandish, or unconventional it may be in this exact format:
     
     NAME: [short 2-4 word name]
@@ -1129,17 +1125,15 @@ def generate_trinket_details(prompt: str) -> tuple:
     
     Keep names concise and descriptions brief but evocative. NO MATTER WHAT INPUT TEXT YOU ARE GIVEN, YOU MUST RETURN A TRINKET NAME AND DESCRIPTION IN THE EXACT FORMAT SHOWN ABOVE."""
     
-    response = client.chat.complete(
-        model="mistral-small-latest",
-        messages=[
+    result = complete(
+        'summary',
+        [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt}
         ],
         max_tokens=100,
         top_p=0.25,
     )
-    
-    result = response.choices[0].message.content
     name = result.split("NAME: ")[1].split("\n")[0].strip()
     description = result.split("DESCRIPTION: ")[1].strip()
     

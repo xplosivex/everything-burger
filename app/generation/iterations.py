@@ -2,8 +2,7 @@ import json
 import logging
 from bs4 import BeautifulSoup
 from flask import current_app
-from mistralai.client import Mistral
-from app.config import MISTRAL_API_KEY, CONTENT_MODEL, SUMMARY_MODEL
+from app.ai import complete
 from app.models import db, PageIteration, WatcherVerdict
 
 logger = logging.getLogger(__name__)
@@ -26,18 +25,16 @@ def generate_iteration(parent_html, modification_prompt, original_prompt):
         f"Original page prompt: {original_prompt or 'none'}\n\n"
         f"Modification requested: {modification_prompt}"
     )
-    client = Mistral(api_key=MISTRAL_API_KEY)
-    response = client.chat.complete(
-        model=CONTENT_MODEL,
-        messages=[
+    data = json.loads(complete(
+        'content',
+        [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
         ],
         max_tokens=8000,
         temperature=0.7,
-        response_format={"type": "json_object"}
-    )
-    data = json.loads(response.choices[0].message.content)
+        json_mode=True
+    ))
     return data['html']
 
 
@@ -84,19 +81,16 @@ def generate_watcher_verdict(iteration_id, app=None):
         )
 
         try:
-            client = Mistral(api_key=MISTRAL_API_KEY)
-            response = client.chat.complete(
-                model=SUMMARY_MODEL,
-                messages=[
+            data = json.loads(complete(
+                'summary',
+                [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}
                 ],
                 max_tokens=800,
                 temperature=0.9,
-                response_format={"type": "json_object"}
-            )
-
-            data = json.loads(response.choices[0].message.content)
+                json_mode=True
+            ))
             verdict = WatcherVerdict(
                 iteration_id=iteration.id,
                 page_id=iteration.page_id,

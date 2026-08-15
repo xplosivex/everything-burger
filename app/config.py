@@ -6,17 +6,42 @@ try:
 except ImportError:
     pass
 
-# Mistral AI API key (https://console.mistral.ai) -- REQUIRED
+# ---------------------------------------------------------------------------
+# AI BACKEND (Bring Your Own Key)
+# ---------------------------------------------------------------------------
+# Pick the AI provider for page generation. Supported values:
+#   mistral  (recommended)  https://console.mistral.ai
+#   openai                   https://platform.openai.com
+#   claude                   https://console.anthropic.com
+#   ollama                   Ollama Cloud (https://ollama.com) or a self-hosted
+#                            Ollama server. For self-hosted, set OLLAMA_BASE_URL
+#                            to your server (e.g. http://localhost:11434). For
+#                            Ollama Cloud, use the default base URL and set
+#                            OLLAMA_API_KEY.
+#
+# All backends require their API key (self-hosted Ollama is the exception).
+# ---------------------------------------------------------------------------
+AI_BACKEND = os.environ.get("AI_BACKEND", "mistral")
+
 MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+OLLAMA_API_KEY = os.environ.get("OLLAMA_API_KEY", "")
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "https://ollama.com")
 
-# SerpAPI key for Google image/news/video/shopping search (https://serpapi.com) -- REQUIRED
+# Model assignments -- tune these based on cost/quality tradeoffs.
+# These are per-backend defaults; the app resolves the right model for
+# whatever AI_BACKEND is configured. CONTENT_*_MODEL / etc. can override.
+CONTENT_MODEL = os.environ.get("CONTENT_MODEL", "")    # e.g. mistral-large-latest, gpt-4o, claude-sonnet-4-5, llama3.2
+STRUCTURE_MODEL = os.environ.get("STRUCTURE_MODEL", "")  # Best at code/HTML generation
+STYLING_MODEL = os.environ.get("STYLING_MODEL", "")     # Good balance for styling task
+SUMMARY_MODEL = os.environ.get("SUMMARY_MODEL", "")      # Lightweight, fine for summaries
+
+# SerpAPI key for Google image/news/video/shopping search (https://serpapi.com).
+# Optional but recommended: without it, pages are generated without real
+# images / news / video / shopping enrichment.
 SERP_API_KEY = os.environ.get("SERP_API_KEY", "")
-
-# Model assignments -- tune these based on cost/quality tradeoffs
-CONTENT_MODEL = os.environ.get("CONTENT_MODEL", "mistral-large-latest")    # Best writing quality
-STRUCTURE_MODEL = os.environ.get("STRUCTURE_MODEL", "codestral-latest")    # Best at code/HTML generation
-STYLING_MODEL = os.environ.get("STYLING_MODEL", "mistral-medium-latest")   # Good balance for styling task
-SUMMARY_MODEL = os.environ.get("SUMMARY_MODEL", "mistral-small-latest")     # Lightweight, fine for summaries
+SERP_ENABLED = bool(SERP_API_KEY)
 
 # Email configuration (used for password reset + welcome emails)
 SMTP_SERVER = os.environ.get("SMTP_SERVER", "")
