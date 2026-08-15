@@ -1,4 +1,5 @@
 import re
+import random
 import logging
 from bs4 import BeautifulSoup
 from app.models import Item, db
@@ -6,6 +7,7 @@ from app.config import SERP_API_KEY
 from app.generation.content import generate_content
 from app.generation.structure import build_html_structure
 from app.generation.styling import apply_styling
+from app.generation.archetypes import select_archetype, select_twists
 from app.generation.images import fetch_all_images
 from app.generation.serp import generate_search_queries, inject_serp_sections
 from app.generation.effects import apply_effects
@@ -42,26 +44,31 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
         if effect.effect_type == 'image_count':
             image_multiplier *= float(effect.effect_value)
 
+    # Pick this generation's archetype and twists
+    archetype = select_archetype()
+    twists = select_twists()
+    logger.info(f"Archetype: {archetype['name']}, twists: {twists}")
+
+    # Base image count from the archetype's range (default 2-4), multiplied by the image_count item effect
+    params = archetype.get('params', {})
+    lo, hi = params.get('image_count', (2, 4))
+    image_count = random.randint(lo, hi)
+    if image_multiplier > 1:
+        image_count = int(image_count * image_multiplier)
+
     # -- STAGE 1: Content Generation --
     logger.info("=== Stage 1: Generating content ===")
-    content = generate_content(prompt, active_effects, temperature)
+    content = generate_content(prompt, active_effects, temperature, archetype, image_count)
 
     # Validate content was actually produced
     if len(content) < 150:
         logger.warning(f"Stage 1 produced only {len(content)} chars, retrying...")
-        content = generate_content(prompt, active_effects, temperature=0.9)
+        content = generate_content(prompt, active_effects, temperature=0.9, archetype=archetype, image_count=image_count)
 
     # -- STAGE 2: HTML Structure --
     logger.info("=== Stage 2: Building HTML structure ===")
 
-    # Adjust image instruction if multiplier active
-    if image_multiplier > 1:
-        content = content.replace(
-            "IMAGE:",
-            f"IMAGE (include {int(3 * image_multiplier)}-{int(5 * image_multiplier)} total):"
-        )
-
-    raw_html = build_html_structure(content)
+    raw_html = build_html_structure(content, archetype)
 
     # -- IMAGE FETCHING --
     logger.info("=== Fetching images ===")
@@ -81,7 +88,7 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
 
     # -- STAGE 3: Styling --
     logger.info("=== Stage 3: Applying Tailwind styling ===")
-    styled_html = apply_styling(raw_html)
+    styled_html = apply_styling(raw_html, archetype)
 
     # -- POST-PROCESSING --
     logger.info("=== Post-processing: effects, rewards, achievements ===")

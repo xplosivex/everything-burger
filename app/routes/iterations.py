@@ -70,7 +70,7 @@ def get_iterations(page_uuid):
         return {
             'id': it.id,
             'parent_id': it.parent_iteration_id,
-            'author': it.author.username,
+            'author': it.author.username if it.author else 'Unknown',
             'prompt': it.prompt or '',
             'created_at': it.created_at.isoformat(),
             'iteration_number': it.iteration_number,
@@ -91,7 +91,7 @@ def get_iteration(iteration_id):
         'id': iteration.id,
         'html_content': iteration.html_content,
         'prompt': iteration.prompt,
-        'author': iteration.author.username,
+        'author': iteration.author.username if iteration.author else 'Unknown',
         'created_at': iteration.created_at.isoformat(),
         'iteration_number': iteration.iteration_number
     })
