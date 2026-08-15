@@ -133,9 +133,15 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                 <div class="mb-6">
-                    <label class="retro-heading block text-gray-800 text-lg font-bold mb-4" for="prompt">
-                        What would you like to generate?
-                    </label>
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="retro-heading block text-gray-800 text-lg font-bold" for="prompt">
+                            What would you like to generate?
+                        </label>
+                        <button type="button" onclick="openHowItWorks()" class="retro-text flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200">
+                            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-700 font-bold">i</span>
+                            How generation works and examples of prompts
+                        </button>
+                    </div>
                     <textarea
                         id="prompt"
                         name="prompt"
@@ -283,6 +289,65 @@
             </div>
         </div>
     </div>
+
+    <!-- How Generation Works Modal -->
+    <div id="how-it-works-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black bg-opacity-60" onclick="closeHowItWorks()"></div>
+        <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto">
+            <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-t-2xl flex items-center justify-between">
+                <h2 class="retro-heading text-xl font-bold">HOW GENERATION WORKS</h2>
+                <button onclick="closeHowItWorks()" class="text-white hover:text-gray-200 text-2xl leading-none font-bold">&times;</button>
+            </div>
+            <div class="p-6 retro-text text-gray-800 space-y-6">
+                <div>
+                    <h3 class="retro-heading text-lg font-bold text-blue-700 mb-2">The Kitchen, Explained</h3>
+                    <p class="mb-2">Every page is cooked in three stages, like a burger with too many patties:</p>
+                    <ol class="list-decimal list-inside space-y-1 ml-2">
+                        <li><strong>Content:</strong> The AI picks a random <em>archetype</em> (a tabloid, a wanted poster, a yearbook, a court ruling...) and writes the whole page in that voice.</li>
+                        <li><strong>Structure:</strong> It builds ONE cohesive document in that format — columns, a TOC, a centered poster, whatever fits.</li>
+                        <li><strong>Styling:</strong> It paints the whole page with one unified theme so it looks like a single designed artifact, not a pile of colored boxes.</li>
+                    </ol>
+                    <p class="mt-2">The archetype, its style, layout, theme, and a handful of format-specific elements are all chosen <strong>randomly every time</strong>. Same prompt, totally different page. That's the whole point.</p>
+                </div>
+
+                <div>
+                    <h3 class="retro-heading text-lg font-bold text-purple-700 mb-2">How to Prompt Like a Pro</h3>
+                    <p class="mb-2">You don't need to pick a format — the kitchen handles that. Just give it a topic and a vibe. The weirder the angle, the better the burger.</p>
+                    <ul class="space-y-3">
+                        <li class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                            <p class="font-bold text-gray-900">"The history of the office microwave, as told by the people who burned popcorn in it"</p>
+                            <p class="text-gray-600 text-sm mt-1">A topic + a specific angle. The AI will find a format that fits the drama.</p>
+                        </li>
+                        <li class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                            <p class="font-bold text-gray-900">"A comprehensive guide to napping, written by someone who has never successfully napped"</p>
+                            <p class="text-gray-600 text-sm mt-1">Conflicting premises are a goldmine. The AI loves a narrator who is in over their head.</p>
+                        </li>
+                        <li class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                            <p class="font-bold text-gray-900">"The 2026 World Championship of Competitive Toaster Watching"</p>
+                            <p class="text-gray-600 text-sm mt-1">Invent a fake event. It will get a full tournament bracket, a yearbook page, or a breaking-news scandal — your pick is its pick.</p>
+                        </li>
+                        <li class="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                            <p class="font-bold text-gray-900">"Everything you need to know about my cat, but only the parts that make him sound like a crime lord"</p>
+                            <p class="text-gray-600 text-sm mt-1">A framing device. The AI will commit to the bit and escalate it.</p>
+                        </li>
+                    </ul>
+                    <p class="mt-2 text-gray-600">Tip: the more specific and absurd your angle, the more the kitchen has to work with. Vague prompts get you a plain burger. Specific ones get you the deluxe.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openHowItWorks() {
+            document.getElementById('how-it-works-modal').classList.remove('hidden');
+        }
+        function closeHowItWorks() {
+            document.getElementById('how-it-works-modal').classList.add('hidden');
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeHowItWorks();
+        });
+    </script>
 
     <script>
         const form = document.querySelector('form');

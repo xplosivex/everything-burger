@@ -1,0 +1,105 @@
+{
+  "name": "therapy session notes",
+  "content_styles": [
+    "Write like a therapist's session notes about the topic. A client name, a presenting problem, session observations, and a treatment plan. Voice is clinical, empathetic, and absurdly serious about nonsense.",
+    "Write like a couples counseling intake form. A couple, a 'presenting issue', each partner's account, and a 'goals' section. Voice is professional and slightly exhausted.",
+    "Write like a support group transcript. A facilitator, members, shares, and a closing. Voice is warm, earnest, and increasingly unhinged."
+  ],
+  "layouts": [
+    "Build session notes: a header with client name and date, a presenting problem, session observations, a treatment plan, and a signature. Single column, clinical form.",
+    "Build an intake form: a header, a 'presenting issue', each partner's account, and a 'goals' section. Single column, form layout.",
+    "Build a support group transcript: a header, a facilitator intro, member shares, and a closing. One continuous transcript."
+  ],
+  "themes": [
+    "Clinical look: white background, black text, a muted accent, and a clean sans-serif. Unified and professional.",
+    "Intake look: white background, gray form fields, a single accent, and a formal sans-serif. Unified and bureaucratic.",
+    "Support group look: warm background, soft accents, a friendly sans-serif, and a comforting feel. Unified and warm."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "client_name",
+      "content": "CLIENT: [a client name]",
+      "html": "CLIENT -> <p class=\"client-name\">",
+      "style": ".client-name -> bold, formal, clinical"
+    },
+    {
+      "name": "presenting_problem",
+      "content": "PROBLEM: [the 'presenting problem']",
+      "html": "PROBLEM -> <p class=\"presenting-problem\">",
+      "style": ".presenting-problem -> formal, clinical, indented"
+    },
+    {
+      "name": "session_observations",
+      "content": "OBSERVATIONS: [the therapist's observations]",
+      "html": "OBSERVATIONS -> <p class=\"session-observations\">",
+      "style": ".session-observations -> formal, clinical, indented"
+    },
+    {
+      "name": "treatment_plan",
+      "content": "PLAN: [title]\n- [goal]\n- [goal]",
+      "html": "PLAN -> <div class=\"treatment-plan\"> with <h3> and <ul>",
+      "style": ".treatment-plan -> bordered, numbered, clinical"
+    },
+    {
+      "name": "therapist_signature",
+      "content": "SIGNATURE: [therapist name] / [license number]",
+      "html": "SIGNATURE -> <p class=\"therapist-signature\">",
+      "style": ".therapist-signature -> small text, right-aligned, formal"
+    },
+    {
+      "name": "partner_account",
+      "content": "PARTNER: [name]: [their account of the issue]",
+      "html": "PARTNER -> <div class=\"partner-account\"> with <p>",
+      "style": ".partner-account -> indented, bordered, intake feel"
+    },
+    {
+      "name": "goals",
+      "content": "GOALS: [title]\n- [goal]\n- [goal]",
+      "html": "GOALS -> <div class=\"goals\"> with <h3> and <ul>",
+      "style": ".goals -> bordered, hopeful, clinical"
+    },
+    {
+      "name": "facilitator_intro",
+      "content": "FACILITATOR: [the facilitator's opening]",
+      "html": "FACILITATOR -> <p class=\"facilitator-intro\">",
+      "style": ".facilitator-intro -> bold, warm, group feel"
+    },
+    {
+      "name": "member_share",
+      "content": "SHARE: [name]: [their share]",
+      "html": "SHARE -> <div class=\"member-share\"> with <p>",
+      "style": ".member-share -> indented, bordered, group feel"
+    },
+    {
+      "name": "closing",
+      "content": "CLOSING: [the session closing]",
+      "html": "CLOSING -> <p class=\"closing\">",
+      "style": ".closing -> italic, centered, warm"
+    },
+    {
+      "name": "diagnosis",
+      "content": "DIAGNOSIS: [an absurd clinical diagnosis]",
+      "html": "DIAGNOSIS -> <p class=\"diagnosis\">",
+      "style": ".diagnosis -> bold, formal, clinical"
+    },
+    {
+      "name": "session_number",
+      "content": "SESSIONNUM: [a session number]",
+      "html": "SESSIONNUM -> <p class=\"session-number\">",
+      "style": ".session-number -> small text, muted, corner"
+    },
+    {
+      "name": "homework",
+      "content": "HOMEWORK: [a 'homework' assignment]",
+      "html": "HOMEWORK -> <p class=\"homework\">",
+      "style": ".homework -> italic, bordered, clinical"
+    },
+    {
+      "name": "confidential_note",
+      "content": "CONFIDENTIAL: [a confidentiality note]",
+      "html": "CONFIDENTIAL -> <p class=\"confidential-note\">",
+      "style": ".confidential-note -> small text, muted, formal"
+    }
+  ]
+}

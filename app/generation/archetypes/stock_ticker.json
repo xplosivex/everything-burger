@@ -1,0 +1,118 @@
+{
+  "name": "stock ticker",
+  "content_styles": [
+    "Write like a financial report about the topic. Ticker symbols, prices, up/down arrows, and analyst notes. Voice is Wall Street confident and absurdly specific about nonsense stocks.",
+    "Write like a market newsletter. A market summary, ticker symbols, analyst notes, and a 'what to watch' section. Voice is confident and jargon-heavy.",
+    "Write like a day-trader's journal. Ticker symbols, prices, trades, and a 'lessons learned' section. Voice is manic and self-important."
+  ],
+  "layouts": [
+    "Build a market page: a scrolling ticker header, a table of ticker symbols with prices and arrows, analyst note cards, and a market summary footer. One continuous financial document.",
+    "Build a newsletter: a market summary header, a ticker table, analyst notes, and a 'what to watch' section. One continuous document.",
+    "Build a journal: a header, a trades table, a 'lessons learned' list, and a summary. One continuous document."
+  ],
+  "themes": [
+    "Finance look: dark background, green and red price accents, monospace numbers, white text, and a terminal feel. Unified and high-stakes.",
+    "Bloomberg look: dark blue background, green and red accents, monospace numbers, and a clean sans-serif. Unified and professional.",
+    "Journal look: white background, green and red accents, a trades table, and a monospace font. Unified and personal."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "ticker_symbol",
+      "content": "TICKER: [symbol]: [price] [up/down arrow]",
+      "html": "TICKER -> <p class=\"ticker-symbol\">",
+      "style": ".ticker-symbol -> monospace, green/red, bold"
+    },
+    {
+      "name": "analyst_note",
+      "content": "ANALYST: [an analyst's absurd note]",
+      "html": "ANALYST -> <blockquote class=\"analyst-note\"> with <cite>",
+      "style": ".analyst-note -> italic, bordered, professional"
+    },
+    {
+      "name": "market_summary",
+      "content": "MARKET: [a market summary paragraph]",
+      "html": "MARKET -> <p class=\"market-summary\">",
+      "style": ".market-summary -> bold, centered, financial"
+    },
+    {
+      "name": "price_table",
+      "content": "PRICETABLE: [title]\n- [symbol]: [price]\n- [symbol]: [price]",
+      "html": "PRICETABLE -> <table class=\"price-table\"> with <thead>/<tbody>",
+      "style": ".price-table -> striped rows, green/red, monospace"
+    },
+    {
+      "name": "what_to_watch",
+      "content": "WATCH: [a 'what to watch' section]",
+      "html": "WATCH -> <section class=\"what-to-watch\"> with <h2> and <p>",
+      "style": ".what-to-watch -> standard section, bold heading"
+    },
+    {
+      "name": "trade_log",
+      "content": "TRADE: [a day-trader's trade entry]",
+      "html": "TRADE -> <p class=\"trade-log\">",
+      "style": ".trade-log -> monospace, bordered, journal feel"
+    },
+    {
+      "name": "lessons_learned",
+      "content": "LESSONS: [title]\n- [lesson]\n- [lesson]",
+      "html": "LESSONS -> <div class=\"lessons-learned\"> with <h3> and <ul>",
+      "style": ".lessons-learned -> bordered, bold, reflective"
+    },
+    {
+      "name": "ticker_tape",
+      "content": "TAPELINE: [a scrolling ticker tape line]",
+      "html": "TAPELINE -> <p class=\"ticker-tape\">",
+      "style": ".ticker-tape -> monospace, scrolling feel, muted"
+    },
+    {
+      "name": "risk_disclaimer",
+      "content": "RISK: [a 'not financial advice' disclaimer]",
+      "html": "RISK -> <p class=\"risk-disclaimer\">",
+      "style": ".risk-disclaimer -> tiny text, muted, legal feel"
+    },
+    {
+      "name": "portfolio",
+      "content": "PORTFOLIO: [title]\n- [holding]: [value]\n- [holding]: [value]",
+      "html": "PORTFOLIO -> <div class=\"portfolio\"> with <h3> and <ul>",
+      "style": ".portfolio -> bordered, monospace, financial"
+    },
+    {
+      "name": "earnings_call",
+      "content": "EARNINGS: [an earnings call transcript excerpt]",
+      "html": "EARNINGS -> <blockquote class=\"earnings-call\"> with <cite>",
+      "style": ".earnings-call -> italic, bordered, corporate"
+    },
+    {
+      "name": "market_alert",
+      "content": "ALERT: [a market alert]",
+      "html": "ALERT -> <div class=\"market-alert\"> with <p>",
+      "style": ".market-alert -> red box, bold, urgent"
+    },
+    {
+      "name": "dividend",
+      "content": "DIVIDEND: [a dividend announcement]",
+      "html": "DIVIDEND -> <p class=\"dividend\">",
+      "style": ".dividend -> small text, muted, financial"
+    },
+    {
+      "name": "closing_bell",
+      "content": "CLOSING: [a 'closing bell' summary]",
+      "html": "CLOSING -> <p class=\"closing-bell\">",
+      "style": ".closing-bell -> bold, centered, dramatic"
+    }
+  ]
+}

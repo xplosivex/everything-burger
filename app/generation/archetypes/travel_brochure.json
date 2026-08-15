@@ -1,0 +1,118 @@
+{
+  "name": "travel brochure",
+  "content_styles": [
+    "Write like a travel brochure about the topic. Destinations, itineraries, and 'you must visit' calls. Voice is enthusiastic, aspirational, and absurdly sells the topic as a vacation spot.",
+    "Write like a travel blog. A 'day one' framing, destination highlights, a 'pro tip' box, and a 'you should go' closer. Voice is excited and personal.",
+    "Write like a cruise brochure. A 'set sail' framing, ports of call, onboard activities, and a 'book now' closer. Voice is polished and aspirational."
+  ],
+  "layouts": [
+    "Build a brochure: a destination header, an itinerary list, destination cards with image slots, and a 'book now' footer. Flows as one glossy brochure.",
+    "Build a travel blog: a header, day sections, destination cards with image slots, a pro tip box, and a closer. One continuous post.",
+    "Build a cruise brochure: a header, ports of call cards, an activities list, and a 'book now' footer. One glossy document."
+  ],
+  "themes": [
+    "Brochure look: bright sky and ocean colors, white cards, bold sans-serif headings, image frames, and a sunny feel. Unified and aspirational.",
+    "Blog look: white background, warm accent colors, image cards, and a clean sans-serif. Unified and personal.",
+    "Cruise look: deep blue background, white cards, gold accents, and a polished sans-serif. Unified and luxurious."
+  ],
+  "image_ranges": [
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "elements": [
+    {
+      "name": "destination_card",
+      "content": "DESTINATION: [name]\n[description of the 'destination']",
+      "html": "DESTINATION -> <div class=\"destination-card\"> with <h3> and <p>",
+      "style": ".destination-card -> white card, image frame, sunny"
+    },
+    {
+      "name": "itinerary",
+      "content": "ITINERARY: [title]\n1. [stop]\n2. [stop]\n3. [stop]",
+      "html": "ITINERARY -> <div class=\"itinerary\"> with <h3> and <ol>",
+      "style": ".itinerary -> numbered, bold, aspirational"
+    },
+    {
+      "name": "you_must_visit",
+      "content": "MUSTVISIT: [a 'you must visit' call]",
+      "html": "MUSTVISIT -> <p class=\"you-must-visit\">",
+      "style": ".you-must-visit -> bold, centered, enthusiastic"
+    },
+    {
+      "name": "book_now",
+      "content": "BOOKNOW: [a 'book now' closer]",
+      "html": "BOOKNOW -> <div class=\"book-now\"> with <p>",
+      "style": ".book-now -> bold, centered, accent color"
+    },
+    {
+      "name": "pro_tip",
+      "content": "PROTIP: [a travel pro tip]",
+      "html": "PROTIP -> <div class=\"travel-tip\"> with <p>",
+      "style": ".travel-tip -> green box, lightbulb, bordered"
+    },
+    {
+      "name": "day_section",
+      "content": "DAY: [a 'day X' travel blog section]",
+      "html": "DAY -> <section class=\"day-section\"> with <h2> and <p>",
+      "style": ".day-section -> standard section, bold heading"
+    },
+    {
+      "name": "port_of_call",
+      "content": "PORT: [a cruise port of call]",
+      "html": "PORT -> <div class=\"port-of-call\"> with <h3> and <p>",
+      "style": ".port-of-call -> white card, gold accent, luxurious"
+    },
+    {
+      "name": "onboard_activity",
+      "content": "ACTIVITY: [an onboard cruise activity]",
+      "html": "ACTIVITY -> <p class=\"onboard-activity\">",
+      "style": ".onboard-activity -> small text, bordered, playful"
+    },
+    {
+      "name": "set_sail",
+      "content": "SETSAIL: [a 'set sail' framing line]",
+      "html": "SETSAIL -> <p class=\"set-sail\">",
+      "style": ".set-sail -> bold, centered, aspirational"
+    },
+    {
+      "name": "highlights",
+      "content": "HIGHLIGHTS: [title]\n- [highlight]\n- [highlight]",
+      "html": "HIGHLIGHTS -> <div class=\"highlights\"> with <h3> and <ul>",
+      "style": ".highlights -> bordered, bold, sunny"
+    },
+    {
+      "name": "you_should_go",
+      "content": "SHOULDGO: [a 'you should go' closer]",
+      "html": "SHOULDGO -> <p class=\"you-should-go\">",
+      "style": ".you-should-go -> italic, centered, personal"
+    },
+    {
+      "name": "travel_rating",
+      "content": "TRAVELRATING: [a rating for the destination]",
+      "html": "TRAVELRATING -> <p class=\"travel-rating\">",
+      "style": ".travel-rating -> star icons, bold, centered"
+    },
+    {
+      "name": "packing_list",
+      "content": "PACKING: [title]\n- [item]\n- [item]",
+      "html": "PACKING -> <div class=\"packing-list\"> with <h3> and <ul>",
+      "style": ".packing-list -> bordered, checklist feel, sunny"
+    },
+    {
+      "name": "brochure_footer",
+      "content": "BROCHUREFOOTER: [a brochure footer line]",
+      "html": "BROCHUREFOOTER -> <p class=\"brochure-footer\">",
+      "style": ".brochure-footer -> small text, centered, muted"
+    }
+  ]
+}

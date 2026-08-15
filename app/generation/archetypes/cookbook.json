@@ -1,0 +1,118 @@
+{
+  "name": "cookbook recipe",
+  "content_styles": [
+    "Write like a cookbook recipe page. A recipe title, a story intro, an ingredients list, numbered steps, and a chef's note. Voice is warm, enthusiastic, and treats the topic as a dish to be prepared.",
+    "Write like a food blog recipe. A long story intro about the topic, an ingredients list, numbered steps, a 'pro tip' box, and a 'did you make this?' closer. Voice is chatty and over-sharing.",
+    "Write like a 1950s cookbook. A prim recipe title, a 'housewife' intro, an ingredients list, numbered steps, and a 'serving suggestion'. Voice is cheerful and dated."
+  ],
+  "layouts": [
+    "Build a recipe page: a header with the dish name, a hero image slot, an ingredients list, numbered preparation steps, and a chef's note box at the bottom. One flowing recipe card.",
+    "Build a recipe card: a title header, a story intro, an ingredients list, numbered steps, a pro tip box, and a footer note. One continuous card.",
+    "Build a cookbook page: a recipe title, a serving suggestion image, an ingredients list, numbered steps, and a 'chef's secret' box. One flowing page."
+  ],
+  "themes": [
+    "Cookbook look: cream paper background, warm red and green accents, serif headings, a dashed-border ingredients box, and a handwritten-feel chef's note. Unified and appetizing.",
+    "Food blog look: white background, bright orange accents, clean sans-serif, a bordered ingredients box, and a 'pro tip' highlight. Unified and modern.",
+    "Retro cookbook look: pastel background, teal and pink accents, a dashed ingredients box, and a vintage serif. Unified and kitschy."
+  ],
+  "image_ranges": [
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "ingredients",
+      "content": "INGREDIENTS: [title]\n- [ingredient]\n- [ingredient]\n- [ingredient]",
+      "html": "INGREDIENTS -> <div class=\"ingredients\"> with <h3> and <ul>",
+      "style": ".ingredients -> dashed-border box, checklist feel"
+    },
+    {
+      "name": "steps",
+      "content": "STEPS: [title]\n1. [step]\n2. [step]\n3. [step]",
+      "html": "STEPS -> <div class=\"recipe-steps\"> with <h3> and <ol>",
+      "style": ".recipe-steps -> numbered, bold step numbers"
+    },
+    {
+      "name": "chefs_note",
+      "content": "CHEFSNOTE: [a handwritten-feel chef's note]",
+      "html": "CHEFSNOTE -> <div class=\"chefs-note\"> with <p>",
+      "style": ".chefs-note -> handwritten font, dashed border, warm accent"
+    },
+    {
+      "name": "serving_suggestion",
+      "content": "SERVING: [a 'serving suggestion' line]",
+      "html": "SERVING -> <p class=\"serving-suggestion\">",
+      "style": ".serving-suggestion -> small italic text, muted"
+    },
+    {
+      "name": "prep_time",
+      "content": "PREPTIME: [a fake prep and cook time]",
+      "html": "PREPTIME -> <p class=\"prep-time\">",
+      "style": ".prep-time -> small text, clock icon, muted"
+    },
+    {
+      "name": "story_intro",
+      "content": "STORY: [a long story intro about the topic]",
+      "html": "STORY -> <p class=\"story-intro\">",
+      "style": ".story-intro -> italic, warm, personal"
+    },
+    {
+      "name": "pro_tip",
+      "content": "PROTIP: [a cooking pro tip]",
+      "html": "PROTIP -> <div class=\"cookbook-tip\"> with <p>",
+      "style": ".cookbook-tip -> green box, lightbulb, bordered"
+    },
+    {
+      "name": "nutrition_facts",
+      "content": "NUTRITION: [a fake nutrition facts table]",
+      "html": "NUTRITION -> <table class=\"nutrition-facts\"> with <tbody>",
+      "style": ".nutrition-facts -> small table, bordered, label feel"
+    },
+    {
+      "name": "substitutions",
+      "content": "SUBSTITUTE: [title]\n- [ingredient]: [substitute]\n- [ingredient]: [substitute]",
+      "html": "SUBSTITUTE -> <div class=\"substitutions\"> with <h3> and <ul>",
+      "style": ".substitutions -> two-column, small text, bordered"
+    },
+    {
+      "name": "wine_pairing",
+      "content": "PAIRING: [a 'pairs well with' line]",
+      "html": "PAIRING -> <p class=\"wine-pairing\">",
+      "style": ".wine-pairing -> italic, centered, elegant"
+    },
+    {
+      "name": "leftover_idea",
+      "content": "LEFTOVER: [a 'what to do with leftovers' idea]",
+      "html": "LEFTOVER -> <p class=\"leftover-idea\">",
+      "style": ".leftover-idea -> small text, playful, muted"
+    },
+    {
+      "name": "recipe_rating",
+      "content": "RATING: [a star rating for the recipe]",
+      "html": "RATING -> <p class=\"recipe-rating\">",
+      "style": ".recipe-rating -> star icons, bold, centered"
+    },
+    {
+      "name": "kitchen_tools",
+      "content": "TOOLS: [title]\n- [tool]\n- [tool]",
+      "html": "TOOLS -> <div class=\"kitchen-tools\"> with <h3> and <ul>",
+      "style": ".kitchen-tools -> small text, bordered, checklist feel"
+    },
+    {
+      "name": "did_you_make",
+      "content": "DIDYOUMAKE: [a 'did you make this?' closer]",
+      "html": "DIDYOUMAKE -> <p class=\"did-you-make\">",
+      "style": ".did-you-make -> italic, centered, friendly"
+    }
+  ]
+}

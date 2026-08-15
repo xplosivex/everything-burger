@@ -1,0 +1,130 @@
+{
+  "name": "vandalized Wikipedia article",
+  "content_styles": [
+    "Write like a Wikipedia article that has been vandalized. Neutral encyclopedic tone for the real content, but with obviously fake facts, 'citation needed' tags, and a few inserted absurd sentences that break the fourth wall.",
+    "Write like a Wikipedia article mid-edit-war. Neutral encyclopedic prose interrupted by [citation needed], [who?], and [dubious] tags, plus a recurring anonymous editor inserting increasingly unhinged claims.",
+    "Write like a Wikipedia article that has been 'improved' by someone who clearly has no idea what the topic is. Confident encyclopedic tone, wildly wrong facts, and a 'this article needs cleanup' banner energy."
+  ],
+  "layouts": [
+    "Build a single-column Wikipedia-style article: a title header, a small infobox table, a table of contents, numbered sections with headings, and a references list at the bottom. One continuous document.",
+    "Build a Wikipedia article: a title header, a 'this article has issues' banner box, an infobox table, a table of contents, sections with headings, and a references list. One continuous document.",
+    "Build a wiki page: a title header, a short lead paragraph, an infobox, numbered sections, a 'talk page' note box, and a references footer. Single column, continuous."
+  ],
+  "themes": [
+    "Wikipedia look: white background, blue link-colored accents, serif body text, a light gray infobox, and a subtle 'edit' red for the vandalism. Unified and clean.",
+    "Wikipedia dark-mode look: dark gray background, light text, blue links, a dark infobox, and red 'edit' accents. Unified and modern.",
+    "Classic wiki look: white background, black text, blue links, a bordered infobox, and a yellow 'issues' banner. Unified and familiar."
+  ],
+  "image_ranges": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "infobox",
+      "content": "INFOBOX: [title]\n- [field]: [value]\n- [field]: [value]",
+      "html": "INFOBOX -> <table class=\"infobox\"> with <tbody> of key/value rows",
+      "style": ".infobox -> light gray box, bordered, small text, right-aligned"
+    },
+    {
+      "name": "citation_needed",
+      "content": "CITATIONNEEDED: [a claim that obviously needs a citation]",
+      "html": "CITATIONNEEDED -> <p> with <span class=\"citation-needed\">[citation needed]</span>",
+      "style": ".citation-needed -> small red superscript tag"
+    },
+    {
+      "name": "table_of_contents",
+      "content": "TOC: [title]\n- [section 1]\n- [section 2]\n- [section 3]",
+      "html": "TOC -> <nav class=\"toc\"> with <h3> and <ul>",
+      "style": ".toc -> bordered box, numbered links, small text"
+    },
+    {
+      "name": "vandalism_note",
+      "content": "VANDAL: [an obviously vandalized sentence inserted into the article]",
+      "html": "VANDAL -> <p class=\"vandalism\">",
+      "style": ".vandalism -> red text, strikethrough accents"
+    },
+    {
+      "name": "edit_war",
+      "content": "EDITWAR: [a section where two editors argue in the article text]",
+      "html": "EDITWAR -> <div class=\"edit-war\"> with two opposing <p> blocks",
+      "style": ".edit-war -> two-column, contrasting colors"
+    },
+    {
+      "name": "disambiguation",
+      "content": "DISAMBIG: [a 'this article is about X, for other uses see Y' note]",
+      "html": "DISAMBIG -> <p class=\"disambiguation\">",
+      "style": ".disambiguation -> small italic text, gray background"
+    },
+    {
+      "name": "references",
+      "content": "REFERENCES: [title]\n- [fake source 1]\n- [fake source 2]",
+      "html": "REFERENCES -> <div class=\"references\"> with <h3> and <ol>",
+      "style": ".references -> small text, numbered, muted"
+    },
+    {
+      "name": "cleanup_banner",
+      "content": "CLEANUP: [a 'this article needs cleanup' banner message]",
+      "html": "CLEANUP -> <div class=\"cleanup-banner\"> with <p>",
+      "style": ".cleanup-banner -> yellow banner, bordered, warning feel"
+    },
+    {
+      "name": "see_also",
+      "content": "SEEALSO: [title]\n- [related fake article]\n- [related fake article]",
+      "html": "SEEALSO -> <div class=\"see-also\"> with <h3> and <ul>",
+      "style": ".see-also -> small text, blue links, bordered"
+    },
+    {
+      "name": "talk_page",
+      "content": "TALK: [a talk page comment about the article]",
+      "html": "TALK -> <div class=\"talk-page\"> with <p>",
+      "style": ".talk-page -> indented, gray background, comment feel"
+    },
+    {
+      "name": "stub_notice",
+      "content": "STUB: [a 'this article is a stub' notice]",
+      "html": "STUB -> <p class=\"stub-notice\">",
+      "style": ".stub-notice -> small centered text, muted"
+    },
+    {
+      "name": "wikilinks",
+      "content": "WIKILINK: [a sentence with fake blue-linked terms]",
+      "html": "WIKILINK -> <p> with <a class=\"wikilink\"> terms",
+      "style": ".wikilink -> blue underlined links"
+    },
+    {
+      "name": "external_links",
+      "content": "EXTLINKS: [title]\n- [fake external link]\n- [fake external link]",
+      "html": "EXTLINKS -> <div class=\"external-links\"> with <h3> and <ul>",
+      "style": ".external-links -> small text, blue links, bordered"
+    },
+    {
+      "name": "category_tags",
+      "content": "CATEGORIES: [title]\n- [fake category]\n- [fake category]",
+      "html": "CATEGORIES -> <div class=\"category-tags\"> with <ul>",
+      "style": ".category-tags -> small gray tags, bottom of page"
+    },
+    {
+      "name": "lead_paragraph",
+      "content": "LEAD: [a neutral encyclopedic lead paragraph]",
+      "html": "LEAD -> <p class=\"lead-paragraph\">",
+      "style": ".lead-paragraph -> larger first paragraph, serif"
+    },
+    {
+      "name": "history_section",
+      "content": "HISTORY: [a 'history' section with absurd fake events]",
+      "html": "HISTORY -> <section class=\"history-section\"> with <h2> and <p>",
+      "style": ".history-section -> standard section, serif headings"
+    }
+  ]
+}

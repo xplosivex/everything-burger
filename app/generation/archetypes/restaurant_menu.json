@@ -1,0 +1,118 @@
+{
+  "name": "restaurant menu",
+  "content_styles": [
+    "Write like a restaurant menu about the topic. Sections, prices, chef's specials, and a 'chef recommends' note. Voice is foodie-pretentious and absurdly descriptive about nonsense dishes.",
+    "Write like a diner menu. Sections, prices, a 'daily specials' board, and a 'home of the' claim. Voice is friendly and greasy.",
+    "Write like a tasting-menu restaurant. Courses, prices, a 'chef's table' note, and a 'pairing' suggestion. Voice is pretentious and minimal."
+  ],
+  "layouts": [
+    "Build a menu: a restaurant header, section headings with item lists and prices, a chef's special box, and a footer note. Two-column menu layout, one continuous document.",
+    "Build a diner menu: a header, sections with items and prices, a specials board, and a footer. Two-column, continuous.",
+    "Build a tasting menu: a header, numbered courses with prices, a chef's table note, and a pairing suggestion. One continuous document."
+  ],
+  "themes": [
+    "Menu look: cream background, dark text, a single accent color (burgundy or green), serif headings, and a decorative border. Unified and appetizing.",
+    "Diner look: bright background, bold colors, a specials board, and a friendly sans-serif. Unified and greasy.",
+    "Fine dining look: dark background, white text, gold accents, and a minimal serif. Unified and elegant."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "menu_section",
+      "content": "MENUSECTION: [title]\n- [item]: [price]\n- [item]: [price]",
+      "html": "MENUSECTION -> <div class=\"menu-section\"> with <h3> and <ul>",
+      "style": ".menu-section -> two-column, dotted leaders, prices"
+    },
+    {
+      "name": "chefs_special",
+      "content": "SPECIAL: [a chef's special dish]",
+      "html": "SPECIAL -> <div class=\"chefs-special\"> with <p>",
+      "style": ".chefs-special -> gold box, bold, featured"
+    },
+    {
+      "name": "chef_recommends",
+      "content": "RECOMMENDS: [a 'chef recommends' note]",
+      "html": "RECOMMENDS -> <p class=\"chef-recommends\">",
+      "style": ".chef-recommends -> italic, centered, warm"
+    },
+    {
+      "name": "price_list",
+      "content": "PRICELIST: [title]\n- [item]: [price]\n- [item]: [price]",
+      "html": "PRICELIST -> <div class=\"price-list\"> with <h3> and <ul>",
+      "style": ".price-list -> dotted leaders, prices right-aligned"
+    },
+    {
+      "name": "daily_specials",
+      "content": "DAILY: [a 'daily specials' board]",
+      "html": "DAILY -> <div class=\"daily-specials\"> with <p>",
+      "style": ".daily-specials -> chalkboard feel, bold, greasy"
+    },
+    {
+      "name": "home_of",
+      "content": "HOMEOF: [a 'home of the' claim]",
+      "html": "HOMEOF -> <p class=\"home-of\">",
+      "style": ".home-of -> bold, centered, greasy"
+    },
+    {
+      "name": "tasting_course",
+      "content": "COURSE: [a numbered tasting course]",
+      "html": "COURSE -> <div class=\"tasting-course\"> with <h3> and <p>",
+      "style": ".tasting-course -> numbered, minimal, elegant"
+    },
+    {
+      "name": "pairing",
+      "content": "PAIRING: [a wine pairing suggestion]",
+      "html": "PAIRING -> <p class=\"pairing\">",
+      "style": ".pairing -> italic, centered, elegant"
+    },
+    {
+      "name": "menu_footer",
+      "content": "MENUFOOTER: [a menu footer note]",
+      "html": "MENUFOOTER -> <p class=\"menu-footer\">",
+      "style": ".menu-footer -> small text, centered, muted"
+    },
+    {
+      "name": "allergen_note",
+      "content": "ALLERGEN: [an absurd allergen note]",
+      "html": "ALLERGEN -> <p class=\"allergen-note\">",
+      "style": ".allergen-note -> tiny text, muted, legal feel"
+    },
+    {
+      "name": "chefs_table",
+      "content": "CHEFSTABLE: [a 'chef's table' note]",
+      "html": "CHEFSTABLE -> <p class=\"chefs-table\">",
+      "style": ".chefs-table -> italic, centered, elegant"
+    },
+    {
+      "name": "menu_rating",
+      "content": "MENURATING: [a rating for the menu]",
+      "html": "MENURATING -> <p class=\"menu-rating\">",
+      "style": ".menu-rating -> star icons, bold, centered"
+    },
+    {
+      "name": "signature_dish",
+      "content": "SIGNATURE: [a signature dish description]",
+      "html": "SIGNATURE -> <p class=\"signature-dish\">",
+      "style": ".signature-dish -> bold, centered, featured"
+    },
+    {
+      "name": "menu_border",
+      "content": "MENUBORDER: [a decorative menu border line]",
+      "html": "MENUBORDER -> <hr class=\"menu-border\">",
+      "style": ".menu-border -> decorative divider, accent color"
+    }
+  ]
+}

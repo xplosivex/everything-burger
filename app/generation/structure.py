@@ -41,12 +41,14 @@ CRITICAL RULES:
 """
 
 
-def build_html_structure(content: str, archetype: dict = None) -> str:
+def build_html_structure(content: str, archetype: dict = None, modifiers: list = None) -> str:
     """Stage 2: Convert structured text content into a single semantic HTML5 document."""
 
     if archetype is None:
         from app.generation.archetypes import select_archetype
         archetype = select_archetype()
+    if modifiers is None:
+        modifiers = []
 
     from app.generation.archetypes import build_element_html
     elements = build_element_html(archetype.get('params', {}).get('elements', []))
@@ -55,6 +57,9 @@ def build_html_structure(content: str, archetype: dict = None) -> str:
     system = system.replace('{ARCHETYPE_LAYOUT}', archetype['layout'])
     if elements:
         system = system.replace('=== DOCUMENT STRUCTURE ===', f'{elements}\n\n=== DOCUMENT STRUCTURE ===')
+    if modifiers:
+        modifier_section = '=== MODIFIERS (apply these to the document) ===\n' + '\n'.join(f'- {m}' for m in modifiers) + '\n=== END MODIFIERS ==='
+        system = system.replace('=== DOCUMENT STRUCTURE ===', f'{modifier_section}\n\n=== DOCUMENT STRUCTURE ===')
 
     html = complete(
         'structure',

@@ -1,0 +1,118 @@
+{
+  "name": "survival guide",
+  "content_styles": [
+    "Write like a survival field manual about the topic. Numbered steps, protips, and dire warnings. Voice is gruff, practical, and absurdly serious about surviving the topic.",
+    "Write like a wilderness guide. Numbered steps, a 'what you'll need' list, a warning, and a 'stay calm' note. Voice is calm and practical.",
+    "Write like a zombie-apocalypse guide. Numbered steps, a supply list, a warning, and a 'last resort' section. Voice is urgent and deadpan."
+  ],
+  "layouts": [
+    "Build a field manual: a cover header, numbered sections with steps, protip callout boxes, a warning section, and a checklist. One continuous manual.",
+    "Build a guide: a cover header, a 'what you'll need' list, numbered steps, a warning box, and a 'stay calm' note. One continuous manual.",
+    "Build an apocalypse guide: a cover header, numbered steps, a supply list, a warning, and a 'last resort' section. One continuous manual."
+  ],
+  "themes": [
+    "Field manual look: olive and khaki colors, stencil-style headings, numbered steps, yellow protip boxes, and a rugged feel. Unified and military.",
+    "Wilderness look: forest green and brown, white background, numbered steps, and a clean sans-serif. Unified and outdoorsy.",
+    "Apocalypse look: dark gray background, yellow warning accents, bold text, and a rugged feel. Unified and urgent."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "numbered_steps",
+      "content": "STEPS: [title]\n1. [step]\n2. [step]\n3. [step]",
+      "html": "STEPS -> <div class=\"survival-steps\"> with <h3> and <ol>",
+      "style": ".survival-steps -> numbered, bold, rugged"
+    },
+    {
+      "name": "protip",
+      "content": "PROTIP: [a survival pro tip]",
+      "html": "PROTIP -> <div class=\"survival-tip\"> with <p>",
+      "style": ".survival-tip -> yellow box, bold border, rugged"
+    },
+    {
+      "name": "dire_warning",
+      "content": "WARNING: [a dire survival warning]",
+      "html": "WARNING -> <div class=\"dire-warning\"> with <p>",
+      "style": ".dire-warning -> red box, bold, urgent"
+    },
+    {
+      "name": "what_you_need",
+      "content": "NEED: [title]\n- [item]\n- [item]",
+      "html": "NEED -> <div class=\"what-you-need\"> with <h3> and <ul>",
+      "style": ".what-you-need -> bordered, checklist feel, rugged"
+    },
+    {
+      "name": "stay_calm",
+      "content": "STAYCALM: [a 'stay calm' note]",
+      "html": "STAYCALM -> <p class=\"stay-calm\">",
+      "style": ".stay-calm -> italic, centered, reassuring"
+    },
+    {
+      "name": "last_resort",
+      "content": "LASTRESORT: [a 'last resort' section]",
+      "html": "LASTRESORT -> <section class=\"last-resort\"> with <h2> and <p>",
+      "style": ".last-resort -> dark box, bold, urgent"
+    },
+    {
+      "name": "supply_list",
+      "content": "SUPPLY: [title]\n- [supply]\n- [supply]",
+      "html": "SUPPLY -> <div class=\"supply-list\"> with <h3> and <ul>",
+      "style": ".supply-list -> bordered, checklist feel, rugged"
+    },
+    {
+      "name": "field_note",
+      "content": "FIELDNOTE: [a field manual note]",
+      "html": "FIELDNOTE -> <p class=\"field-note\">",
+      "style": ".field-note -> small text, muted, technical"
+    },
+    {
+      "name": "survival_checklist",
+      "content": "CHECKLIST: [title]\n- [ ] [item]\n- [ ] [item]",
+      "html": "CHECKLIST -> <div class=\"survival-checklist\"> with <h3> and <ul>",
+      "style": ".survival-checklist -> checkbox items, bordered, rugged"
+    },
+    {
+      "name": "emergency_contact",
+      "content": "EMERGENCY: [an emergency contact line]",
+      "html": "EMERGENCY -> <p class=\"emergency-contact\">",
+      "style": ".emergency-contact -> bold, centered, urgent"
+    },
+    {
+      "name": "terrain_note",
+      "content": "TERRAIN: [a terrain description]",
+      "html": "TERRAIN -> <p class=\"terrain-note\">",
+      "style": ".terrain-note -> small text, muted, technical"
+    },
+    {
+      "name": "survival_rating",
+      "content": "SURVIVALRATING: [a survival difficulty rating]",
+      "html": "SURVIVALRATING -> <p class=\"survival-rating\">",
+      "style": ".survival-rating -> skull icons, bold, rugged"
+    },
+    {
+      "name": "cover_header",
+      "content": "COVER: [a field manual cover title]",
+      "html": "COVER -> <h1 class=\"cover-header\">",
+      "style": ".cover-header -> stencil-style, bold, rugged"
+    },
+    {
+      "name": "survival_footer",
+      "content": "SURVIVALFOOTER: [a field manual footer]",
+      "html": "SURVIVALFOOTER -> <p class=\"survival-footer\">",
+      "style": ".survival-footer -> small text, centered, muted"
+    }
+  ]
+}

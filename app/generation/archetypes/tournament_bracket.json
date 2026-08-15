@@ -1,0 +1,118 @@
+{
+  "name": "tournament bracket",
+  "content_styles": [
+    "Write like a tournament bracket about the topic. Matchups, upsets, and a champion. Voice is sports-announcer hype and absurdly invested in nonsense contenders.",
+    "Write like a sports column about the topic. A 'the field is wide open' framing, matchups, a dark horse pick, and a champion prediction. Voice is confident and dramatic.",
+    "Write like a fantasy draft guide. A draft order, picks, a 'steal of the draft' note, and a champion pick. Voice is analytical and hype."
+  ],
+  "layouts": [
+    "Build a bracket: a header, then rounds of matchups laid out as a bracket tree, with a champion box at the end. Matchups flow down the page as one tournament.",
+    "Build a bracket: a header, matchup sections, a dark horse box, and a champion box. Flows as one tournament.",
+    "Build a draft board: a header, a draft order list, pick sections, and a champion box. One continuous board."
+  ],
+  "themes": [
+    "Bracket look: dark background, neon accent lines connecting matchups, bold white text, and a champion highlight. Unified and competitive.",
+    "Sports column look: white background, bold headings, a single accent color, and a clean sans-serif. Unified and editorial.",
+    "Draft look: dark background, team-color accents, a draft board, and a bold sans-serif. Unified and analytical."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "matchup",
+      "content": "MATCHUP: [contender A] vs [contender B]",
+      "html": "MATCHUP -> <div class=\"matchup\"> with two <p> blocks and a vs divider",
+      "style": ".matchup -> two-column, versus divider, bold"
+    },
+    {
+      "name": "upset",
+      "content": "UPSET: [a 'shocking upset' description]",
+      "html": "UPSET -> <p class=\"upset\">",
+      "style": ".upset -> bold, red accent, dramatic"
+    },
+    {
+      "name": "champion",
+      "content": "CHAMPION: [the champion]",
+      "html": "CHAMPION -> <div class=\"champion\"> with <p>",
+      "style": ".champion -> gold box, bold, celebratory"
+    },
+    {
+      "name": "dark_horse",
+      "content": "DARKHORSE: [a 'dark horse' pick]",
+      "html": "DARKHORSE -> <p class=\"dark-horse\">",
+      "style": ".dark-horse -> italic, muted, underdog feel"
+    },
+    {
+      "name": "round_label",
+      "content": "ROUND: [a 'round X' label]",
+      "html": "ROUND -> <h3 class=\"round-label\">",
+      "style": ".round-label -> bold, centered, bracket feel"
+    },
+    {
+      "name": "draft_order",
+      "content": "DRAFTORDER: [title]\n1. [pick]\n2. [pick]\n3. [pick]",
+      "html": "DRAFTORDER -> <div class=\"draft-order\"> with <h3> and <ol>",
+      "style": ".draft-order -> numbered, bold, draft feel"
+    },
+    {
+      "name": "steal_of_draft",
+      "content": "STEAL: [a 'steal of the draft' note]",
+      "html": "STEAL -> <p class=\"steal-of-draft\">",
+      "style": ".steal-of-draft -> bold, green, celebratory"
+    },
+    {
+      "name": "announcer_call",
+      "content": "ANNOUNCER: [a sports-announcer call]",
+      "html": "ANNOUNCER -> <blockquote class=\"announcer-call\"> with <cite>",
+      "style": ".announcer-call -> italic, bold, hype"
+    },
+    {
+      "name": "bracket_line",
+      "content": "BRACKETLINE: [a connecting bracket line description]",
+      "html": "BRACKETLINE -> <p class=\"bracket-line\">",
+      "style": ".bracket-line -> small text, muted, connector feel"
+    },
+    {
+      "name": "final_four",
+      "content": "FINALFOUR: [title]\n- [contender]\n- [contender]\n- [contender]\n- [contender]",
+      "html": "FINALFOUR -> <div class=\"final-four\"> with <h3> and <ul>",
+      "style": ".final-four -> bordered, bold, bracket feel"
+    },
+    {
+      "name": "cinderella",
+      "content": "CINDERELLA: [a 'Cinderella story' description]",
+      "html": "CINDERELLA -> <p class=\"cinderella\">",
+      "style": ".cinderella -> italic, warm, underdog feel"
+    },
+    {
+      "name": "champion_prediction",
+      "content": "PREDICTION: [a champion prediction]",
+      "html": "PREDICTION -> <p class=\"champion-prediction\">",
+      "style": ".champion-prediction -> bold, centered, confident"
+    },
+    {
+      "name": "bracket_seed",
+      "content": "SEED: [a seed number for a contender]",
+      "html": "SEED -> <p class=\"bracket-seed\">",
+      "style": ".bracket-seed -> small text, muted, bracket feel"
+    },
+    {
+      "name": "tournament_title",
+      "content": "TOURNAMENT: [a tournament title]",
+      "html": "TOURNAMENT -> <h2 class=\"tournament-title\">",
+      "style": ".tournament-title -> bold, centered, dramatic"
+    }
+  ]
+}

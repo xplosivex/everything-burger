@@ -1,0 +1,130 @@
+{
+  "name": "conspiracy corkboard",
+  "content_styles": [
+    "Write like a conspiracy theorist's corkboard. Scattered notes, red-string connections, paranoid observations, 'they don't want you to know' framing, and photos with handwritten captions. Voice is urgent and unhinged.",
+    "Write like a paranoid researcher's notes. Handwritten-feel observations, cross-references to other notes, 'I've been watching' framing, and a voice that is increasingly convinced. Each section is a pinned note.",
+    "Write like a whistleblower's leaked document. Redacted lines, urgent warnings, 'they will delete this' framing, and a voice that is breathless and terrified. Each section is a classified note."
+  ],
+  "layouts": [
+    "Build a corkboard: a brown background with pinned note cards scattered at slight rotations, image slots as 'photos', and connecting lines implied by the layout. Notes flow as one chaotic but connected board.",
+    "Build a corkboard: pinned notes in a loose grid, each slightly rotated, with photo slots, red-string accent lines, and a 'case file' header. One connected board.",
+    "Build a case file: a 'TOP SECRET' header, then pinned note sections with photo slots and redacted lines. Flows as one paranoid document."
+  ],
+  "themes": [
+    "Corkboard look: brown cork background, cream paper notes with slight rotation, red string accents, marker-style handwriting fonts, and pushpin dots. One unified conspiracy palette.",
+    "Case file look: manila folder background, black text, red 'CONFIDENTIAL' stamps, and a typewriter font. Unified and bureaucratic.",
+    "Dark web look: near-black background, green monospace text, redacted red bars, and a terminal feel. Unified and ominous."
+  ],
+  "image_ranges": [
+    [
+      3,
+      5
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      4,
+      6
+    ]
+  ],
+  "elements": [
+    {
+      "name": "pinned_note",
+      "content": "NOTE: [a handwritten-feel paranoid observation]",
+      "html": "NOTE -> <div class=\"pinned-note\"> with <p>",
+      "style": ".pinned-note -> cream paper, slight rotation, pushpin dot"
+    },
+    {
+      "name": "red_string",
+      "content": "REDSTRING: [a connection between two 'clues']",
+      "html": "REDSTRING -> <p class=\"red-string\">",
+      "style": ".red-string -> red text, connecting-line feel"
+    },
+    {
+      "name": "photo_caption",
+      "content": "PHOTO: [a 'photo' description with a paranoid caption]",
+      "html": "PHOTO -> <figure class=\"conspiracy-photo\"> with <img> and <figcaption>",
+      "style": ".conspiracy-photo -> polaroid frame, slight rotation"
+    },
+    {
+      "name": "classified_doc",
+      "content": "CLASSIFIED: [a redacted classified document excerpt]",
+      "html": "CLASSIFIED -> <div class=\"classified-doc\"> with <p>",
+      "style": ".classified-doc -> monospace, redaction bars, dark background"
+    },
+    {
+      "name": "they_dont_want",
+      "content": "THEYDONT: [a 'they don't want you to know' claim]",
+      "html": "THEYDONT -> <p class=\"they-dont\">",
+      "style": ".they-dont -> bold, urgent, red accent"
+    },
+    {
+      "name": "witness_account",
+      "content": "WITNESS: [a 'witness' account of the conspiracy]",
+      "html": "WITNESS -> <blockquote class=\"witness-account\"> with <cite>",
+      "style": ".witness-account -> italic, bordered, handwritten feel"
+    },
+    {
+      "name": "timeline_of_events",
+      "content": "EVENTS: [title]\n- [date]: [suspicious event]\n- [date]: [suspicious event]",
+      "html": "EVENTS -> <div class=\"event-timeline\"> with <h3> and <ul>",
+      "style": ".event-timeline -> vertical line, red dots, staggered"
+    },
+    {
+      "name": "symbol_analysis",
+      "content": "SYMBOL: [an analysis of a 'hidden symbol']",
+      "html": "SYMBOL -> <div class=\"symbol-analysis\"> with <p>",
+      "style": ".symbol-analysis -> bordered, diagram feel, red circles"
+    },
+    {
+      "name": "leaked_memo",
+      "content": "MEMO: [a leaked internal memo]",
+      "html": "MEMO -> <div class=\"leaked-memo\"> with <p>",
+      "style": ".leaked-memo -> typewriter font, stamped, official"
+    },
+    {
+      "name": "pattern_claim",
+      "content": "PATTERN: [a claim that 'the pattern is obvious']",
+      "html": "PATTERN -> <p class=\"pattern-claim\">",
+      "style": ".pattern-claim -> bold, centered, dramatic"
+    },
+    {
+      "name": "debunked_note",
+      "content": "DEBUNKED: [a note claiming the conspiracy was 'debunked' (it wasn't)]",
+      "html": "DEBUNKED -> <p class=\"debunked-note\">",
+      "style": ".debunked-note -> strikethrough, muted, crossed-out feel"
+    },
+    {
+      "name": "map_marker",
+      "content": "MAP: [a 'map' description with marked locations]",
+      "html": "MAP -> <div class=\"map-marker\"> with <p>",
+      "style": ".map-marker -> bordered, pin icons, map feel"
+    },
+    {
+      "name": "code_break",
+      "content": "CODE: [a 'decoded' message]",
+      "html": "CODE -> <p class=\"code-break\">",
+      "style": ".code-break -> monospace, highlighted, secret feel"
+    },
+    {
+      "name": "surveillance_log",
+      "content": "SURVEILLANCE: [a surveillance log entry]",
+      "html": "SURVEILLANCE -> <div class=\"surveillance-log\"> with <p>",
+      "style": ".surveillance-log -> monospace, timestamp, clinical"
+    },
+    {
+      "name": "whistleblower",
+      "content": "WHISTLEBLOWER: [a whistleblower's warning]",
+      "html": "WHISTLEBLOWER -> <blockquote class=\"whistleblower\"> with <cite>",
+      "style": ".whistleblower -> bold, red accent, urgent"
+    },
+    {
+      "name": "corkboard_title",
+      "content": "BOARDTITLE: [a case-file title for the board]",
+      "html": "BOARDTITLE -> <h2 class=\"corkboard-title\">",
+      "style": ".corkboard-title -> marker-style, bold, centered"
+    }
+  ]
+}

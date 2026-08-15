@@ -1,0 +1,93 @@
+{
+  "name": "auction catalog",
+  "content_styles": [
+    "Write like a high-end auction catalog about the topic. Each section is a 'lot' with a title, a description, an estimate, and a provenance. Voice is refined, breathless, and absurdly precious about nonsense.",
+    "Write like a storage-unit auction listing. Each section is a 'lot' with a description, a starting bid, and a 'buyer beware' note. Voice is fast-talking and slightly shady.",
+    "Write like an estate sale catalog. Each section is an item with a description, a price, and a 'sold as-is' note. Voice is matter-of-fact and slightly sad."
+  ],
+  "layouts": [
+    "Build an auction catalog: a header, then numbered 'lot' sections each with a title, an image slot, a description, an estimate, and a provenance. One continuous catalog.",
+    "Build a storage auction: a header, then lot cards with descriptions, starting bids, and 'buyer beware' notes. One continuous listing.",
+    "Build an estate sale: a header, then item sections with descriptions, prices, and 'sold as-is' notes. One continuous catalog."
+  ],
+  "themes": [
+    "Auction look: cream background, black serif text, gold accents, lot numbers, and a refined feel. Unified and elegant.",
+    "Storage auction look: white background, bold text, red 'starting bid' accents, and a fast sans-serif. Unified and fast-talking.",
+    "Estate sale look: muted background, small text, price tags, and a slightly worn feel. Unified and nostalgic."
+  ],
+  "image_ranges": [[2, 4], [3, 5], [1, 3]],
+  "elements": [
+    {
+      "name": "lot_number",
+      "content": "LOT: [a lot number]",
+      "html": "LOT -> <p class=\"lot-number\">",
+      "style": ".lot-number -> bold, gold, small caps"
+    },
+    {
+      "name": "lot_title",
+      "content": "LOTTITLE: [a precious description of the 'lot']",
+      "html": "LOTTITLE -> <h3 class=\"lot-title\">",
+      "style": ".lot-title -> serif, bold, refined"
+    },
+    {
+      "name": "estimate",
+      "content": "ESTIMATE: [an absurd price estimate]",
+      "html": "ESTIMATE -> <p class=\"estimate\">",
+      "style": ".estimate -> bold, centered, gold"
+    },
+    {
+      "name": "provenance",
+      "content": "PROVENANCE: [a fake provenance history]",
+      "html": "PROVENANCE -> <p class=\"provenance\">",
+      "style": ".provenance -> small text, muted, archival feel"
+    },
+    {
+      "name": "starting_bid",
+      "content": "STARTINGBID: [a starting bid amount]",
+      "html": "STARTINGBID -> <p class=\"starting-bid\">",
+      "style": ".starting-bid -> bold, red, urgent"
+    },
+    {
+      "name": "buyer_beware",
+      "content": "BEWARE: [a 'buyer beware' note]",
+      "html": "BEWARE -> <p class=\"buyer-beware\">",
+      "style": ".buyer-beware -> small text, italic, muted"
+    },
+    {
+      "name": "sold_as_is",
+      "content": "SOLDASIS: [a 'sold as-is' note]",
+      "html": "SOLDASIS -> <p class=\"sold-as-is\">",
+      "style": ".sold-as-is -> small text, muted, matter-of-fact"
+    },
+    {
+      "name": "auctioneer_call",
+      "content": "AUCTIONEER: [an auctioneer's rapid-fire call]",
+      "html": "AUCTIONEER -> <p class=\"auctioneer-call\">",
+      "style": ".auctioneer-call -> bold, fast, rhythmic"
+    },
+    {
+      "name": "lot_image",
+      "content": "LOTIMAGE: [a description of the 'lot' image]",
+      "html": "LOTIMAGE -> <figure class=\"lot-image\"> with <img> and <figcaption>",
+      "style": ".lot-image -> framed, centered, gallery feel"
+    },
+    {
+      "name": "catalog_number",
+      "content": "CATALOGNUM: [a catalog page number]",
+      "html": "CATALOGNUM -> <p class=\"catalog-number\">",
+      "style": ".catalog-number -> small text, muted, corner"
+    },
+    {
+      "name": "reserve_price",
+      "content": "RESERVE: [a 'reserve not met' note]",
+      "html": "RESERVE -> <p class=\"reserve-price\">",
+      "style": ".reserve-price -> small text, muted, formal"
+    },
+    {
+      "name": "auction_footer",
+      "content": "AUCTIONFOOTER: [an auction house footer]",
+      "html": "AUCTIONFOOTER -> <p class=\"auction-footer\">",
+      "style": ".auction-footer -> small text, centered, muted"
+    }
+  ]
+}

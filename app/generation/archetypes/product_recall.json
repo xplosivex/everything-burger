@@ -1,0 +1,118 @@
+{
+  "name": "product recall notice",
+  "content_styles": [
+    "Write like an official product recall notice. The affected 'product' (the topic), the reason for recall, affected units, and required action. Voice is bureaucratic, urgent, and absurdly serious.",
+    "Write like a food safety recall. The affected 'product', the reason, lot numbers, symptoms to watch for, and a refund line. Voice is clinical and urgent.",
+    "Write like a toy recall notice. The affected 'product', the hazard, the number of units, and a 'what to do' section. Voice is concerned and bureaucratic."
+  ],
+  "layouts": [
+    "Build a recall notice: a red header banner, a product description, a list of affected units, a reason section, and an 'action required' box. Single column, official document layout.",
+    "Build a recall: a red banner, a product description, a lot numbers list, a hazard section, and a 'what to do' box. Single column, official.",
+    "Build a notice: a header, a product description, an affected units table, a reason section, and an action box. Single column, official."
+  ],
+  "themes": [
+    "Recall look: white background, red header banner, black text, bold warning boxes with red borders, and a government-document feel. Unified and urgent.",
+    "FDA look: white background, a blue header, black text, bordered warning boxes, and a government feel. Unified and official.",
+    "Urgent notice look: white background, a red banner, black text, yellow warning boxes, and a bold sans-serif. Unified and alarming."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "affected_units",
+      "content": "UNITS: [title]\n- [unit]\n- [unit]\n- [unit]",
+      "html": "UNITS -> <div class=\"affected-units\"> with <h3> and <ul>",
+      "style": ".affected-units -> bordered list, bold, official"
+    },
+    {
+      "name": "reason_for_recall",
+      "content": "REASON: [the absurd reason for the recall]",
+      "html": "REASON -> <section class=\"reason-for-recall\"> with <h2> and <p>",
+      "style": ".reason-for-recall -> standard section, urgent heading"
+    },
+    {
+      "name": "action_required",
+      "content": "ACTION: [the 'action required' instructions]",
+      "html": "ACTION -> <div class=\"action-required\"> with <p>",
+      "style": ".action-required -> bold box, red border, urgent"
+    },
+    {
+      "name": "lot_numbers",
+      "content": "LOTS: [title]\n- [lot number]\n- [lot number]",
+      "html": "LOTS -> <div class=\"lot-numbers\"> with <h3> and <ul>",
+      "style": ".lot-numbers -> monospace, bordered, small text"
+    },
+    {
+      "name": "symptoms",
+      "content": "SYMPTOMS: [title]\n- [symptom]\n- [symptom]",
+      "html": "SYMPTOMS -> <div class=\"symptoms\"> with <h3> and <ul>",
+      "style": ".symptoms -> bordered list, warning accents"
+    },
+    {
+      "name": "refund_line",
+      "content": "REFUND: [a 'full refund' line]",
+      "html": "REFUND -> <p class=\"refund-line\">",
+      "style": ".refund-line -> bold, centered, official"
+    },
+    {
+      "name": "hazard_warning",
+      "content": "HAZARD: [a description of the 'hazard']",
+      "html": "HAZARD -> <div class=\"hazard-warning\"> with <p>",
+      "style": ".hazard-warning -> yellow box, bold border, warning icon"
+    },
+    {
+      "name": "recall_number",
+      "content": "RECALLNUM: [a fake recall number]",
+      "html": "RECALLNUM -> <p class=\"recall-number\">",
+      "style": ".recall-number -> monospace, small, muted"
+    },
+    {
+      "name": "distribution",
+      "content": "DISTRIBUTION: [a 'distributed in' line]",
+      "html": "DISTRIBUTION -> <p class=\"distribution\">",
+      "style": ".distribution -> small text, muted, official"
+    },
+    {
+      "name": "contact_hotline",
+      "content": "HOTLINE: [a 'call this hotline' line]",
+      "html": "HOTLINE -> <p class=\"contact-hotline\">",
+      "style": ".contact-hotline -> bold, centered, urgent"
+    },
+    {
+      "name": "regulator_statement",
+      "content": "REGULATOR: [a statement from the 'regulator']",
+      "html": "REGULATOR -> <blockquote class=\"regulator-statement\"> with <cite>",
+      "style": ".regulator-statement -> italic, bordered, official"
+    },
+    {
+      "name": "affected_dates",
+      "content": "DATES: [a 'sold between' date range]",
+      "html": "DATES -> <p class=\"affected-dates\">",
+      "style": ".affected-dates -> small text, muted, official"
+    },
+    {
+      "name": "safety_instructions",
+      "content": "SAFETY: [safety instructions for the 'product']",
+      "html": "SAFETY -> <div class=\"safety-instructions\"> with <p>",
+      "style": ".safety-instructions -> bordered, numbered, official"
+    },
+    {
+      "name": "apology",
+      "content": "APOLOGY: [a corporate apology for the recall]",
+      "html": "APOLOGY -> <p class=\"apology\">",
+      "style": ".apology -> italic, centered, contrite"
+    }
+  ]
+}

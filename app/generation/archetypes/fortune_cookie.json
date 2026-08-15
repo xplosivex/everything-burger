@@ -1,0 +1,93 @@
+{
+  "name": "fortune cookie",
+  "content_styles": [
+    "Write like a stack of fortune cookies about the topic. Each section is a fortune, a lucky number, and a 'learn Chinese' line. Voice is cryptic, vaguely wise, and confidently wrong.",
+    "Write like a fortune teller's booth. A 'the future holds' framing, fortunes, lucky numbers, and a 'come back soon' closer. Voice is mysterious and theatrical.",
+    "Write like a motivational poster fortune. Each section is a fortune that is trying very hard to be profound and failing. Voice is earnest and hollow."
+  ],
+  "layouts": [
+    "Build a fortune cookie page: a header, then a stack of fortune cards each with a fortune, a lucky number, and a 'learn Chinese' line. One continuous stack.",
+    "Build a fortune booth: a header, a 'the future holds' section, fortune cards, lucky numbers, and a 'come back soon' footer. One continuous scroll.",
+    "Build a poster wall: a header, then fortune cards in a grid, each with a fortune and a lucky number. One continuous wall."
+  ],
+  "themes": [
+    "Fortune cookie look: warm cream background, red and gold accents, a paper-texture feel, and a serif font. Unified and mystical.",
+    "Booth look: dark purple background, gold accents, a crystal-ball feel, and a mystical serif. Unified and mysterious.",
+    "Poster look: white background, bold accent colors, framed fortunes, and a clean sans-serif. Unified and motivational."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "fortune",
+      "content": "FORTUNE: [a cryptic vaguely-wise fortune]",
+      "html": "FORTUNE -> <p class=\"fortune\">",
+      "style": ".fortune -> italic, centered, paper-texture feel"
+    },
+    {
+      "name": "lucky_number",
+      "content": "LUCKY: [a lucky number]",
+      "html": "LUCKY -> <p class=\"lucky-number\">",
+      "style": ".lucky-number -> bold, gold, centered"
+    },
+    {
+      "name": "learn_chinese",
+      "content": "LEARNCHINESE: [a fake 'learn Chinese' phrase]",
+      "html": "LEARNCHINESE -> <p class=\"learn-chinese\">",
+      "style": ".learn-chinese -> small text, muted, centered"
+    },
+    {
+      "name": "future_holds",
+      "content": "FUTURE: [a 'the future holds' prediction]",
+      "html": "FUTURE -> <p class=\"future-holds\">",
+      "style": ".future-holds -> bold, centered, mystical"
+    },
+    {
+      "name": "come_back",
+      "content": "COMEBACK: [a 'come back soon' closer]",
+      "html": "COMEBACK -> <p class=\"come-back\">",
+      "style": ".come-back -> italic, centered, warm"
+    },
+    {
+      "name": "fortune_number",
+      "content": "FORTUNENUM: [a fortune cookie number]",
+      "html": "FORTUNENUM -> <p class=\"fortune-number\">",
+      "style": ".fortune-number -> small text, muted, corner"
+    },
+    {
+      "name": "cryptic_advice",
+      "content": "CRYPTIC: [a cryptic piece of advice]",
+      "html": "CRYPTIC -> <p class=\"cryptic-advice\">",
+      "style": ".cryptic-advice -> italic, centered, mysterious"
+    },
+    {
+      "name": "motivational_quote",
+      "content": "MOTIVATION: [a hollow motivational quote]",
+      "html": "MOTIVATION -> <p class=\"motivational-quote\">",
+      "style": ".motivational-quote -> bold, centered, poster feel"
+    },
+    {
+      "name": "fortune_footer",
+      "content": "FORTUNEFOOTER: [a fortune cookie footer line]",
+      "html": "FORTUNEFOOTER -> <p class=\"fortune-footer\">",
+      "style": ".fortune-footer -> small text, centered, muted"
+    },
+    {
+      "name": "prediction",
+      "content": "PREDICTION: [a vague prediction about the topic]",
+      "html": "PREDICTION -> <p class=\"prediction\">",
+      "style": ".prediction -> italic, centered, mystical"
+    },
+    {
+      "name": "wisdom_rating",
+      "content": "WISDOM: [a wisdom rating for the fortune]",
+      "html": "WISDOM -> <p class=\"wisdom-rating\">",
+      "style": ".wisdom-rating -> small text, muted, playful"
+    },
+    {
+      "name": "cookie_border",
+      "content": "COOKIEBORDER: [a decorative cookie border line]",
+      "html": "COOKIEBORDER -> <hr class=\"cookie-border\">",
+      "style": ".cookie-border -> decorative divider, gold accent"
+    }
+  ]
+}

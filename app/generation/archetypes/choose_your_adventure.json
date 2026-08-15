@@ -1,0 +1,118 @@
+{
+  "name": "choose-your-own-adventure",
+  "content_styles": [
+    "Write like a choose-your-own-adventure book. Second person, branching options, 'if you choose A, go to page X'. Voice is dramatic and immersive, treating the topic as an adventure.",
+    "Write like a text adventure game. Second person, a room description, commands, and 'you see' framing. Voice is terse and atmospheric.",
+    "Write like a 'which path will you take' quiz. A scenario, options, and outcomes. Voice is playful and dramatic."
+  ],
+  "layouts": [
+    "Build an adventure page: a title header, a story paragraph, then option cards with choices, each leading to another section. Sections flow down the page as one branching narrative.",
+    "Build a text adventure: a title header, a room description, a list of commands, and a 'you are here' marker. Sections flow as one narrative.",
+    "Build a path page: a title header, a scenario, option cards, and outcome sections. Flows as one branching story."
+  ],
+  "themes": [
+    "Adventure look: parchment background, dark brown text, option cards with borders, a compass or map accent, and a fantasy font. Unified and immersive.",
+    "Text adventure look: black background, green monospace text, and a terminal feel. Unified and retro.",
+    "Quiz look: white background, bold accent colors, option cards, and a playful sans-serif. Unified and fun."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "option_card",
+      "content": "OPTION: [a choice]\n- [option A]\n- [option B]",
+      "html": "OPTION -> <div class=\"option-card\"> with <h3> and <ul>",
+      "style": ".option-card -> bordered card, hover feel, bold choices"
+    },
+    {
+      "name": "branching_path",
+      "content": "BRANCH: [a 'if you chose X, go to Y' line]",
+      "html": "BRANCH -> <p class=\"branching-path\">",
+      "style": ".branching-path -> italic, centered, dramatic"
+    },
+    {
+      "name": "room_description",
+      "content": "ROOM: [a second-person room description]",
+      "html": "ROOM -> <p class=\"room-description\">",
+      "style": ".room-description -> atmospheric, italic, immersive"
+    },
+    {
+      "name": "inventory",
+      "content": "INVENTORY: [title]\n- [item]\n- [item]",
+      "html": "INVENTORY -> <div class=\"inventory\"> with <h3> and <ul>",
+      "style": ".inventory -> bordered box, item-list feel"
+    },
+    {
+      "name": "game_over",
+      "content": "GAMEOVER: [a dramatic 'game over' ending]",
+      "html": "GAMEOVER -> <p class=\"adventure-game-over\">",
+      "style": ".adventure-game-over -> huge bold text, centered, dramatic"
+    },
+    {
+      "name": "you_win",
+      "content": "YOUWIN: [a 'you win' ending]",
+      "html": "YOUWIN -> <p class=\"you-win\">",
+      "style": ".you-win -> bold, gold, celebratory"
+    },
+    {
+      "name": "secret_path",
+      "content": "SECRET: [a hidden secret path]",
+      "html": "SECRET -> <p class=\"secret-path\">",
+      "style": ".secret-path -> hidden-feel, dashed border, mysterious"
+    },
+    {
+      "name": "encounter",
+      "content": "ENCOUNTER: [a dramatic encounter description]",
+      "html": "ENCOUNTER -> <p class=\"encounter\">",
+      "style": ".encounter -> bold, atmospheric, dramatic"
+    },
+    {
+      "name": "map_section",
+      "content": "MAP: [a description of the adventure map]",
+      "html": "MAP -> <div class=\"adventure-map\"> with <p>",
+      "style": ".adventure-map -> bordered, map feel, compass accent"
+    },
+    {
+      "name": "clue",
+      "content": "CLUE: [a clue for the reader]",
+      "html": "CLUE -> <p class=\"clue\">",
+      "style": ".clue -> italic, muted, mysterious"
+    },
+    {
+      "name": "danger_warning",
+      "content": "DANGER: [a 'danger ahead' warning]",
+      "html": "DANGER -> <div class=\"danger-warning\"> with <p>",
+      "style": ".danger-warning -> red box, bold border, urgent"
+    },
+    {
+      "name": "companion",
+      "content": "COMPANION: [a companion character's line]",
+      "html": "COMPANION -> <blockquote class=\"companion\"> with <cite>",
+      "style": ".companion -> italic, bordered, character feel"
+    },
+    {
+      "name": "restart",
+      "content": "RESTART: [a 'start over' line]",
+      "html": "RESTART -> <p class=\"restart\">",
+      "style": ".restart -> small text, centered, muted"
+    },
+    {
+      "name": "page_number",
+      "content": "PAGENUM: [a fake 'turn to page X' line]",
+      "html": "PAGENUM -> <p class=\"page-number\">",
+      "style": ".page-number -> small text, centered, book feel"
+    }
+  ]
+}

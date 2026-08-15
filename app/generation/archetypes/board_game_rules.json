@@ -1,0 +1,105 @@
+{
+  "name": "board game rules",
+  "content_styles": [
+    "Write like a board game rulebook about the topic. A game title, an objective, setup, turn structure, and a 'winning' section. Voice is dry, precise, and absurdly serious about nonsense rules.",
+    "Write like a party game instruction card. A setup, a 'how to play' section, a scoring section, and a 'house rules' note. Voice is casual and fun.",
+    "Write like a strategy game manual. A game title, an objective, a setup, a turn structure, a 'strategy tips' section, and a 'winning' section. Voice is analytical and confident."
+  ],
+  "layouts": [
+    "Build a rulebook: a cover header, an objective section, a setup section, a turn structure, and a 'winning' section. One continuous document with clear sections.",
+    "Build an instruction card: a header, a setup, a 'how to play' section, a scoring section, and a 'house rules' note. One continuous card.",
+    "Build a strategy manual: a cover header, an objective, a setup, a turn structure, a 'strategy tips' section, and a 'winning' section. One continuous document."
+  ],
+  "themes": [
+    "Rulebook look: white background, black text, bold section headings, a single accent color, and a clean sans-serif. Unified and precise.",
+    "Party game look: bright background, bold colors, playful headings, and a fun sans-serif. Unified and festive.",
+    "Strategy look: dark background, gold accents, bold headings, and a serious sans-serif. Unified and analytical."
+  ],
+  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "elements": [
+    {
+      "name": "objective",
+      "content": "OBJECTIVE: [the absurd objective of the game]",
+      "html": "OBJECTIVE -> <p class=\"objective\">",
+      "style": ".objective -> bold, centered, formal"
+    },
+    {
+      "name": "setup",
+      "content": "SETUP: [title]\n1. [setup step]\n2. [setup step]",
+      "html": "SETUP -> <div class=\"setup\"> with <h3> and <ol>",
+      "style": ".setup -> numbered, bordered, precise"
+    },
+    {
+      "name": "turn_structure",
+      "content": "TURN: [a description of a turn]",
+      "html": "TURN -> <p class=\"turn-structure\">",
+      "style": ".turn-structure -> formal, precise, indented"
+    },
+    {
+      "name": "winning",
+      "content": "WINNING: [the absurd way to win]",
+      "html": "WINNING -> <p class=\"winning\">",
+      "style": ".winning -> bold, centered, celebratory"
+    },
+    {
+      "name": "house_rules",
+      "content": "HOUSERULES: [title]\n- [house rule]\n- [house rule]",
+      "html": "HOUSERULES -> <div class=\"house-rules\"> with <h3> and <ul>",
+      "style": ".house-rules -> bordered, playful, casual"
+    },
+    {
+      "name": "scoring",
+      "content": "SCORING: [a scoring section]",
+      "html": "SCORING -> <p class=\"scoring\">",
+      "style": ".scoring -> formal, precise, bordered"
+    },
+    {
+      "name": "strategy_tips",
+      "content": "STRATEGY: [title]\n- [tip]\n- [tip]",
+      "html": "STRATEGY -> <div class=\"strategy-tips\"> with <h3> and <ul>",
+      "style": ".strategy-tips -> bordered, analytical, confident"
+    },
+    {
+      "name": "components",
+      "content": "COMPONENTS: [title]\n- [component]\n- [component]",
+      "html": "COMPONENTS -> <div class=\"components\"> with <h3> and <ul>",
+      "style": ".components -> bordered, checklist feel, precise"
+    },
+    {
+      "name": "player_count",
+      "content": "PLAYERS: [a player count and age range]",
+      "html": "PLAYERS -> <p class=\"player-count\">",
+      "style": ".player-count -> small text, muted, boxed"
+    },
+    {
+      "name": "game_title",
+      "content": "GAMETITLE: [a dramatic game title]",
+      "html": "GAMETITLE -> <h1 class=\"game-title\">",
+      "style": ".game-title -> bold, centered, dramatic"
+    },
+    {
+      "name": "rule_number",
+      "content": "RULENUM: [a rule number]",
+      "html": "RULENUM -> <p class=\"rule-number\">",
+      "style": ".rule-number -> small text, muted, corner"
+    },
+    {
+      "name": "example_turn",
+      "content": "EXAMPLETURN: [an example of a turn]",
+      "html": "EXAMPLETURN -> <p class=\"example-turn\">",
+      "style": ".example-turn -> italic, bordered, illustrative"
+    },
+    {
+      "name": "rulebook_footer",
+      "content": "RULEFOOTER: [a rulebook footer]",
+      "html": "RULEFOOTER -> <p class=\"rulebook-footer\">",
+      "style": ".rulebook-footer -> small text, centered, muted"
+    },
+    {
+      "name": "warning_rule",
+      "content": "RULEWARNING: [a 'do not do this' rule]",
+      "html": "RULEWARNING -> <div class=\"rule-warning\"> with <p>",
+      "style": ".rule-warning -> red box, bold, urgent"
+    }
+  ]
+}

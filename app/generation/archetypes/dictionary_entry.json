@@ -1,0 +1,106 @@
+{
+  "name": "dictionary entry",
+  "content_styles": [
+    "Write like a dictionary entry for the topic. Pronunciation, part of speech, definition, usage example, and etymology. Voice is lexicographer-dry and absurdly precise about nonsense.",
+    "Write like an urban dictionary entry. A word, a definition, a usage example, and a 'tags' line. Voice is casual and funny.",
+    "Write like a thesaurus entry. A word, synonyms, antonyms, and a usage note. Voice is dry and precise."
+  ],
+  "layouts": [
+    "Build a dictionary page: a header with the word and pronunciation, a definition section, a usage example, an etymology note, and related words. Single column, reference-book layout.",
+    "Build an entry: a header, a definition, a usage example, a 'tags' line, and a 'vote' note. Single column, casual.",
+    "Build a thesaurus page: a header, synonyms, antonyms, and a usage note. Single column, reference layout."
+  ],
+  "themes": [
+    "Dictionary look: white background, black serif text, a bold entry word, small pronunciation marks, and thin rules. Unified and reference-like.",
+    "Urban dictionary look: white background, black text, a bold accent color, and a casual sans-serif. Unified and modern.",
+    "Thesaurus look: white background, black serif text, a single accent color, and thin rules. Unified and reference-like."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "pronunciation",
+      "content": "PRONUNCIATION: [a phonetic pronunciation]",
+      "html": "PRONUNCIATION -> <p class=\"pronunciation\">",
+      "style": ".pronunciation -> small text, phonetic marks, muted"
+    },
+    {
+      "name": "definition",
+      "content": "DEFINITION: [a precise absurd definition]",
+      "html": "DEFINITION -> <p class=\"definition\">",
+      "style": ".definition -> serif, bold entry word, reference feel"
+    },
+    {
+      "name": "usage_example",
+      "content": "USAGE: [a usage example sentence]",
+      "html": "USAGE -> <p class=\"usage-example\">",
+      "style": ".usage-example -> italic, indented, reference feel"
+    },
+    {
+      "name": "etymology",
+      "content": "ETYMOLOGY: [a fake etymology]",
+      "html": "ETYMOLOGY -> <p class=\"etymology\">",
+      "style": ".etymology -> small text, muted, reference feel"
+    },
+    {
+      "name": "part_of_speech",
+      "content": "POS: [part of speech]",
+      "html": "POS -> <p class=\"part-of-speech\">",
+      "style": ".part-of-speech -> small italic text, muted"
+    },
+    {
+      "name": "synonyms",
+      "content": "SYNONYMS: [title]\n- [synonym]\n- [synonym]",
+      "html": "SYNONYMS -> <div class=\"synonyms\"> with <h3> and <ul>",
+      "style": ".synonyms -> small text, bordered, reference feel"
+    },
+    {
+      "name": "antonyms",
+      "content": "ANTONYMS: [title]\n- [antonym]\n- [antonym]",
+      "html": "ANTONYMS -> <div class=\"antonyms\"> with <h3> and <ul>",
+      "style": ".antonyms -> small text, bordered, reference feel"
+    },
+    {
+      "name": "related_words",
+      "content": "RELATED: [title]\n- [related word]\n- [related word]",
+      "html": "RELATED -> <div class=\"related-words\"> with <h3> and <ul>",
+      "style": ".related-words -> small text, bordered, reference feel"
+    },
+    {
+      "name": "tags",
+      "content": "TAGS: [title]\n- [tag]\n- [tag]",
+      "html": "TAGS -> <div class=\"tags\"> with <h3> and <ul>",
+      "style": ".tags -> small gray tags, bordered, casual"
+    },
+    {
+      "name": "vote_note",
+      "content": "VOTE: [a 'vote on this definition' note]",
+      "html": "VOTE -> <p class=\"vote-note\">",
+      "style": ".vote-note -> small text, muted, casual"
+    },
+    {
+      "name": "word_of_day",
+      "content": "WOTD: [a 'word of the day' banner]",
+      "html": "WOTD -> <div class=\"word-of-day\"> with <p>",
+      "style": ".word-of-day -> bold, centered, accent color"
+    },
+    {
+      "name": "cross_reference",
+      "content": "CROSSREF: [a 'see also' cross-reference]",
+      "html": "CROSSREF -> <p class=\"cross-reference\">",
+      "style": ".cross-reference -> small text, blue link, muted"
+    }
+  ]
+}

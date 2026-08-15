@@ -1,0 +1,93 @@
+{
+  "name": "radio transcript",
+  "content_styles": [
+    "Write like a late-night radio show transcript about the topic. A host, callers, sound effects in brackets, and a sign-off. Voice is warm, rambling, and increasingly unhinged.",
+    "Write like a public radio interview transcript. A host, a 'guest' (the topic), questions, answers, and a pledge-drive interruption. Voice is earnest and slightly awkward.",
+    "Write like a pirate radio broadcast. A DJ, a playlist, callers, static interruptions, and a 'stay tuned' sign-off. Voice is chaotic and enthusiastic."
+  ],
+  "layouts": [
+    "Build a radio transcript: a station header, a host intro, caller segments with names, sound effect notes, and a sign-off. One continuous broadcast log.",
+    "Build an interview transcript: a station header, a host intro, Q&A segments, a pledge-drive interruption, and a sign-off. One continuous transcript.",
+    "Build a pirate radio log: a station header, a DJ intro, playlist entries, caller segments, static notes, and a sign-off. One continuous broadcast."
+  ],
+  "themes": [
+    "Radio look: dark background, warm amber accents, a microphone feel, and a clean sans-serif. Unified and late-night.",
+    "Public radio look: white background, blue accents, a formal sans-serif, and a clean feel. Unified and earnest.",
+    "Pirate radio look: dark background, neon accents, a chaotic feel, and a bold sans-serif. Unified and rebellious."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "host_intro",
+      "content": "HOST: [the host's opening monologue]",
+      "html": "HOST -> <p class=\"host-intro\">",
+      "style": ".host-intro -> bold, warm, broadcast feel"
+    },
+    {
+      "name": "caller",
+      "content": "CALLER: [name]: [the caller's question]",
+      "html": "CALLER -> <div class=\"caller\"> with <p>",
+      "style": ".caller -> indented, bordered, phone-call feel"
+    },
+    {
+      "name": "sound_effect",
+      "content": "SFX: [a sound effect in brackets]",
+      "html": "SFX -> <p class=\"sound-effect\">",
+      "style": ".sound-effect -> italic, muted, bracketed"
+    },
+    {
+      "name": "sign_off",
+      "content": "SIGNOFF: [the host's sign-off]",
+      "html": "SIGNOFF -> <p class=\"sign-off\">",
+      "style": ".sign-off -> italic, centered, warm"
+    },
+    {
+      "name": "station_id",
+      "content": "STATION: [a station call sign and frequency]",
+      "html": "STATION -> <h2 class=\"station-id\">",
+      "style": ".station-id -> bold, centered, broadcast feel"
+    },
+    {
+      "name": "playlist_entry",
+      "content": "PLAYLIST: [song]: [artist]",
+      "html": "PLAYLIST -> <p class=\"playlist-entry\">",
+      "style": ".playlist-entry -> small text, muted, list feel"
+    },
+    {
+      "name": "static_interruption",
+      "content": "STATIC: [a static interruption note]",
+      "html": "STATIC -> <p class=\"static-interruption\">",
+      "style": ".static-interruption -> monospace, glitchy, muted"
+    },
+    {
+      "name": "pledge_drive",
+      "content": "PLEDGE: [a pledge-drive interruption]",
+      "html": "PLEDGE -> <div class=\"pledge-drive\"> with <p>",
+      "style": ".pledge-drive -> bordered, urgent, earnest"
+    },
+    {
+      "name": "guest_intro",
+      "content": "GUEST: [an introduction of the 'guest']",
+      "html": "GUEST -> <p class=\"guest-intro\">",
+      "style": ".guest-intro -> bold, formal, interview feel"
+    },
+    {
+      "name": "stay_tuned",
+      "content": "STAYTUNED: [a 'stay tuned' teaser]",
+      "html": "STAYTUNED -> <p class=\"stay-tuned\">",
+      "style": ".stay-tuned -> italic, centered, mysterious"
+    },
+    {
+      "name": "commercial_break",
+      "content": "COMMERCIAL: [a fake commercial break]",
+      "html": "COMMERCIAL -> <div class=\"commercial-break\"> with <p>",
+      "style": ".commercial-break -> bordered, loud, promotional"
+    },
+    {
+      "name": "radio_footer",
+      "content": "RADIOFOOTER: [a radio broadcast footer]",
+      "html": "RADIOFOOTER -> <p class=\"radio-footer\">",
+      "style": ".radio-footer -> small text, centered, muted"
+    }
+  ]
+}

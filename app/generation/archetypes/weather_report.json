@@ -1,0 +1,118 @@
+{
+  "name": "weather report",
+  "content_styles": [
+    "Write like a weather forecast about the topic. Forecast cards, advisories, and a radar description. Voice is meteorologist-cheerful and absurdly specific about the topic's 'conditions'.",
+    "Write like a storm-chaser's report. A 'conditions are brewing' framing, a radar description, a warning, and a 'stay safe' note. Voice is dramatic and urgent.",
+    "Write like a weekly forecast. Day-by-day cards, a 'looking ahead' section, and a 'dress accordingly' note. Voice is friendly and practical."
+  ],
+  "layouts": [
+    "Build a forecast page: a weather header, a big current-conditions card, a grid of forecast day cards, an advisory box, and a radar image slot. One continuous forecast.",
+    "Build a storm report: a header, a radar image slot, a conditions section, a warning box, and a 'stay safe' note. One continuous report.",
+    "Build a weekly forecast: a header, day cards, a 'looking ahead' section, and a footer note. One continuous forecast."
+  ],
+  "themes": [
+    "Weather look: sky blue background, white cards, sun and cloud accents, bold temperature numbers, and a clean sans-serif. Unified and breezy.",
+    "Storm look: dark gray background, yellow warning accents, bold text, and a dramatic sans-serif. Unified and urgent.",
+    "Morning show look: light blue background, white cards, bold numbers, and a friendly sans-serif. Unified and bright."
+  ],
+  "image_ranges": [
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "elements": [
+    {
+      "name": "forecast_card",
+      "content": "FORECAST: [day]: [condition], [temp]",
+      "html": "FORECAST -> <div class=\"forecast-card\"> with <h3> and <p>",
+      "style": ".forecast-card -> white card, sun/cloud icon, bold temp"
+    },
+    {
+      "name": "advisory",
+      "content": "ADVISORY: [a weather advisory]",
+      "html": "ADVISORY -> <div class=\"advisory\"> with <p>",
+      "style": ".advisory -> yellow box, bold border, warning"
+    },
+    {
+      "name": "radar",
+      "content": "RADAR: [a radar description]",
+      "html": "RADAR -> <div class=\"radar\"> with <p>",
+      "style": ".radar -> bordered, green/blue, map feel"
+    },
+    {
+      "name": "current_conditions",
+      "content": "CURRENT: [current conditions: temp, condition]",
+      "html": "CURRENT -> <div class=\"current-conditions\"> with <p>",
+      "style": ".current-conditions -> big card, huge temp, bold"
+    },
+    {
+      "name": "looking_ahead",
+      "content": "AHEAD: [a 'looking ahead' forecast]",
+      "html": "AHEAD -> <section class=\"looking-ahead\"> with <h2> and <p>",
+      "style": ".looking-ahead -> standard section, bold heading"
+    },
+    {
+      "name": "dress_accordingly",
+      "content": "DRESS: [a 'dress accordingly' note]",
+      "html": "DRESS -> <p class=\"dress-accordingly\">",
+      "style": ".dress-accordingly -> small text, muted, friendly"
+    },
+    {
+      "name": "storm_warning",
+      "content": "STORM: [a storm warning]",
+      "html": "STORM -> <div class=\"storm-warning\"> with <p>",
+      "style": ".storm-warning -> red box, bold, urgent"
+    },
+    {
+      "name": "stay_safe",
+      "content": "STAYSAFE: [a 'stay safe' note]",
+      "html": "STAYSAFE -> <p class=\"stay-safe\">",
+      "style": ".stay-safe -> italic, centered, caring"
+    },
+    {
+      "name": "humidity",
+      "content": "HUMIDITY: [a humidity reading]",
+      "html": "HUMIDITY -> <p class=\"humidity\">",
+      "style": ".humidity -> small text, muted, data feel"
+    },
+    {
+      "name": "wind",
+      "content": "WIND: [a wind reading]",
+      "html": "WIND -> <p class=\"wind\">",
+      "style": ".wind -> small text, muted, data feel"
+    },
+    {
+      "name": "uv_index",
+      "content": "UV: [a UV index reading]",
+      "html": "UV -> <p class=\"uv-index\">",
+      "style": ".uv-index -> small text, colored, data feel"
+    },
+    {
+      "name": "weekend_outlook",
+      "content": "WEEKEND: [a weekend outlook]",
+      "html": "WEEKEND -> <p class=\"weekend-outlook\">",
+      "style": ".weekend-outlook -> italic, centered, friendly"
+    },
+    {
+      "name": "weather_alert",
+      "content": "WEATHERALERT: [a weather alert banner]",
+      "html": "WEATHERALERT -> <div class=\"weather-alert\"> with <p>",
+      "style": ".weather-alert -> red banner, all-caps, urgent"
+    },
+    {
+      "name": "meteorologist_note",
+      "content": "METEOROLOGIST: [a note from the 'meteorologist']",
+      "html": "METEOROLOGIST -> <blockquote class=\"meteorologist-note\"> with <cite>",
+      "style": ".meteorologist-note -> italic, bordered, cheerful"
+    }
+  ]
+}

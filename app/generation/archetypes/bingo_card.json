@@ -1,0 +1,106 @@
+{
+  "name": "bingo card",
+  "content_styles": [
+    "Write like a bingo card about the topic. A 3x3 grid of phrases, a free space, and a caller's commentary. Voice is game-night energetic and absurd.",
+    "Write like a buzzword bingo card. A grid of corporate phrases, a free space, and a 'how to play' note. Voice is dry and funny.",
+    "Write like a drinking-game bingo card. A grid of phrases, a free space, and a 'rules' note. Voice is rowdy and fun."
+  ],
+  "layouts": [
+    "Build a bingo card: a BINGO header, a 3x3 grid table with phrases and a center FREE space, and a caller's note below. One compact card.",
+    "Build a bingo card: a header, a 3x3 grid table, a 'how to play' note, and a footer. One compact card.",
+    "Build a bingo card: a header, a 3x3 grid table, a 'rules' note, and a footer. One compact card."
+  ],
+  "themes": [
+    "Bingo look: white background, red and blue accents, a bold BINGO header, bordered grid cells, and a festive feel. Unified and game-night.",
+    "Corporate bingo look: white background, gray and blue accents, a clean grid, and a sans-serif. Unified and office-y.",
+    "Party bingo look: bright background, bold colors, a festive header, and bordered cells. Unified and rowdy."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "bingo_grid",
+      "content": "BINGOGRID: [title]\n- [phrase]\n- [phrase]\n- [phrase]\n- [phrase]\n- [phrase]\n- [phrase]\n- [phrase]\n- [phrase]",
+      "html": "BINGOGRID -> <table class=\"bingo-grid\"> with <tbody> of cells",
+      "style": ".bingo-grid -> 3x3 grid, bordered cells, festive"
+    },
+    {
+      "name": "free_space",
+      "content": "FREESPACE: [a 'FREE' center space]",
+      "html": "FREESPACE -> <td class=\"free-space\">",
+      "style": ".free-space -> bold, centered, star accent"
+    },
+    {
+      "name": "caller_commentary",
+      "content": "CALLER: [a bingo caller's commentary]",
+      "html": "CALLER -> <p class=\"caller-commentary\">",
+      "style": ".caller-commentary -> italic, centered, game-night"
+    },
+    {
+      "name": "how_to_play",
+      "content": "HOWTOPLAY: [a 'how to play' note]",
+      "html": "HOWTOPLAY -> <p class=\"how-to-play\">",
+      "style": ".how-to-play -> small text, muted, bordered"
+    },
+    {
+      "name": "rules",
+      "content": "RULES: [title]\n- [rule]\n- [rule]",
+      "html": "RULES -> <div class=\"rules\"> with <h3> and <ul>",
+      "style": ".rules -> bordered, small text, game-night"
+    },
+    {
+      "name": "bingo_header",
+      "content": "BINGOHEADER: [a BINGO title]",
+      "html": "BINGOHEADER -> <h2 class=\"bingo-header\">",
+      "style": ".bingo-header -> bold, letter-spaced, festive"
+    },
+    {
+      "name": "winning_line",
+      "content": "WINNING: [a 'winning line' description]",
+      "html": "WINNING -> <p class=\"winning-line\">",
+      "style": ".winning-line -> bold, green, celebratory"
+    },
+    {
+      "name": "prize",
+      "content": "PRIZE: [a prize for winning]",
+      "html": "PRIZE -> <p class=\"prize\">",
+      "style": ".prize -> bold, gold, celebratory"
+    },
+    {
+      "name": "daubed",
+      "content": "DAUBED: [a 'daubed' phrase description]",
+      "html": "DAUBED -> <p class=\"daubed\">",
+      "style": ".daubed -> strikethrough, muted, game feel"
+    },
+    {
+      "name": "bingo_call",
+      "content": "BINGOCALL: [a dramatic 'BINGO!' call]",
+      "html": "BINGOCALL -> <p class=\"bingo-call\">",
+      "style": ".bingo-call -> huge bold text, centered, celebratory"
+    },
+    {
+      "name": "card_number",
+      "content": "CARDNUM: [a bingo card number]",
+      "html": "CARDNUM -> <p class=\"card-number\">",
+      "style": ".card-number -> small text, muted, corner"
+    },
+    {
+      "name": "round_note",
+      "content": "ROUND: [a 'round X' note]",
+      "html": "ROUND -> <p class=\"round-note\">",
+      "style": ".round-note -> small text, centered, muted"
+    }
+  ]
+}

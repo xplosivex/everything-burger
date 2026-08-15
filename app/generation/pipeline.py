@@ -7,7 +7,7 @@ from app.config import SERP_API_KEY
 from app.generation.content import generate_content
 from app.generation.structure import build_html_structure
 from app.generation.styling import apply_styling
-from app.generation.archetypes import select_archetype, select_twists
+from app.generation.archetypes import select_archetype, select_twists, select_modifiers
 from app.generation.images import fetch_all_images
 from app.generation.serp import generate_search_queries, inject_serp_sections
 from app.generation.effects import apply_effects
@@ -44,10 +44,11 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
         if effect.effect_type == 'image_count':
             image_multiplier *= float(effect.effect_value)
 
-    # Pick this generation's archetype and twists
+    # Pick this generation's archetype, twists, and modifiers
     archetype = select_archetype()
     twists = select_twists()
-    logger.info(f"Archetype: {archetype['name']}, twists: {twists}")
+    modifiers = select_modifiers()
+    logger.info(f"Archetype: {archetype['name']}, twists: {twists}, modifiers: {modifiers}")
 
     # Base image count from the archetype's range (default 2-4), multiplied by the image_count item effect
     params = archetype.get('params', {})
@@ -68,7 +69,7 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
     # -- STAGE 2: HTML Structure --
     logger.info("=== Stage 2: Building HTML structure ===")
 
-    raw_html = build_html_structure(content, archetype)
+    raw_html = build_html_structure(content, archetype, modifiers)
 
     # -- IMAGE FETCHING --
     logger.info("=== Fetching images ===")
@@ -88,7 +89,7 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
 
     # -- STAGE 3: Styling --
     logger.info("=== Stage 3: Applying Tailwind styling ===")
-    styled_html = apply_styling(raw_html, archetype)
+    styled_html = apply_styling(raw_html, archetype, modifiers)
 
     # -- POST-PROCESSING --
     logger.info("=== Post-processing: effects, rewards, achievements ===")

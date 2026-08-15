@@ -1,0 +1,118 @@
+{
+  "name": "dating profile",
+  "content_styles": [
+    "Write like a dating app profile for the topic. Bio, dealbreakers, 'swipe energy', and a prompt answer. Voice is trying-too-hard, quirky, and absurdly self-aware.",
+    "Write like a dating profile that has been up too long. A bio, dealbreakers, a 'what I'm looking for' section, and a prompt answer. Voice is desperate and funny.",
+    "Write like a matchmaker's profile for the topic. A 'client' bio, a 'perfect match' description, dealbreakers, and a 'contact me' note. Voice is professional and slightly pushy."
+  ],
+  "layouts": [
+    "Build a dating profile: a profile header with a photo slot, a bio section, a dealbreakers list, a prompt answer, and a swipe-action footer. One continuous profile card.",
+    "Build a profile: a header with a photo slot, a bio, a 'what I'm looking for' section, dealbreakers, and a prompt answer. One card.",
+    "Build a matchmaker profile: a header, a client bio, a 'perfect match' section, dealbreakers, and a contact note. One card."
+  ],
+  "themes": [
+    "Dating app look: white background, a single bold accent color (pink or orange), rounded cards, photo frames, and a modern sans-serif. Unified and flirty.",
+    "Matchmaker look: cream background, gold accents, a formal serif, and a bordered card. Unified and professional.",
+    "Minimal look: white background, black text, a single accent, and lots of whitespace. Unified and clean."
+  ],
+  "image_ranges": [
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "elements": [
+    {
+      "name": "bio",
+      "content": "BIO: [a trying-too-hard dating bio]",
+      "html": "BIO -> <p class=\"bio\">",
+      "style": ".bio -> italic, centered, flirty"
+    },
+    {
+      "name": "dealbreakers",
+      "content": "DEALBREAKERS: [title]\n- [dealbreaker]\n- [dealbreaker]",
+      "html": "DEALBREAKERS -> <div class=\"dealbreakers\"> with <h3> and <ul>",
+      "style": ".dealbreakers -> bordered, bold, red accents"
+    },
+    {
+      "name": "prompt_answer",
+      "content": "PROMPT: [a dating prompt answer]",
+      "html": "PROMPT -> <p class=\"prompt-answer\">",
+      "style": ".prompt-answer -> italic, bordered, playful"
+    },
+    {
+      "name": "swipe_energy",
+      "content": "SWIPE: [a 'swipe energy' line]",
+      "html": "SWIPE -> <p class=\"swipe-energy\">",
+      "style": ".swipe-energy -> bold, centered, flirty"
+    },
+    {
+      "name": "what_looking_for",
+      "content": "LOOKINGFOR: [a 'what I'm looking for' section]",
+      "html": "LOOKINGFOR -> <p class=\"what-looking-for\">",
+      "style": ".what-looking-for -> italic, centered, hopeful"
+    },
+    {
+      "name": "photo_caption",
+      "content": "PHOTOCAP: [a caption for a profile photo]",
+      "html": "PHOTOCAP -> <figcaption class=\"photo-caption\">",
+      "style": ".photo-caption -> small text, muted, playful"
+    },
+    {
+      "name": "fun_fact",
+      "content": "FUNFACT: [a 'fun fact about me' line]",
+      "html": "FUNFACT -> <p class=\"fun-fact\">",
+      "style": ".fun-fact -> small text, italic, playful"
+    },
+    {
+      "name": "ideal_first_date",
+      "content": "FIRSTDATE: [an 'ideal first date' description]",
+      "html": "FIRSTDATE -> <p class=\"ideal-first-date\">",
+      "style": ".ideal-first-date -> italic, centered, romantic"
+    },
+    {
+      "name": "green_flags",
+      "content": "GREENFLAGS: [title]\n- [green flag]\n- [green flag]",
+      "html": "GREENFLAGS -> <div class=\"green-flags\"> with <h3> and <ul>",
+      "style": ".green-flags -> bordered, green accents, positive"
+    },
+    {
+      "name": "red_flags",
+      "content": "REDFLAGS: [title]\n- [red flag]\n- [red flag]",
+      "html": "REDFLAGS -> <div class=\"red-flags\"> with <h3> and <ul>",
+      "style": ".red-flags -> bordered, red accents, warning"
+    },
+    {
+      "name": "matchmaker_note",
+      "content": "MATCHMAKER: [a matchmaker's note about the topic]",
+      "html": "MATCHMAKER -> <blockquote class=\"matchmaker-note\"> with <cite>",
+      "style": ".matchmaker-note -> italic, bordered, professional"
+    },
+    {
+      "name": "contact_me",
+      "content": "CONTACTME: [a 'contact me' line]",
+      "html": "CONTACTME -> <p class=\"contact-me\">",
+      "style": ".contact-me -> bold, centered, flirty"
+    },
+    {
+      "name": "relationship_goals",
+      "content": "GOALS: [a 'relationship goals' line]",
+      "html": "GOALS -> <p class=\"relationship-goals\">",
+      "style": ".relationship-goals -> italic, centered, hopeful"
+    },
+    {
+      "name": "profile_prompt",
+      "content": "PROFILEPROMPT: [a 'two truths and a lie' prompt]",
+      "html": "PROFILEPROMPT -> <p class=\"profile-prompt\">",
+      "style": ".profile-prompt -> italic, bordered, playful"
+    }
+  ]
+}

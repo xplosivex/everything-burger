@@ -1,0 +1,105 @@
+{
+  "name": "airline safety card",
+  "content_styles": [
+    "Write like an airline safety card about the topic. A 'brace position', an 'oxygen masks' section, a 'life vest' section, and a 'do not' list. Voice is deadpan, instructional, and absurdly serious about nonsense.",
+    "Write like an in-flight safety announcement. A welcome, a 'fasten your seatbelt' note, a 'tray tables up' note, and a 'thank you for flying' closer. Voice is cheerful and robotic.",
+    "Write like a pre-flight briefing. A 'welcome aboard', a 'safety features' section, a 'in case of emergency' section, and a 'we hope you enjoy' closer. Voice is calm and slightly ominous."
+  ],
+  "layouts": [
+    "Build a safety card: a header, a 'brace position' section, an 'oxygen masks' section, a 'life vest' section, and a 'do not' list. One continuous card with diagrams.",
+    "Build a safety announcement: a header, a welcome, a 'fasten your seatbelt' note, a 'tray tables up' note, and a 'thank you' closer. One continuous announcement.",
+    "Build a briefing: a header, a 'welcome aboard', a 'safety features' section, an 'in case of emergency' section, and a 'we hope you enjoy' closer. One continuous briefing."
+  ],
+  "themes": [
+    "Safety card look: white background, red and blue accents, a clean sans-serif, and a diagram feel. Unified and instructional.",
+    "Airline look: navy background, white text, gold accents, and a polished sans-serif. Unified and premium.",
+    "Retro airline look: muted colors, a vintage font, and a nostalgic feel. Unified and retro."
+  ],
+  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "elements": [
+    {
+      "name": "brace_position",
+      "content": "BRACE: [a description of the 'brace position']",
+      "html": "BRACE -> <div class=\"brace-position\"> with <p>",
+      "style": ".brace-position -> bordered, diagram feel, instructional"
+    },
+    {
+      "name": "oxygen_masks",
+      "content": "OXYGEN: [an 'oxygen masks' instruction]",
+      "html": "OXYGEN -> <div class=\"oxygen-masks\"> with <p>",
+      "style": ".oxygen-masks -> bordered, diagram feel, instructional"
+    },
+    {
+      "name": "life_vest",
+      "content": "LIFEVEST: [a 'life vest' instruction]",
+      "html": "LIFEVEST -> <div class=\"life-vest\"> with <p>",
+      "style": ".life-vest -> bordered, diagram feel, instructional"
+    },
+    {
+      "name": "do_not_list",
+      "content": "DONOT: [title]\n- [do not]\n- [do not]",
+      "html": "DONOT -> <div class=\"do-not-list\"> with <h3> and <ul>",
+      "style": ".do-not-list -> bordered, red accents, instructional"
+    },
+    {
+      "name": "fasten_seatbelt",
+      "content": "SEATBELT: [a 'fasten your seatbelt' note]",
+      "html": "SEATBELT -> <p class=\"fasten-seatbelt\">",
+      "style": ".fasten-seatbelt -> bold, instructional, diagram feel"
+    },
+    {
+      "name": "tray_tables",
+      "content": "TRAY: [a 'tray tables up' note]",
+      "html": "TRAY -> <p class=\"tray-tables\">",
+      "style": ".tray-tables -> bold, instructional, diagram feel"
+    },
+    {
+      "name": "welcome_aboard",
+      "content": "WELCOME: [a 'welcome aboard' line]",
+      "html": "WELCOME -> <p class=\"welcome-aboard\">",
+      "style": ".welcome-aboard -> bold, centered, cheerful"
+    },
+    {
+      "name": "emergency_exits",
+      "content": "EXITS: [a description of the 'emergency exits']",
+      "html": "EXITS -> <p class=\"emergency-exits\">",
+      "style": ".emergency-exits -> bordered, diagram feel, instructional"
+    },
+    {
+      "name": "thank_you",
+      "content": "THANKYOU: [a 'thank you for flying' closer]",
+      "html": "THANKYOU -> <p class=\"thank-you\">",
+      "style": ".thank-you -> italic, centered, cheerful"
+    },
+    {
+      "name": "safety_features",
+      "content": "FEATURES: [title]\n- [feature]\n- [feature]",
+      "html": "FEATURES -> <div class=\"safety-features\"> with <h3> and <ul>",
+      "style": ".safety-features -> bordered, instructional, diagram feel"
+    },
+    {
+      "name": "flight_number",
+      "content": "FLIGHT: [a flight number]",
+      "html": "FLIGHT -> <p class=\"flight-number\">",
+      "style": ".flight-number -> small text, muted, corner"
+    },
+    {
+      "name": "card_footer",
+      "content": "CARDFOOTER: [a safety card footer]",
+      "html": "CARDFOOTER -> <p class=\"card-footer\">",
+      "style": ".card-footer -> small text, centered, muted"
+    },
+    {
+      "name": "in_case_of",
+      "content": "INCASE: [an 'in case of emergency' section]",
+      "html": "INCASE -> <section class=\"in-case-of\"> with <h2> and <p>",
+      "style": ".in-case-of -> standard section, instructional"
+    },
+    {
+      "name": "enjoy_flight",
+      "content": "ENJOY: [a 'we hope you enjoy' closer]",
+      "html": "ENJOY -> <p class=\"enjoy-flight\">",
+      "style": ".enjoy-flight -> italic, centered, warm"
+    }
+  ]
+}

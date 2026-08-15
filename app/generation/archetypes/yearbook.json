@@ -1,0 +1,118 @@
+{
+  "name": "yearbook page",
+  "content_styles": [
+    "Write like a high school yearbook. Superlatives ('Most Likely To...'), portrait captions, student quotes, and a class photo section. Voice is cheesy, nostalgic, and earnest about the topic.",
+    "Write like a college yearbook. 'Senior quotes', club photos, superlatives, and a 'where are they now' section. Voice is nostalgic and slightly self-aware about the absurdity.",
+    "Write like a middle school yearbook. Handwritten-feel messages, 'best friends forever' energy, superlatives, and a class photo section. Voice is earnest and adorable."
+  ],
+  "layouts": [
+    "Build a yearbook spread: a header with the year, a grid of 'portrait' image slots with captions, a superlatives list, and a quotes section. Two-column layout like a real yearbook page.",
+    "Build a yearbook page: a 'class of' header, a grid of portrait image slots, a superlatives list, and a senior quotes section. One continuous spread.",
+    "Build a yearbook section: a header, a photo grid, superlatives, quotes, and a 'memories' note. Flows as one nostalgic page."
+  ],
+  "themes": [
+    "Yearbook look: school colors (navy and gold), white background, bold sans-serif headings, portrait frames with borders, and a 'class of' banner. Unified and nostalgic.",
+    "College yearbook look: dark green and gold, white background, portrait frames, and a clean serif. Unified and collegiate.",
+    "Retro yearbook look: muted browns and oranges, white background, portrait frames, and a 70s font. Unified and vintage."
+  ],
+  "image_ranges": [
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      3,
+      5
+    ]
+  ],
+  "elements": [
+    {
+      "name": "superlatives",
+      "content": "SUPERLATIVES: [title]\n- [category]: [winner]\n- [category]: [winner]",
+      "html": "SUPERLATIVES -> <div class=\"superlatives\"> with <h3> and <ul>",
+      "style": ".superlatives -> gold award-list, ribbon accents, bold categories"
+    },
+    {
+      "name": "senior_quote",
+      "content": "SENIORQUOTE: [a 'senior quote' from the topic]",
+      "html": "SENIORQUOTE -> <blockquote class=\"senior-quote\"> with <cite>",
+      "style": ".senior-quote -> italic, centered, decorative quote marks"
+    },
+    {
+      "name": "portrait_caption",
+      "content": "PORTRAIT: [a caption for a 'portrait' image]",
+      "html": "PORTRAIT -> <figcaption class=\"portrait-caption\">",
+      "style": ".portrait-caption -> small text, bordered, name-tag feel"
+    },
+    {
+      "name": "club_photo",
+      "content": "CLUB: [a 'club photo' description with members]",
+      "html": "CLUB -> <figure class=\"club-photo\"> with <img> and <figcaption>",
+      "style": ".club-photo -> bordered frame, group-photo feel"
+    },
+    {
+      "name": "class_of",
+      "content": "CLASSOF: [a 'class of' banner line]",
+      "html": "CLASSOF -> <h2 class=\"class-of\">",
+      "style": ".class-of -> bold, centered, school colors"
+    },
+    {
+      "name": "memories",
+      "content": "MEMORIES: [a 'favorite memories' section]",
+      "html": "MEMORIES -> <section class=\"memories\"> with <h2> and <p>",
+      "style": ".memories -> warm background, nostalgic feel"
+    },
+    {
+      "name": "handwritten_note",
+      "content": "HANDWRITTEN: [a handwritten-feel message to the topic]",
+      "html": "HANDWRITTEN -> <p class=\"handwritten-note\">",
+      "style": ".handwritten-note -> handwriting font, warm accent"
+    },
+    {
+      "name": "where_are_they",
+      "content": "WHEREARE: [a 'where are they now' section]",
+      "html": "WHEREARE -> <div class=\"where-are-they\"> with <h3> and <ul>",
+      "style": ".where-are-they -> small text, bordered, nostalgic"
+    },
+    {
+      "name": "faculty_shoutout",
+      "content": "FACULTY: [a 'shoutout to faculty' line]",
+      "html": "FACULTY -> <p class=\"faculty-shoutout\">",
+      "style": ".faculty-shoutout -> small italic text, muted"
+    },
+    {
+      "name": "sports_section",
+      "content": "SPORTS: [a 'sports' section about the topic]",
+      "html": "SPORTS -> <section class=\"sports-section\"> with <h2> and <p>",
+      "style": ".sports-section -> school colors, bold headings"
+    },
+    {
+      "name": "best_friends",
+      "content": "BESTFRIENDS: [a 'best friends forever' dedication]",
+      "html": "BESTFRIENDS -> <p class=\"best-friends\">",
+      "style": ".best-friends -> handwritten font, hearts, warm"
+    },
+    {
+      "name": "yearbook_signature",
+      "content": "SIGNATURE: [a 'signature' line from the topic]",
+      "html": "SIGNATURE -> <p class=\"yearbook-signature\">",
+      "style": ".yearbook-signature -> script font, centered, personal"
+    },
+    {
+      "name": "candid_photo",
+      "content": "CANDID: [a 'candid photo' description]",
+      "html": "CANDID -> <figure class=\"candid-photo\"> with <img> and <figcaption>",
+      "style": ".candid-photo -> tilted frame, candid feel"
+    },
+    {
+      "name": "dedication_page",
+      "content": "DEDICATION: [a 'this yearbook is dedicated to' line]",
+      "html": "DEDICATION -> <p class=\"dedication-page\">",
+      "style": ".dedication-page -> centered, formal, gold accent"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "name": "infomercial",
+  "content_styles": [
+    "Write like a late-night infomercial. Problem, solution, 'but wait there's more!', testimonials, and a CALL NOW closer. Voice is hype-man energy, shouty, and desperate to sell the topic.",
+    "Write like a home shopping network pitch. A 'viewers at home' framing, a product demo, a 'call now' offer, and a 'operators standing by' closer. Voice is polished and relentless.",
+    "Write like a crowdfunding campaign pitch. A problem, a solution, stretch goals, backer testimonials, and a 'pledge now' closer. Voice is excited and slightly desperate."
+  ],
+  "layouts": [
+    "Build an infomercial page: a big product header, a problem section, a solution section, a 'but wait' callout, testimonial boxes, and a giant CALL NOW footer. Bold, loud, single flowing pitch.",
+    "Build a pitch page: a product header, a problem section, a demo section, a 'limited offer' box, testimonials, and a CALL NOW footer. One loud pitch.",
+    "Build a campaign page: a header, a problem section, a solution, stretch goal boxes, testimonials, and a 'pledge now' footer. One flowing pitch."
+  ],
+  "themes": [
+    "Infomercial look: bright yellow and red, black bold text, flashing-energy accents, big price tags, and a 'limited time' banner. One loud unified palette.",
+    "HSN look: bright blue and white, bold text, a 'call now' banner, and a clean sans-serif. Unified and polished.",
+    "Crowdfunding look: white background, a single bold accent color, progress-bar boxes, and a modern sans-serif. Unified and energetic."
+  ],
+  "image_ranges": [
+    [
+      2,
+      3
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "elements": [
+    {
+      "name": "call_now",
+      "content": "CALLNOW: [a 'CALL NOW' closer with a fake number]",
+      "html": "CALLNOW -> <div class=\"call-now\"> with <p>",
+      "style": ".call-now -> huge bold text, red/yellow, flashing feel"
+    },
+    {
+      "name": "but_wait",
+      "content": "BUTWAIT: [a 'but wait, there's more!' offer]",
+      "html": "BUTWAIT -> <div class=\"but-wait\"> with <p>",
+      "style": ".but-wait -> bold callout, bright border, excited"
+    },
+    {
+      "name": "testimonial",
+      "content": "TESTIMONIAL: [a fake customer testimonial]\nSOURCE: [fake customer]",
+      "html": "TESTIMONIAL -> <blockquote class=\"infomercial-testimonial\"> with <cite>",
+      "style": ".infomercial-testimonial -> italic, bordered, star accents"
+    },
+    {
+      "name": "problem_solution",
+      "content": "PROBLEM: [the 'problem' the topic solves]\nSOLUTION: [the 'solution']",
+      "html": "PROBLEM -> <div class=\"problem-solution\"> with two <p> blocks",
+      "style": ".problem-solution -> two-column, contrasting colors"
+    },
+    {
+      "name": "limited_time",
+      "content": "LIMITED: [a 'limited time offer' banner]",
+      "html": "LIMITED -> <div class=\"limited-time\"> with <p>",
+      "style": ".limited-time -> red banner, all-caps, urgent"
+    },
+    {
+      "name": "price_tag",
+      "content": "PRICE: [a dramatic price with a 'was' price]",
+      "html": "PRICE -> <p class=\"infomercial-price\">",
+      "style": ".infomercial-price -> huge bold price, strikethrough was-price"
+    },
+    {
+      "name": "bonus_offer",
+      "content": "BONUS: [a 'free bonus' offer]",
+      "html": "BONUS -> <div class=\"bonus-offer\"> with <p>",
+      "style": ".bonus-offer -> green box, bold, exciting"
+    },
+    {
+      "name": "operators_standing",
+      "content": "OPERATORS: [a 'operators are standing by' line]",
+      "html": "OPERATORS -> <p class=\"operators-standing\">",
+      "style": ".operators-standing -> small text, centered, urgent"
+    },
+    {
+      "name": "stretch_goal",
+      "content": "STRETCH: [a 'stretch goal' for the campaign]",
+      "html": "STRETCH -> <div class=\"stretch-goal\"> with <p>",
+      "style": ".stretch-goal -> progress-bar feel, bold"
+    },
+    {
+      "name": "demo_section",
+      "content": "DEMO: [a 'product demo' description]",
+      "html": "DEMO -> <section class=\"demo-section\"> with <h2> and <p>",
+      "style": ".demo-section -> bold heading, dramatic text"
+    },
+    {
+      "name": "guarantee",
+      "content": "GUARANTEE: [a 'money-back guarantee' line]",
+      "html": "GUARANTEE -> <p class=\"guarantee\">",
+      "style": ".guarantee -> bold, centered, official"
+    },
+    {
+      "name": "as_seen_on",
+      "content": "ASSEEN: [an 'as seen on TV' line]",
+      "html": "ASSEEN -> <p class=\"as-seen-on\">",
+      "style": ".as-seen-on -> small caps, centered, muted"
+    },
+    {
+      "name": "hurry",
+      "content": "HURRY: [a 'hurry, supplies are limited' line]",
+      "html": "HURRY -> <p class=\"hurry\">",
+      "style": ".hurry -> bold, red, urgent"
+    },
+    {
+      "name": "fine_print",
+      "content": "FINEPRINT: [absurd fine print at the bottom]",
+      "html": "FINEPRINT -> <p class=\"fine-print\">",
+      "style": ".fine-print -> tiny text, muted, legal feel"
+    }
+  ]
+}

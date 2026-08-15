@@ -32,12 +32,14 @@ CRITICAL:
 """
 
 
-def apply_styling(html: str, archetype: dict = None) -> str:
+def apply_styling(html: str, archetype: dict = None, modifiers: list = None) -> str:
     """Stage 3: Apply one unified Tailwind theme to the HTML."""
 
     if archetype is None:
         from app.generation.archetypes import select_archetype
         archetype = select_archetype()
+    if modifiers is None:
+        modifiers = []
 
     from app.generation.archetypes import build_element_style
     elements = build_element_style(archetype.get('params', {}).get('elements', []))
@@ -46,6 +48,9 @@ def apply_styling(html: str, archetype: dict = None) -> str:
     system = system.replace('{ARCHETYPE_THEME}', archetype['theme'])
     if elements:
         system = system.replace('=== THEME RULES ===', f'{elements}\n\n=== THEME RULES ===')
+    if modifiers:
+        modifier_section = '=== MODIFIERS (style these into the page) ===\n' + '\n'.join(f'- {m}' for m in modifiers) + '\n=== END MODIFIERS ==='
+        system = system.replace('=== THEME RULES ===', f'{modifier_section}\n\n=== THEME RULES ===')
 
     styled = complete(
         'styling',

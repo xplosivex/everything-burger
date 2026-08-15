@@ -1,0 +1,106 @@
+{
+  "name": "obituary",
+  "content_styles": [
+    "Write like an obituary for the topic. Born/died dates, a life summary, 'survived by' list, and a memorial note. Voice is solemn, respectful, and quietly funny about the absurdity.",
+    "Write like a celebrity obituary. A life in highlights, 'the world mourns' framing, quotes from 'friends', and a legacy note. Voice is grand and slightly overblown.",
+    "Write like a small-town newspaper obituary. A humble life summary, 'beloved by' list, a funeral note, and a 'in lieu of flowers' line. Voice is warm and plain."
+  ],
+  "layouts": [
+    "Build an obituary: a header with the name and dates, a portrait image slot, a life summary, a 'survived by' list, and a memorial footer. Single column, centered, bordered like a newspaper obituary.",
+    "Build an obituary: a header, a portrait image slot, a life summary, a 'survived by' list, and a memorial note. Single column, bordered.",
+    "Build a memorial: a header, a photo slot, a life summary, a 'beloved by' list, and a funeral note. Single column, centered."
+  ],
+  "themes": [
+    "Obituary look: white background, black serif text, a thin black border frame, a small portrait frame, and muted gray accents. Unified and somber.",
+    "Newspaper obituary look: off-white background, black serif text, a double border, and a small portrait frame. Unified and classic.",
+    "Memorial look: soft gray background, dark text, a bordered photo frame, and a serif font. Unified and gentle."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "life_summary",
+      "content": "LIFE: [a life summary of the topic]",
+      "html": "LIFE -> <p class=\"life-summary\">",
+      "style": ".life-summary -> serif, centered, somber"
+    },
+    {
+      "name": "survived_by",
+      "content": "SURVIVED: [title]\n- [survivor]\n- [survivor]",
+      "html": "SURVIVED -> <div class=\"survived-by\"> with <h3> and <ul>",
+      "style": ".survived-by -> small text, bordered, muted"
+    },
+    {
+      "name": "memorial_note",
+      "content": "MEMORIAL: [a memorial note about the topic]",
+      "html": "MEMORIAL -> <p class=\"memorial-note\">",
+      "style": ".memorial-note -> italic, centered, somber"
+    },
+    {
+      "name": "born_died",
+      "content": "DATES: [born date] - [died date]",
+      "html": "DATES -> <p class=\"born-died\">",
+      "style": ".born-died -> centered, serif, muted"
+    },
+    {
+      "name": "in_lieu",
+      "content": "INLIEU: [an 'in lieu of flowers' line]",
+      "html": "INLIEU -> <p class=\"in-lieu\">",
+      "style": ".in-lieu -> small italic text, muted"
+    },
+    {
+      "name": "funeral_arrangements",
+      "content": "FUNERAL: [funeral arrangement details]",
+      "html": "FUNERAL -> <p class=\"funeral-arrangements\">",
+      "style": ".funeral-arrangements -> small text, muted, formal"
+    },
+    {
+      "name": "legacy",
+      "content": "LEGACY: [a 'legacy' paragraph about the topic]",
+      "html": "LEGACY -> <p class=\"legacy\">",
+      "style": ".legacy -> serif, centered, warm"
+    },
+    {
+      "name": "world_mourns",
+      "content": "MOURNS: [a 'the world mourns' framing]",
+      "html": "MOURNS -> <p class=\"world-mourns\">",
+      "style": ".world-mourns -> bold, centered, dramatic"
+    },
+    {
+      "name": "friend_quote",
+      "content": "FRIEND: [a quote from a 'friend' of the topic]",
+      "html": "FRIEND -> <blockquote class=\"friend-quote\"> with <cite>",
+      "style": ".friend-quote -> italic, bordered, somber"
+    },
+    {
+      "name": "obituary_border",
+      "content": "OBITBORDER: [a decorative obituary border line]",
+      "html": "OBITBORDER -> <hr class=\"obituary-border\">",
+      "style": ".obituary-border -> thin black rule, centered"
+    },
+    {
+      "name": "guestbook",
+      "content": "GUESTBOOK: [a 'sign the guestbook' note]",
+      "html": "GUESTBOOK -> <p class=\"guestbook\">",
+      "style": ".guestbook -> small text, muted, formal"
+    },
+    {
+      "name": "charity_note",
+      "content": "CHARITY: [a 'donations to' line]",
+      "html": "CHARITY -> <p class=\"charity-note\">",
+      "style": ".charity-note -> small text, muted, formal"
+    }
+  ]
+}

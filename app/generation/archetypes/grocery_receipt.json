@@ -1,0 +1,105 @@
+{
+  "name": "grocery receipt",
+  "content_styles": [
+    "Write like a grocery store receipt about the topic. Itemized purchases, prices, a subtotal, a discount, and a total. Voice is dry, itemized, and absurdly specific about nonsense purchases.",
+    "Write like a CVS receipt. A long itemized list, a huge discount section, a 'savings' total, and a 'scan your card' note. Voice is corporate and absurdly long.",
+    "Write like a farmer's market receipt. Itemized purchases, handwritten prices, a total, and a 'thank you' note. Voice is warm and slightly chaotic."
+  ],
+  "layouts": [
+    "Build a receipt: a store header, an itemized list with prices, a subtotal, a discount, a total, and a footer. Single column, monospace, receipt feel.",
+    "Build a CVS receipt: a store header, a long itemized list, a discount section, a savings total, and a 'scan your card' footer. Single column, very long.",
+    "Build a market receipt: a header, itemized purchases, a total, and a 'thank you' note. Single column, handwritten feel."
+  ],
+  "themes": [
+    "Receipt look: white background, monospace text, a thermal-paper feel, and a plain sans-serif. Unified and itemized.",
+    "CVS look: white background, red accents, monospace text, and a very long feel. Unified and corporate.",
+    "Market look: cream background, handwritten-feel text, a warm accent, and a rustic feel. Unified and warm."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "itemized_purchase",
+      "content": "ITEM: [item]: [price]",
+      "html": "ITEM -> <p class=\"itemized-purchase\">",
+      "style": ".itemized-purchase -> monospace, dotted leaders, itemized"
+    },
+    {
+      "name": "subtotal",
+      "content": "SUBTOTAL: [a subtotal amount]",
+      "html": "SUBTOTAL -> <p class=\"subtotal\">",
+      "style": ".subtotal -> monospace, bold, right-aligned"
+    },
+    {
+      "name": "discount",
+      "content": "DISCOUNT: [a discount amount]",
+      "html": "DISCOUNT -> <p class=\"discount\">",
+      "style": ".discount -> monospace, red, right-aligned"
+    },
+    {
+      "name": "total",
+      "content": "TOTAL: [the grand total]",
+      "html": "TOTAL -> <p class=\"total\">",
+      "style": ".total -> monospace, huge bold, centered"
+    },
+    {
+      "name": "store_header",
+      "content": "STOREHEADER: [a store name and address]",
+      "html": "STOREHEADER -> <h2 class=\"store-header\">",
+      "style": ".store-header -> bold, centered, monospace"
+    },
+    {
+      "name": "savings_total",
+      "content": "SAVINGS: [a 'you saved' total]",
+      "html": "SAVINGS -> <p class=\"savings-total\">",
+      "style": ".savings-total -> bold, green, celebratory"
+    },
+    {
+      "name": "scan_card",
+      "content": "SCANCARD: [a 'scan your card' note]",
+      "html": "SCANCARD -> <p class=\"scan-card\">",
+      "style": ".scan-card -> small text, muted, corporate"
+    },
+    {
+      "name": "thank_you",
+      "content": "THANKYOU: [a 'thank you' note]",
+      "html": "THANKYOU -> <p class=\"thank-you\">",
+      "style": ".thank-you -> italic, centered, warm"
+    },
+    {
+      "name": "receipt_number",
+      "content": "RECEIPTNUM: [a receipt number]",
+      "html": "RECEIPTNUM -> <p class=\"receipt-number\">",
+      "style": ".receipt-number -> monospace, small, muted"
+    },
+    {
+      "name": "barcode",
+      "content": "BARCODE: [a barcode description]",
+      "html": "BARCODE -> <p class=\"barcode\">",
+      "style": ".barcode -> monospace, striped feel, muted"
+    },
+    {
+      "name": "coupon",
+      "content": "COUPON: [a coupon printed on the receipt]",
+      "html": "COUPON -> <p class=\"coupon\">",
+      "style": ".coupon -> dashed border, bold, promotional"
+    },
+    {
+      "name": "receipt_footer",
+      "content": "RECEIPTFOOTER: [a receipt footer line]",
+      "html": "RECEIPTFOOTER -> <p class=\"receipt-footer\">",
+      "style": ".receipt-footer -> small text, centered, muted"
+    },
+    {
+      "name": "item_count",
+      "content": "ITEMCOUNT: [a total item count]",
+      "html": "ITEMCOUNT -> <p class=\"item-count\">",
+      "style": ".item-count -> monospace, small, muted"
+    },
+    {
+      "name": "payment_method",
+      "content": "PAYMENT: [a payment method line]",
+      "html": "PAYMENT -> <p class=\"payment-method\">",
+      "style": ".payment-method -> monospace, small, muted"
+    }
+  ]
+}

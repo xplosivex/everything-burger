@@ -1,0 +1,105 @@
+{
+  "name": "cursed wiki how-to",
+  "content_styles": [
+    "Write like a wikiHow article about the topic. A title, a 'things you'll need' list, numbered steps, a 'tips' section, and a 'warnings' section. Voice is earnest, instructional, and completely wrong.",
+    "Write like a wikiHow article written by someone who has never done the thing. A title, a 'things you'll need' list, numbered steps that make no sense, and a 'community Q&A'. Voice is confident and clueless.",
+    "Write like a wikiHow article that has been vandalized. A title, a 'things you'll need' list, numbered steps with absurd insertions, and a 'warnings' section. Voice is instructional and increasingly unhinged."
+  ],
+  "layouts": [
+    "Build a wikiHow article: a title header, a 'things you'll need' list, numbered steps, a 'tips' section, and a 'warnings' section. One continuous article.",
+    "Build a wikiHow article: a title header, a 'things you'll need' list, numbered steps, a 'community Q&A', and a 'warnings' section. One continuous article.",
+    "Build a vandalized wikiHow: a title header, a 'things you'll need' list, numbered steps with absurd insertions, and a 'warnings' section. One continuous article."
+  ],
+  "themes": [
+    "wikiHow look: white background, green accents, a clean sans-serif, and a step-by-step feel. Unified and instructional.",
+    "Cursed wikiHow look: white background, green accents, slightly off-kilter headings, and a clean sans-serif. Unified and unsettling.",
+    "Vandalized look: white background, green accents, red insertions, and a clean sans-serif. Unified and chaotic."
+  ],
+  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "elements": [
+    {
+      "name": "things_you_need",
+      "content": "NEED: [title]\n- [item]\n- [item]",
+      "html": "NEED -> <div class=\"things-you-need\"> with <h3> and <ul>",
+      "style": ".things-you-need -> bordered, checklist feel, instructional"
+    },
+    {
+      "name": "numbered_steps",
+      "content": "STEP: [a numbered step]",
+      "html": "STEP -> <div class=\"numbered-step\"> with <p>",
+      "style": ".numbered-step -> numbered, bold, instructional"
+    },
+    {
+      "name": "tips",
+      "content": "TIPS: [title]\n- [tip]\n- [tip]",
+      "html": "TIPS -> <div class=\"tips\"> with <h3> and <ul>",
+      "style": ".tips -> bordered, green accents, helpful"
+    },
+    {
+      "name": "warnings",
+      "content": "WARNINGS: [title]\n- [warning]\n- [warning]",
+      "html": "WARNINGS -> <div class=\"warnings\"> with <h3> and <ul>",
+      "style": ".warnings -> bordered, red accents, urgent"
+    },
+    {
+      "name": "community_qa",
+      "content": "QA: [a community Q&A entry]",
+      "html": "QA -> <div class=\"community-qa\"> with <p>",
+      "style": ".community-qa -> indented, bordered, Q&A feel"
+    },
+    {
+      "name": "how_to_title",
+      "content": "HOWTOTITLE: [a 'How to X' title]",
+      "html": "HOWTOTITLE -> <h1 class=\"how-to-title\">",
+      "style": ".how-to-title -> bold, centered, instructional"
+    },
+    {
+      "name": "expert_quote",
+      "content": "EXPERT: [a quote from a 'wikiHow expert']",
+      "html": "EXPERT -> <blockquote class=\"expert-quote\"> with <cite>",
+      "style": ".expert-quote -> italic, bordered, authoritative"
+    },
+    {
+      "name": "vandal_insertion",
+      "content": "VANDAL: [an absurd insertion into the steps]",
+      "html": "VANDAL -> <p class=\"vandal-insertion\">",
+      "style": ".vandal-insertion -> red text, strikethrough accents"
+    },
+    {
+      "name": "related_articles",
+      "content": "RELATED: [title]\n- [related article]\n- [related article]",
+      "html": "RELATED -> <div class=\"related-articles\"> with <h3> and <ul>",
+      "style": ".related-articles -> small text, bordered, muted"
+    },
+    {
+      "name": "article_rating",
+      "content": "RATING: [a 'was this helpful' rating]",
+      "html": "RATING -> <p class=\"article-rating\">",
+      "style": ".article-rating -> small text, centered, muted"
+    },
+    {
+      "name": "step_image",
+      "content": "STEPIMAGE: [a description of a step image]",
+      "html": "STEPIMAGE -> <figure class=\"step-image\"> with <img> and <figcaption>",
+      "style": ".step-image -> framed, centered, instructional"
+    },
+    {
+      "name": "article_footer",
+      "content": "ARTICLEFOOTER: [a wikiHow footer]",
+      "html": "ARTICLEFOOTER -> <p class=\"article-footer\">",
+      "style": ".article-footer -> small text, centered, muted"
+    },
+    {
+      "name": "did_this_help",
+      "content": "DIDHELP: [a 'did this help you' closer]",
+      "html": "DIDHELP -> <p class=\"did-this-help\">",
+      "style": ".did-this-help -> italic, centered, friendly"
+    },
+    {
+      "name": "cursed_note",
+      "content": "CURSED: [a note that this article is cursed]",
+      "html": "CURSED -> <p class=\"cursed-note\">",
+      "style": ".cursed-note -> small text, italic, unsettling"
+    }
+  ]
+}

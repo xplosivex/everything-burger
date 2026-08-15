@@ -1,0 +1,118 @@
+{
+  "name": "court ruling",
+  "content_styles": [
+    "Write like a court ruling document. Case name, charges, evidence, verdict, and sentence. Voice is formal, legalistic, and deadpan about absurd charges related to the topic.",
+    "Write like a supreme court opinion. A case name, a 'we hold that' framing, majority reasoning, a dissenting opinion, and a ruling. Voice is grand and legalistic.",
+    "Write like a traffic court citation. A case number, the 'offense', the officer's account, the fine, and a 'you may appeal' note. Voice is bureaucratic and dry."
+  ],
+  "layouts": [
+    "Build a legal document: a case header, a charges list, an evidence section, a verdict box, and a sentence line. Single column, formal, with clear section headings.",
+    "Build a ruling: a case header, a 'we hold that' section, majority reasoning, a dissenting opinion box, and a ruling line. Single column, formal.",
+    "Build a citation: a case header, an offense list, an account section, a fine box, and an appeal note. Single column, bureaucratic."
+  ],
+  "themes": [
+    "Legal look: white paper, black serif text, a red seal accent, bold section headings, and thin rules between sections. Unified and official.",
+    "Supreme court look: cream paper, black serif text, a gold seal accent, and formal section headings. Unified and grand.",
+    "Bureaucratic look: white paper, black text, a red 'FINE' box, and a monospace case number. Unified and dry."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "charges",
+      "content": "CHARGES: [title]\n- [charge]\n- [charge]\n- [charge]",
+      "html": "CHARGES -> <div class=\"charges\"> with <h3> and <ul>",
+      "style": ".charges -> numbered, bold, legal feel"
+    },
+    {
+      "name": "verdict",
+      "content": "VERDICT: [the formal verdict]",
+      "html": "VERDICT -> <div class=\"verdict\"> with <p>",
+      "style": ".verdict -> bold, centered, red seal accent"
+    },
+    {
+      "name": "evidence",
+      "content": "EVIDENCE: [a description of the absurd evidence]",
+      "html": "EVIDENCE -> <section class=\"evidence\"> with <h2> and <p>",
+      "style": ".evidence -> standard section, formal heading"
+    },
+    {
+      "name": "case_number",
+      "content": "CASENUM: [a fake case number]",
+      "html": "CASENUM -> <p class=\"case-number\">",
+      "style": ".case-number -> monospace, small, muted"
+    },
+    {
+      "name": "sentence",
+      "content": "SENTENCE: [the absurd sentence handed down]",
+      "html": "SENTENCE -> <p class=\"sentence\">",
+      "style": ".sentence -> bold, centered, formal"
+    },
+    {
+      "name": "dissenting_opinion",
+      "content": "DISSENT: [a dissenting opinion from a 'judge']",
+      "html": "DISSENT -> <blockquote class=\"dissenting-opinion\"> with <cite>",
+      "style": ".dissenting-opinion -> italic, bordered, contrasting"
+    },
+    {
+      "name": "we_hold",
+      "content": "WEHOLD: [a 'we hold that' statement]",
+      "html": "WEHOLD -> <p class=\"we-hold\">",
+      "style": ".we-hold -> bold, centered, formal"
+    },
+    {
+      "name": "court_seal",
+      "content": "SEAL: [a description of the 'court seal']",
+      "html": "SEAL -> <p class=\"court-seal\">",
+      "style": ".court-seal -> centered, gold, formal"
+    },
+    {
+      "name": "appeal_note",
+      "content": "APPEAL: [a 'you may appeal' note]",
+      "html": "APPEAL -> <p class=\"appeal-note\">",
+      "style": ".appeal-note -> small text, muted, formal"
+    },
+    {
+      "name": "officer_account",
+      "content": "OFFICER: [the 'officer's account' of the offense]",
+      "html": "OFFICER -> <blockquote class=\"officer-account\"> with <cite>",
+      "style": ".officer-account -> italic, bordered, official"
+    },
+    {
+      "name": "fine_box",
+      "content": "FINE: [the absurd fine amount]",
+      "html": "FINE -> <div class=\"fine-box\"> with <p>",
+      "style": ".fine-box -> bold, red border, urgent"
+    },
+    {
+      "name": "legal_jargon",
+      "content": "JARGON: [a paragraph of dense legal jargon about the topic]",
+      "html": "JARGON -> <p class=\"legal-jargon\">",
+      "style": ".legal-jargon -> small text, dense, formal"
+    },
+    {
+      "name": "court_date",
+      "content": "COURTDATE: [a fake court date]",
+      "html": "COURTDATE -> <p class=\"court-date\">",
+      "style": ".court-date -> small text, muted, formal"
+    },
+    {
+      "name": "bail_ruling",
+      "content": "BAIL: [a 'bail is set at' line]",
+      "html": "BAIL -> <p class=\"bail-ruling\">",
+      "style": ".bail-ruling -> bold, centered, formal"
+    }
+  ]
+}

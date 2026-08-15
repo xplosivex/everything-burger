@@ -1,0 +1,118 @@
+{
+  "name": "email chain",
+  "content_styles": [
+    "Write like a corporate email chain about the topic. Threaded replies, escalating subject lines, 'RE: RE: RE:', and passive-aggressive sign-offs. Voice is corporate and increasingly desperate.",
+    "Write like a support ticket thread about the topic. A customer complaint, agent replies, escalation, and a resolution. Voice is frustrated and bureaucratic.",
+    "Write like a newsletter thread about the topic. A subject line, a 'you're receiving this because' note, content, and an unsubscribe footer. Voice is corporate and chipper."
+  ],
+  "layouts": [
+    "Build an email thread: a subject header, then indented reply blocks each with a sender, timestamp, and body. Replies nest deeper as the chain escalates. One continuous thread.",
+    "Build a ticket thread: a ticket header, a complaint, agent replies, and a resolution. Replies nest as one thread.",
+    "Build a newsletter: a subject header, a 'you're receiving this' note, content sections, and an unsubscribe footer. One continuous email."
+  ],
+  "themes": [
+    "Email look: white background, gray reply blocks with increasing indentation, blue links, a red 'RE:' accent, and a corporate sans-serif. Unified and bureaucratic.",
+    "Ticket look: white background, gray reply blocks, a red 'OPEN' badge, and a monospace ticket number. Unified and support-y.",
+    "Newsletter look: white background, a bold header, content sections, and a gray footer. Unified and corporate."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "reply_block",
+      "content": "REPLY: [sender]: [reply text]",
+      "html": "REPLY -> <div class=\"reply-block\"> with <p>",
+      "style": ".reply-block -> indented, gray background, email feel"
+    },
+    {
+      "name": "subject_line",
+      "content": "SUBJECT: [an escalating subject line]",
+      "html": "SUBJECT -> <h2 class=\"subject-line\">",
+      "style": ".subject-line -> bold, red RE: accent, email feel"
+    },
+    {
+      "name": "sign_off",
+      "content": "SIGNOFF: [a passive-aggressive sign-off]",
+      "html": "SIGNOFF -> <p class=\"sign-off\">",
+      "style": ".sign-off -> italic, muted, corporate"
+    },
+    {
+      "name": "attachment",
+      "content": "ATTACHMENT: [a fake attachment name]",
+      "html": "ATTACHMENT -> <p class=\"attachment\">",
+      "style": ".attachment -> small text, paperclip icon, muted"
+    },
+    {
+      "name": "cc_list",
+      "content": "CC: [a list of absurd CC'd people]",
+      "html": "CC -> <p class=\"cc-list\">",
+      "style": ".cc-list -> small text, muted, email feel"
+    },
+    {
+      "name": "forwarded_email",
+      "content": "FORWARDED: [a forwarded email chain]",
+      "html": "FORWARDED -> <div class=\"forwarded-email\"> with <p>",
+      "style": ".forwarded-email -> indented, bordered, chain feel"
+    },
+    {
+      "name": "ticket_number",
+      "content": "TICKET: [a fake support ticket number]",
+      "html": "TICKET -> <p class=\"ticket-number\">",
+      "style": ".ticket-number -> monospace, small, muted"
+    },
+    {
+      "name": "escalation",
+      "content": "ESCALATION: [an escalation notice]",
+      "html": "ESCALATION -> <div class=\"escalation\"> with <p>",
+      "style": ".escalation -> red box, bold, urgent"
+    },
+    {
+      "name": "unsubscribe",
+      "content": "UNSUBSCRIBE: [an unsubscribe footer]",
+      "html": "UNSUBSCRIBE -> <p class=\"unsubscribe\">",
+      "style": ".unsubscribe -> tiny text, muted, footer feel"
+    },
+    {
+      "name": "greeting",
+      "content": "GREETING: [a corporate email greeting]",
+      "html": "GREETING -> <p class=\"greeting\">",
+      "style": ".greeting -> small text, muted, email feel"
+    },
+    {
+      "name": "thread_depth",
+      "content": "THREAD: [a 'RE: RE: RE:' depth indicator]",
+      "html": "THREAD -> <p class=\"thread-depth\">",
+      "style": ".thread-depth -> small text, red, escalating"
+    },
+    {
+      "name": "auto_reply",
+      "content": "AUTOREPLY: [an auto-reply message]",
+      "html": "AUTOREPLY -> <div class=\"auto-reply\"> with <p>",
+      "style": ".auto-reply -> italic, bordered, robotic"
+    },
+    {
+      "name": "email_footer",
+      "content": "EMAILFOOTER: [a corporate email footer]",
+      "html": "EMAILFOOTER -> <p class=\"email-footer\">",
+      "style": ".email-footer -> tiny text, muted, legal feel"
+    },
+    {
+      "name": "resolved",
+      "content": "RESOLVED: [a 'ticket resolved' notice]",
+      "html": "RESOLVED -> <p class=\"resolved\">",
+      "style": ".resolved -> green text, bold, official"
+    }
+  ]
+}

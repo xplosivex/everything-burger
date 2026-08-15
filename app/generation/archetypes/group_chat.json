@@ -1,0 +1,118 @@
+{
+  "name": "group chat",
+  "content_styles": [
+    "Write like a chaotic group chat about the topic. Message bubbles, timestamps, reactions, and escalating drama. Voice is casual, fragmented, and increasingly unhinged.",
+    "Write like a Discord server about the topic. Usernames, message bubbles, emoji reactions, and a mod warning. Voice is gamer-casual and escalating.",
+    "Write like a family group chat about the topic. Message bubbles, reactions, forwarded chain messages, and a 'who is this?' moment. Voice is warm and chaotic."
+  ],
+  "layouts": [
+    "Build a chat log: a chat header, message bubbles alternating left and right with names and timestamps, reaction rows, and a typing indicator at the end. One continuous conversation.",
+    "Build a Discord log: a server header, message blocks with usernames, emoji reactions, and a pinned message. One continuous conversation.",
+    "Build a family chat: a group header, message bubbles, reactions, and forwarded messages. One continuous conversation."
+  ],
+  "themes": [
+    "Chat look: light gray background, blue and green message bubbles, dark text, small timestamps, and a phone-app feel. Unified and modern.",
+    "Discord look: dark background, colored username accents, message blocks, and a modern sans-serif. Unified and gamer.",
+    "iMessage look: white background, blue and green bubbles, and a clean sans-serif. Unified and familiar."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "message_bubble",
+      "content": "MESSAGE: [sender]: [message text]",
+      "html": "MESSAGE -> <div class=\"message-bubble\"> with <p>",
+      "style": ".message-bubble -> rounded bubble, blue/green, sender name"
+    },
+    {
+      "name": "reaction",
+      "content": "REACTION: [emoji reaction to a message]",
+      "html": "REACTION -> <p class=\"reaction\">",
+      "style": ".reaction -> small emoji row, muted, chat feel"
+    },
+    {
+      "name": "timestamp",
+      "content": "TIMESTAMP: [a chat timestamp]",
+      "html": "TIMESTAMP -> <p class=\"timestamp\">",
+      "style": ".timestamp -> tiny text, muted, centered"
+    },
+    {
+      "name": "typing_indicator",
+      "content": "TYPING: [a 'typing...' indicator]",
+      "html": "TYPING -> <p class=\"typing-indicator\">",
+      "style": ".typing-indicator -> animated dots, muted, chat feel"
+    },
+    {
+      "name": "mod_warning",
+      "content": "MODWARNING: [a moderator warning in the chat]",
+      "html": "MODWARNING -> <div class=\"mod-warning\"> with <p>",
+      "style": ".mod-warning -> red box, bold, urgent"
+    },
+    {
+      "name": "pinned_message",
+      "content": "PINNED: [a pinned message in the chat]",
+      "html": "PINNED -> <div class=\"pinned-message\"> with <p>",
+      "style": ".pinned-message -> bordered, pin icon, highlighted"
+    },
+    {
+      "name": "forwarded",
+      "content": "FORWARDED: [a forwarded chain message]",
+      "html": "FORWARDED -> <div class=\"forwarded\"> with <p>",
+      "style": ".forwarded -> italic, bordered, chain feel"
+    },
+    {
+      "name": "username",
+      "content": "USERNAME: [a chat username with a role color]",
+      "html": "USERNAME -> <p class=\"username\">",
+      "style": ".username -> bold, colored, chat feel"
+    },
+    {
+      "name": "voice_note",
+      "content": "VOICENOTE: [a 'voice note' transcript]",
+      "html": "VOICENOTE -> <div class=\"voice-note\"> with <p>",
+      "style": ".voice-note -> bordered, mic icon, chat feel"
+    },
+    {
+      "name": "image_share",
+      "content": "IMAGESHARE: [a shared image in the chat]",
+      "html": "IMAGESHARE -> <figure class=\"image-share\"> with <img> and <figcaption>",
+      "style": ".image-share -> rounded frame, chat feel"
+    },
+    {
+      "name": "group_name",
+      "content": "GROUPNAME: [the group chat name]",
+      "html": "GROUPNAME -> <h2 class=\"group-name\">",
+      "style": ".group-name -> bold, centered, chat header"
+    },
+    {
+      "name": "member_join",
+      "content": "JOIN: [a 'X joined the chat' line]",
+      "html": "JOIN -> <p class=\"member-join\">",
+      "style": ".member-join -> small text, centered, muted"
+    },
+    {
+      "name": "drama_escalation",
+      "content": "DRAMA: [an escalating dramatic message]",
+      "html": "DRAMA -> <p class=\"drama-escalation\">",
+      "style": ".drama-escalation -> bold, red accent, escalating"
+    },
+    {
+      "name": "who_is_this",
+      "content": "WHOIS: [a 'who is this?' moment in the chat]",
+      "html": "WHOIS -> <p class=\"who-is-this\">",
+      "style": ".who-is-this -> italic, muted, confused"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "name": "lost and found log",
+  "content_styles": [
+    "Write like a lost and found log about the topic. A log number, a 'lost item' description, a 'found location', a 'date', and a 'status'. Voice is dry, bureaucratic, and absurdly specific about nonsense items.",
+    "Write like a lost and found bulletin board. A 'lost' section, a 'found' section, a 'reward' note, and a 'contact' line. Voice is hopeful and slightly desperate.",
+    "Write like a lost and found bin inventory. A list of items, a 'condition' note, a 'date found', and a 'disposal date'. Voice is matter-of-fact and slightly sad."
+  ],
+  "layouts": [
+    "Build a lost and found log: a header, a log number, a 'lost item' description, a 'found location', a 'date', and a 'status'. One continuous log.",
+    "Build a bulletin board: a header, a 'lost' section, a 'found' section, a 'reward' note, and a 'contact' line. One continuous board.",
+    "Build a bin inventory: a header, a list of items, a 'condition' note, a 'date found', and a 'disposal date'. One continuous inventory."
+  ],
+  "themes": [
+    "Log look: white background, black text, a muted accent, and a monospace font. Unified and bureaucratic.",
+    "Bulletin look: corkboard background, paper notes, a warm accent, and a handwritten feel. Unified and hopeful.",
+    "Inventory look: white background, small text, a gray accent, and a clean sans-serif. Unified and matter-of-fact."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "log_number",
+      "content": "LOGNUM: [a log number]",
+      "html": "LOGNUM -> <p class=\"log-number\">",
+      "style": ".log-number -> monospace, small, muted"
+    },
+    {
+      "name": "lost_item",
+      "content": "LOST: [a description of the 'lost item']",
+      "html": "LOST -> <p class=\"lost-item\">",
+      "style": ".lost-item -> formal, plain, bureaucratic"
+    },
+    {
+      "name": "found_location",
+      "content": "LOCATION: [a 'found location']",
+      "html": "LOCATION -> <p class=\"found-location\">",
+      "style": ".found-location -> small text, muted, bureaucratic"
+    },
+    {
+      "name": "status",
+      "content": "STATUS: [a status: LOST/FOUND/CLAIMED/DISPOSED]",
+      "html": "STATUS -> <p class=\"status\">",
+      "style": ".status -> bold, colored, bureaucratic"
+    },
+    {
+      "name": "reward_note",
+      "content": "REWARD: [a 'reward offered' note]",
+      "html": "REWARD -> <p class=\"reward-note\">",
+      "style": ".reward-note -> bold, centered, hopeful"
+    },
+    {
+      "name": "contact_line",
+      "content": "CONTACT: [a 'contact' line]",
+      "html": "CONTACT -> <p class=\"contact-line\">",
+      "style": ".contact-line -> small text, centered, muted"
+    },
+    {
+      "name": "condition_note",
+      "content": "CONDITION: [a 'condition' note]",
+      "html": "CONDITION -> <p class=\"condition-note\">",
+      "style": ".condition-note -> small text, muted, matter-of-fact"
+    },
+    {
+      "name": "date_found",
+      "content": "DATEFOUND: [a 'date found']",
+      "html": "DATEFOUND -> <p class=\"date-found\">",
+      "style": ".date-found -> small text, muted, bureaucratic"
+    },
+    {
+      "name": "disposal_date",
+      "content": "DISPOSAL: [a 'disposal date']",
+      "html": "DISPOSAL -> <p class=\"disposal-date\">",
+      "style": ".disposal-date -> small text, muted, matter-of-fact"
+    },
+    {
+      "name": "claimant_note",
+      "content": "CLAIMANT: [a note about the 'claimant']",
+      "html": "CLAIMANT -> <p class=\"claimant-note\">",
+      "style": ".claimant-note -> italic, bordered, hopeful"
+    },
+    {
+      "name": "log_footer",
+      "content": "LOGFOOTER: [a lost and found footer]",
+      "html": "LOGFOOTER -> <p class=\"log-footer\">",
+      "style": ".log-footer -> small text, centered, muted"
+    },
+    {
+      "name": "unclaimed",
+      "content": "UNCLAIMED: [a 'unclaimed after 30 days' note]",
+      "html": "UNCLAIMED -> <p class=\"unclaimed\">",
+      "style": ".unclaimed -> small text, italic, muted"
+    },
+    {
+      "name": "found_item",
+      "content": "FOUND: [a description of a 'found item']",
+      "html": "FOUND -> <p class=\"found-item\">",
+      "style": ".found-item -> formal, plain, bureaucratic"
+    },
+    {
+      "name": "bin_number",
+      "content": "BINNUM: [a bin number]",
+      "html": "BINNUM -> <p class=\"bin-number\">",
+      "style": ".bin-number -> monospace, small, muted"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "name": "museum exhibit",
+  "content_styles": [
+    "Write like museum exhibit placards. Formal, hushed, educational tone describing the topic as a historical artifact. Each section is a placard with a title, description, and a 'specimen' detail line.",
+    "Write like a natural history museum guide. Each section is a 'specimen card' with a scientific-sounding name, a description, a habitat line, and a 'fun fact'. Voice is educational and quietly amused.",
+    "Write like a modern art museum placard. Pretentious, interpretive, and absurdly deep about the topic. Each section is a placard with a title, an 'artist statement', and a 'medium' line."
+  ],
+  "layouts": [
+    "Build a gallery: a museum header, then a series of placard cards each with a title, an image slot, a description, and a small caption. Arranged in a clean grid or single column with generous spacing.",
+    "Build a museum wing: a header, a floor-plan note, then specimen cards each with an image slot, a name, a description, and a detail line. Grid layout, one continuous exhibit.",
+    "Build an exhibit: a header, a 'gallery guide' intro, then numbered placards with image slots and captions. One continuous walkthrough."
+  ],
+  "themes": [
+    "Museum look: warm off-white walls, dark charcoal text, gold accent borders, serif headings, and a subtle 'exhibit number' label on each placard. Unified and elegant.",
+    "Natural history look: cream background, forest green accents, specimen cards with thin borders, and a serif font. Unified and scholarly.",
+    "Modern art look: white walls, black text, a single bold accent color, minimal placards, and lots of whitespace. Unified and gallery-clean."
+  ],
+  "image_ranges": [
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      2,
+      4
+    ]
+  ],
+  "elements": [
+    {
+      "name": "placard",
+      "content": "PLACARD: [title]\n[description of the 'artifact']",
+      "html": "PLACARD -> <div class=\"placard\"> with <h3> and <p>",
+      "style": ".placard -> bordered card, gold accent, serif"
+    },
+    {
+      "name": "specimen_card",
+      "content": "SPECIMEN: [name]\n[description]\nHABITAT: [fake habitat]",
+      "html": "SPECIMEN -> <div class=\"specimen-card\"> with <h3>, <p>, and a detail line",
+      "style": ".specimen-card -> bordered, scientific label, green accent"
+    },
+    {
+      "name": "exhibit_number",
+      "content": "EXHIBITNUM: [a fake exhibit number and wing]",
+      "html": "EXHIBITNUM -> <p class=\"exhibit-number\">",
+      "style": ".exhibit-number -> small caps, muted, museum label feel"
+    },
+    {
+      "name": "curator_note",
+      "content": "CURATOR: [a note from the 'curator']",
+      "html": "CURATOR -> <blockquote class=\"curator-note\"> with <cite>",
+      "style": ".curator-note -> italic, bordered, gold accent"
+    },
+    {
+      "name": "gallery_caption",
+      "content": "CAPTION: [a caption for an exhibit image]",
+      "html": "CAPTION -> <figcaption class=\"gallery-caption\">",
+      "style": ".gallery-caption -> small italic text, muted"
+    },
+    {
+      "name": "fun_fact",
+      "content": "FUNFACT: [a 'did you know' museum fact]",
+      "html": "FUNFACT -> <aside class=\"fun-fact\"> with <p>",
+      "style": ".fun-fact -> lightbulb icon, subtle background, rounded"
+    },
+    {
+      "name": "donor_plaque",
+      "content": "DONOR: [a fake donor plaque]",
+      "html": "DONOR -> <p class=\"donor-plaque\">",
+      "style": ".donor-plaque -> small centered text, gold, formal"
+    },
+    {
+      "name": "floor_plan",
+      "content": "FLOORPLAN: [a description of the exhibit layout]",
+      "html": "FLOORPLAN -> <p class=\"floor-plan\">",
+      "style": ".floor-plan -> small text, dashed border, map feel"
+    },
+    {
+      "name": "audio_guide",
+      "content": "AUDIO: [a 'press play for audio guide' transcript]",
+      "html": "AUDIO -> <div class=\"audio-guide\"> with <p>",
+      "style": ".audio-guide -> italic, bordered, play-button feel"
+    },
+    {
+      "name": "restoration_note",
+      "content": "RESTORATION: [a note about the 'restoration' of the artifact]",
+      "html": "RESTORATION -> <p class=\"restoration-note\">",
+      "style": ".restoration-note -> small text, muted, technical"
+    },
+    {
+      "name": "gift_shop",
+      "content": "GIFTSHOP: [a 'available in the gift shop' line]",
+      "html": "GIFTSHOP -> <p class=\"gift-shop\">",
+      "style": ".gift-shop -> small italic text, playful"
+    },
+    {
+      "name": "temporary_exhibit",
+      "content": "TEMPORARY: [a 'temporary exhibit' banner]",
+      "html": "TEMPORARY -> <div class=\"temporary-exhibit\"> with <p>",
+      "style": ".temporary-exhibit -> colored banner, bordered, notice feel"
+    },
+    {
+      "name": "provenance",
+      "content": "PROVENANCE: [a fake provenance history of the artifact]",
+      "html": "PROVENANCE -> <p class=\"provenance\">",
+      "style": ".provenance -> small text, muted, archival feel"
+    },
+    {
+      "name": "interactive_station",
+      "content": "INTERACTIVE: [a 'please touch' interactive station description]",
+      "html": "INTERACTIVE -> <div class=\"interactive-station\"> with <p>",
+      "style": ".interactive-station -> bordered, playful, hands-on feel"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "name": "wanted poster",
+  "content_styles": [
+    "Write like an Old West wanted poster. A dramatic description of the 'criminal' (the topic), a list of alleged crimes, a reward amount, and a stern warning. Voice is authoritative, dramatic, and slightly absurd.",
+    "Write like a modern FBI wanted poster. A 'most wanted' framing, a description of the 'fugitive' (the topic), aliases, known associates, and a 'do not approach' warning. Voice is clinical and dramatic.",
+    "Write like a pirate-era wanted notice. A dramatic description of the 'scoundrel' (the topic), a list of crimes against the crown, a bounty, and a warning about the scoundrel's tricks. Voice is theatrical and slightly unhinged."
+  ],
+  "layouts": [
+    "Build a centered poster: a huge WANTED title, a large image slot, a description block, a bulleted list of crimes, a reward line, and a footer warning. Everything centered on one page like a printed poster.",
+    "Build a wanted poster: a big WANTED header, a portrait image slot, a description, a 'known aliases' list, a reward box, and a footer warning. Centered, poster-style.",
+    "Build a notice: a WANTED banner, an image slot, a description, a numbered list of crimes, a reward line, and a 'contact' footer. One centered document."
+  ],
+  "themes": [
+    "Sepia Old West look: aged paper background, dark brown text, a bold black WANTED header, thin double borders, and a vintage serif font. One unified sepia palette.",
+    "Faded poster look: pale yellow paper, dark ink, a red WANTED stamp, rough borders, and a distressed vintage feel. Unified and weathered.",
+    "Modern FBI look: white background, black text, a red 'MOST WANTED' banner, a photo frame, and a clean sans-serif. Unified and official."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "elements": [
+    {
+      "name": "crimes_list",
+      "content": "CRIMES: [title]\n- [crime]\n- [crime]\n- [crime]",
+      "html": "CRIMES -> <div class=\"crimes-list\"> with <h3> and <ul>",
+      "style": ".crimes-list -> bulleted, bold crime names, sepia tones"
+    },
+    {
+      "name": "reward_box",
+      "content": "REWARD: [a dramatic reward amount]",
+      "html": "REWARD -> <div class=\"reward-box\"> with <p>",
+      "style": ".reward-box -> bold centered text, double border"
+    },
+    {
+      "name": "description",
+      "content": "DESCRIPTION: [a dramatic physical description of the 'criminal']",
+      "html": "DESCRIPTION -> <p class=\"poster-description\">",
+      "style": ".poster-description -> serif, centered, aged paper feel"
+    },
+    {
+      "name": "aliases",
+      "content": "ALIASES: [title]\n- [alias]\n- [alias]",
+      "html": "ALIASES -> <div class=\"aliases\"> with <h3> and <ul>",
+      "style": ".aliases -> small text, bordered, centered"
+    },
+    {
+      "name": "warning",
+      "content": "WARNING: [a stern 'do not approach' warning]",
+      "html": "WARNING -> <div class=\"poster-warning\"> with <p>",
+      "style": ".poster-warning -> bold, red or black, bordered"
+    },
+    {
+      "name": "last_seen",
+      "content": "LASTSEEN: [a 'last seen' location and date]",
+      "html": "LASTSEEN -> <p class=\"last-seen\">",
+      "style": ".last-seen -> small text, centered, muted"
+    },
+    {
+      "name": "contact_line",
+      "content": "CONTACT: [a 'contact the sheriff' line]",
+      "html": "CONTACT -> <p class=\"contact-line\">",
+      "style": ".contact-line -> small caps, centered, footer feel"
+    },
+    {
+      "name": "known_associates",
+      "content": "ASSOCIATES: [title]\n- [associate]\n- [associate]",
+      "html": "ASSOCIATES -> <div class=\"known-associates\"> with <h3> and <ul>",
+      "style": ".known-associates -> bordered list, small text"
+    },
+    {
+      "name": "bounty_stamp",
+      "content": "STAMP: [a dramatic 'BOUNTY' stamp line]",
+      "html": "STAMP -> <p class=\"bounty-stamp\">",
+      "style": ".bounty-stamp -> rotated red stamp text, bold"
+    },
+    {
+      "name": "poster_number",
+      "content": "POSTERNUM: [a fake poster serial number]",
+      "html": "POSTERNUM -> <p class=\"poster-number\">",
+      "style": ".poster-number -> tiny monospace text, corner placement"
+    },
+    {
+      "name": "sheriff_note",
+      "content": "SHERIFF: [a note from the 'sheriff' about the criminal]",
+      "html": "SHERIFF -> <blockquote class=\"sheriff-note\"> with <cite>",
+      "style": ".sheriff-note -> italic, bordered, official feel"
+    },
+    {
+      "name": "reward_terms",
+      "content": "TERMS: [the absurd terms of the reward]",
+      "html": "TERMS -> <p class=\"reward-terms\">",
+      "style": ".reward-terms -> small text, muted, legal feel"
+    }
+  ]
+}

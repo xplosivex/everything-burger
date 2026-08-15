@@ -1,0 +1,124 @@
+{
+  "name": "scientific paper",
+  "content_styles": [
+    "Write like a scientific paper about the topic. Abstract, methods, results, discussion, and footnotes. Voice is dry, formal, and absurdly rigorous about nonsense. Cite fake sources with fake author names.",
+    "Write like a peer-reviewed paper that somehow got published. Abstract, methods, results with a table, discussion, and a 'conflict of interest' note. Voice is formal and increasingly desperate to justify nonsense.",
+    "Write like a grant proposal for absurd research. Abstract, background, proposed methods, expected results, and a budget. Voice is academic and overly confident."
+  ],
+  "layouts": [
+    "Build a paper: a title header with authors, an abstract box, numbered sections (Introduction, Methods, Results, Discussion), a table for results, and a footnote/references section. One continuous academic document.",
+    "Build a paper: a title header, an abstract, numbered sections, a results table, a discussion, and a references list. Single column, continuous.",
+    "Build a grant proposal: a title header, an abstract, background sections, a methods section, a budget table, and a references list. One continuous document."
+  ],
+  "themes": [
+    "Academic look: white background, black serif text, blue section headings, double-spaced feel, and a subtle gray abstract box. Unified and scholarly.",
+    "Journal look: white background, black text, a single accent color for headings, a bordered abstract box, and a serif font. Unified and formal.",
+    "Preprint look: white background, monospace accents, a gray abstract box, and a clean sans-serif. Unified and modern."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "abstract",
+      "content": "ABSTRACT: [a formal abstract of the 'research']",
+      "html": "ABSTRACT -> <div class=\"abstract\"> with <h3> and <p>",
+      "style": ".abstract -> gray box, bordered, small text"
+    },
+    {
+      "name": "methods",
+      "content": "METHODS: [a description of the absurd 'methodology']",
+      "html": "METHODS -> <section class=\"methods\"> with <h2> and <p>",
+      "style": ".methods -> standard section, serif heading"
+    },
+    {
+      "name": "results_table",
+      "content": "RESULTS: [title]\n- [metric]: [fake value]\n- [metric]: [fake value]",
+      "html": "RESULTS -> <table class=\"results-table\"> with <thead>/<tbody>",
+      "style": ".results-table -> striped rows, bold header, bordered"
+    },
+    {
+      "name": "footnote",
+      "content": "FOOTNOTE: [a numbered footnote with a fake source]",
+      "html": "FOOTNOTE -> <p class=\"footnote\">",
+      "style": ".footnote -> small text, superscript number, muted"
+    },
+    {
+      "name": "citation",
+      "content": "CITATION: [a fake academic citation]",
+      "html": "CITATION -> <p class=\"citation\">",
+      "style": ".citation -> small text, hanging indent, muted"
+    },
+    {
+      "name": "discussion",
+      "content": "DISCUSSION: [a discussion section defending the nonsense]",
+      "html": "DISCUSSION -> <section class=\"discussion\"> with <h2> and <p>",
+      "style": ".discussion -> standard section, serif heading"
+    },
+    {
+      "name": "conflict_of_interest",
+      "content": "CONFLICT: [a 'conflict of interest' disclosure]",
+      "html": "CONFLICT -> <p class=\"conflict-of-interest\">",
+      "style": ".conflict-of-interest -> small text, muted, formal"
+    },
+    {
+      "name": "acknowledgments",
+      "content": "ACKNOWLEDGMENTS: [a thank-you note to absurd people]",
+      "html": "ACKNOWLEDGMENTS -> <p class=\"acknowledgments\">",
+      "style": ".acknowledgments -> small italic text, muted"
+    },
+    {
+      "name": "hypothesis",
+      "content": "HYPOTHESIS: [a formal statement of the absurd hypothesis]",
+      "html": "HYPOTHESIS -> <p class=\"hypothesis\">",
+      "style": ".hypothesis -> italic, centered, formal"
+    },
+    {
+      "name": "peer_review",
+      "content": "PEERREVIEW: [a 'peer review' comment on the paper]",
+      "html": "PEERREVIEW -> <blockquote class=\"peer-review\"> with <cite>",
+      "style": ".peer-review -> italic, bordered, critical feel"
+    },
+    {
+      "name": "appendix",
+      "content": "APPENDIX: [an appendix with absurd supplementary data]",
+      "html": "APPENDIX -> <section class=\"appendix\"> with <h2> and <p>",
+      "style": ".appendix -> smaller text, muted, technical"
+    },
+    {
+      "name": "keywords",
+      "content": "KEYWORDS: [title]\n- [keyword]\n- [keyword]",
+      "html": "KEYWORDS -> <p class=\"keywords\"> with <ul>",
+      "style": ".keywords -> small text, comma-separated, muted"
+    },
+    {
+      "name": "funding_note",
+      "content": "FUNDING: [a fake funding source]",
+      "html": "FUNDING -> <p class=\"funding-note\">",
+      "style": ".funding-note -> small text, muted, formal"
+    },
+    {
+      "name": "limitations",
+      "content": "LIMITATIONS: [a 'limitations' section admitting the nonsense]",
+      "html": "LIMITATIONS -> <section class=\"limitations\"> with <h2> and <p>",
+      "style": ".limitations -> standard section, apologetic tone"
+    },
+    {
+      "name": "data_availability",
+      "content": "DATA: [a 'data availability' statement]",
+      "html": "DATA -> <p class=\"data-availability\">",
+      "style": ".data-availability -> small text, muted, formal"
+    }
+  ]
+}

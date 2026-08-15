@@ -1,0 +1,130 @@
+{
+  "name": "retro game manual",
+  "content_styles": [
+    "Write like a retro video game instruction manual. Numbered sections, dramatic WARNING boxes, 'DO NOT' instructions, controller diagrams described in text, and an over-earnest voice explaining the topic as if it were a game mechanic.",
+    "Write like a 90s game manual written by someone who has never played the game. Over-excited descriptions of 'features', numbered controls, a story section, and a 'tips from the pros' section. Voice is earnest and wrong.",
+    "Write like a strategy guide for a game that doesn't exist. Numbered walkthrough steps, 'pro tip' boxes, a secrets section, and a voice that treats the topic as a game to be beaten."
+  ],
+  "layouts": [
+    "Build a manual: a cover header, numbered sections with headings, WARNING callout boxes, a diagram area (image slots), and a back-cover blurb. Flows as one document with clear section breaks.",
+    "Build a manual: a cover page header, a 'how to play' section, numbered controls, a story section, a WARNING box, and a tips section. One continuous document.",
+    "Build a strategy guide: a cover header, numbered walkthrough sections, pro tip boxes, a secrets list, and a back-cover blurb. Flows as one document."
+  ],
+  "themes": [
+    "Retro manual look: dark navy background, neon accent colors (cyan/magenta), bold blocky headings, yellow WARNING boxes. One unified arcade palette.",
+    "16-bit manual look: dark background, bright primary accents, pixel-style headings, bordered boxes, and a chunky feel. Unified and retro.",
+    "Strategy guide look: white background, blue headings, green 'pro tip' boxes, and a clean sans-serif. Unified and helpful."
+  ],
+  "image_ranges": [
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "controls",
+      "content": "CONTROLS: [title]\n- [button]: [action]\n- [button]: [action]",
+      "html": "CONTROLS -> <div class=\"controls\"> with <h3> and <ul>",
+      "style": ".controls -> bordered box, button-style items, neon accents"
+    },
+    {
+      "name": "warning_box",
+      "content": "WARNING: [a dramatic 'DO NOT' warning]",
+      "html": "WARNING -> <div class=\"manual-warning\"> with <p>",
+      "style": ".manual-warning -> yellow box, bold border, warning icon"
+    },
+    {
+      "name": "story_section",
+      "content": "STORY: [the 'story' of the game, absurdly epic]",
+      "html": "STORY -> <section class=\"game-story\"> with <h2> and <p>",
+      "style": ".game-story -> dramatic heading, atmospheric text"
+    },
+    {
+      "name": "pro_tip",
+      "content": "PROTIP: [a 'pro tip' for playing]",
+      "html": "PROTIP -> <div class=\"pro-tip\"> with <p>",
+      "style": ".pro-tip -> green box, lightbulb icon, bordered"
+    },
+    {
+      "name": "secrets",
+      "content": "SECRETS: [title]\n- [secret]\n- [secret]",
+      "html": "SECRETS -> <div class=\"secrets\"> with <h3> and <ul>",
+      "style": ".secrets -> hidden-feel box, dashed border, mystery styling"
+    },
+    {
+      "name": "level_guide",
+      "content": "LEVEL: [a numbered level walkthrough]",
+      "html": "LEVEL -> <div class=\"level-guide\"> with <h3> and <ol>",
+      "style": ".level-guide -> numbered steps, bold level numbers"
+    },
+    {
+      "name": "health_bar",
+      "content": "HEALTH: [a description of the topic's 'health' or stats]",
+      "html": "HEALTH -> <div class=\"health-bar\"> with <p>",
+      "style": ".health-bar -> progress-bar feel, green/red"
+    },
+    {
+      "name": "back_cover",
+      "content": "BACKCOVER: [a back-cover blurb selling the game]",
+      "html": "BACKCOVER -> <div class=\"back-cover\"> with <p>",
+      "style": ".back-cover -> bold, centered, dramatic"
+    },
+    {
+      "name": "cheat_codes",
+      "content": "CHEATS: [title]\n- [code]: [effect]\n- [code]: [effect]",
+      "html": "CHEATS -> <div class=\"cheat-codes\"> with <h3> and <ul>",
+      "style": ".cheat-codes -> monospace codes, bordered, secret feel"
+    },
+    {
+      "name": "multiplayer",
+      "content": "MULTIPLAYER: [a 'multiplayer' section about the topic]",
+      "html": "MULTIPLAYER -> <section class=\"multiplayer\"> with <h2> and <p>",
+      "style": ".multiplayer -> two-player feel, split accent colors"
+    },
+    {
+      "name": "difficulty",
+      "content": "DIFFICULTY: [a difficulty rating for the topic]",
+      "html": "DIFFICULTY -> <p class=\"difficulty\">",
+      "style": ".difficulty -> star or skull rating, bold"
+    },
+    {
+      "name": "manual_index",
+      "content": "INDEX: [title]\n- [section]: [page]\n- [section]: [page]",
+      "html": "INDEX -> <div class=\"manual-index\"> with <h3> and <ul>",
+      "style": ".manual-index -> two-column, dotted leaders, small text"
+    },
+    {
+      "name": "safety_note",
+      "content": "SAFETY: [an absurd safety warning about the topic]",
+      "html": "SAFETY -> <div class=\"safety-note\"> with <p>",
+      "style": ".safety-note -> bordered, small text, official feel"
+    },
+    {
+      "name": "game_over",
+      "content": "GAMEOVER: [a dramatic 'game over' closer]",
+      "html": "GAMEOVER -> <p class=\"game-over\">",
+      "style": ".game-over -> huge bold text, centered, dramatic"
+    },
+    {
+      "name": "high_score",
+      "content": "HIGHSCORE: [a fake high score table]",
+      "html": "HIGHSCORE -> <table class=\"high-score\"> with <thead>/<tbody>",
+      "style": ".high-score -> arcade table, bold scores, neon"
+    },
+    {
+      "name": "insert_coin",
+      "content": "INSERTCOIN: [a 'insert coin to continue' line]",
+      "html": "INSERTCOIN -> <p class=\"insert-coin\">",
+      "style": ".insert-coin -> blinking-feel text, centered, arcade"
+    }
+  ]
+}

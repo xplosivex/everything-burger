@@ -1,0 +1,105 @@
+{
+  "name": "cursed horoscope",
+  "content_styles": [
+    "Write like a horoscope column that has been cursed. Zodiac cards, predictions that are all slightly wrong, lucky numbers that are unlucky, and a warning. Voice is mystical and increasingly panicked.",
+    "Write like a horoscope written by a demon. Zodiac cards, ominous predictions, 'lucky' numbers that are cursed, and a 'you cannot escape' closer. Voice is sinister and theatrical.",
+    "Write like a horoscope that is trying to warn you. Zodiac cards, predictions that are warnings, lucky numbers that are deadlines, and a 'run' closer. Voice is urgent and cryptic."
+  ],
+  "layouts": [
+    "Build a cursed horoscope: a mystical header, zodiac cards with wrong predictions, unlucky numbers, and a warning. One continuous scroll.",
+    "Build a demon horoscope: a dark header, zodiac cards with ominous predictions, cursed numbers, and a 'you cannot escape' closer. One continuous scroll.",
+    "Build a warning horoscope: a header, zodiac cards with warning predictions, deadline numbers, and a 'run' closer. One continuous scroll."
+  ],
+  "themes": [
+    "Cursed look: dark purple background, red accents, a flickering feel, and a mystical serif. Unified and ominous.",
+    "Demon look: near-black background, red and gold accents, a gothic serif, and a sinister feel. Unified and theatrical.",
+    "Warning look: dark background, yellow warning accents, a bold sans-serif, and an urgent feel. Unified and alarming."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "cursed_prediction",
+      "content": "CURSEDPREDICTION: [a prediction that is slightly wrong]",
+      "html": "CURSEDPREDICTION -> <p class=\"cursed-prediction\">",
+      "style": ".cursed-prediction -> italic, centered, ominous"
+    },
+    {
+      "name": "unlucky_number",
+      "content": "UNLUCKY: [an unlucky number]",
+      "html": "UNLUCKY -> <p class=\"unlucky-number\">",
+      "style": ".unlucky-number -> bold, red, centered"
+    },
+    {
+      "name": "cursed_warning",
+      "content": "CURSEDWARNING: [a cursed warning]",
+      "html": "CURSEDWARNING -> <div class=\"cursed-warning\"> with <p>",
+      "style": ".cursed-warning -> red box, bold border, ominous"
+    },
+    {
+      "name": "you_cannot_escape",
+      "content": "CANNOTESCAPE: [a 'you cannot escape' closer]",
+      "html": "CANNOTESCAPE -> <p class=\"you-cannot-escape\">",
+      "style": ".you-cannot-escape -> bold, centered, sinister"
+    },
+    {
+      "name": "deadline_number",
+      "content": "DEADLINE: [a 'lucky number' that is a deadline]",
+      "html": "DEADLINE -> <p class=\"deadline-number\">",
+      "style": ".deadline-number -> bold, yellow, urgent"
+    },
+    {
+      "name": "run_closer",
+      "content": "RUN: [a 'run' closer]",
+      "html": "RUN -> <p class=\"run-closer\">",
+      "style": ".run-closer -> huge bold text, centered, urgent"
+    },
+    {
+      "name": "cursed_zodiac",
+      "content": "CURSEDZODIAC: [sign]: [a cursed reading]",
+      "html": "CURSEDZODIAC -> <div class=\"cursed-zodiac\"> with <h3> and <p>",
+      "style": ".cursed-zodiac -> bordered, red accents, ominous"
+    },
+    {
+      "name": "flicker_note",
+      "content": "FLICKER: [a 'the lights flicker' note]",
+      "html": "FLICKER -> <p class=\"flicker-note\">",
+      "style": ".flicker-note -> italic, muted, unsettling"
+    },
+    {
+      "name": "cursed_footer",
+      "content": "CURSEDFOOTER: [a cursed horoscope footer]",
+      "html": "CURSEDFOOTER -> <p class=\"cursed-footer\">",
+      "style": ".cursed-footer -> small text, centered, ominous"
+    },
+    {
+      "name": "whisper",
+      "content": "WHISPER: [a whispered message]",
+      "html": "WHISPER -> <p class=\"whisper\">",
+      "style": ".whisper -> italic, small, unsettling"
+    },
+    {
+      "name": "cursed_advice",
+      "content": "CURSEDADVICE: [cursed advice]",
+      "html": "CURSEDADVICE -> <p class=\"cursed-advice\">",
+      "style": ".cursed-advice -> italic, centered, ominous"
+    },
+    {
+      "name": "doom_countdown",
+      "content": "DOOM: [a 'doom countdown' line]",
+      "html": "DOOM -> <p class=\"doom-countdown\">",
+      "style": ".doom-countdown -> monospace, bold, urgent"
+    },
+    {
+      "name": "cursed_star",
+      "content": "CURSEDSTAR: [a 'cursed star' reading]",
+      "html": "CURSEDSTAR -> <p class=\"cursed-star\">",
+      "style": ".cursed-star -> centered, red accent, ominous"
+    },
+    {
+      "name": "last_warning",
+      "content": "LASTWARNING: [a 'last warning' line]",
+      "html": "LASTWARNING -> <p class=\"last-warning\">",
+      "style": ".last-warning -> bold, red, urgent"
+    }
+  ]
+}

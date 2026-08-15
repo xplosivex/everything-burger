@@ -1,0 +1,105 @@
+{
+  "name": "police report",
+  "content_styles": [
+    "Write like an official police incident report about the topic. A case number, an incident description, a list of 'parties involved', and an officer's narrative. Voice is deadpan, bureaucratic, and absurdly serious about nonsense.",
+    "Write like a detective's case file. A case number, a 'persons of interest' list, a timeline of events, and a detective's notes. Voice is terse, professional, and increasingly convinced the topic is a criminal mastermind.",
+    "Write like a 911 dispatch log about the topic. Timestamps, dispatcher notes, unit assignments, and a resolution. Voice is clipped, urgent, and absurdly calm about chaos."
+  ],
+  "layouts": [
+    "Build a police report: a case header with number and date, an incident description, a 'parties involved' list, an officer's narrative, and a signature line. Single column, official form layout.",
+    "Build a case file: a case header, a 'persons of interest' list, a timeline, detective's notes, and a 'status' box. Single column, official.",
+    "Build a dispatch log: a header, timestamped log entries, unit assignments, and a resolution line. Single column, monospace feel."
+  ],
+  "themes": [
+    "Police report look: white paper, black text, a blue header, monospace case number, and a formal sans-serif. Unified and official.",
+    "Case file look: manila folder background, black text, red 'CONFIDENTIAL' stamps, and a typewriter font. Unified and bureaucratic.",
+    "Dispatch look: dark background, green monospace text, timestamped entries, and a terminal feel. Unified and urgent."
+  ],
+  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "elements": [
+    {
+      "name": "case_number",
+      "content": "CASENUM: [a fake police case number]",
+      "html": "CASENUM -> <p class=\"case-number\">",
+      "style": ".case-number -> monospace, small, muted"
+    },
+    {
+      "name": "incident_description",
+      "content": "INCIDENT: [a deadpan description of the 'incident']",
+      "html": "INCIDENT -> <p class=\"incident-description\">",
+      "style": ".incident-description -> formal, plain, official"
+    },
+    {
+      "name": "parties_involved",
+      "content": "PARTIES: [title]\n- [party]: [role]\n- [party]: [role]",
+      "html": "PARTIES -> <div class=\"parties-involved\"> with <h3> and <ul>",
+      "style": ".parties-involved -> bordered list, bold names, official"
+    },
+    {
+      "name": "officer_narrative",
+      "content": "NARRATIVE: [the officer's account of events]",
+      "html": "NARRATIVE -> <p class=\"officer-narrative\">",
+      "style": ".officer-narrative -> formal, plain, indented"
+    },
+    {
+      "name": "signature_line",
+      "content": "SIGNATURE: [officer name] / [badge number]",
+      "html": "SIGNATURE -> <p class=\"signature-line\">",
+      "style": ".signature-line -> small text, right-aligned, formal"
+    },
+    {
+      "name": "persons_of_interest",
+      "content": "INTEREST: [title]\n- [person]\n- [person]",
+      "html": "INTEREST -> <div class=\"persons-of-interest\"> with <h3> and <ul>",
+      "style": ".persons-of-interest -> bordered, bold, case-file feel"
+    },
+    {
+      "name": "detective_notes",
+      "content": "DETECTIVENOTES: [a detective's handwritten-feel notes]",
+      "html": "DETECTIVENOTES -> <p class=\"detective-notes\">",
+      "style": ".detective-notes -> italic, bordered, case-file feel"
+    },
+    {
+      "name": "timeline",
+      "content": "TIMELINE: [title]\n- [time]: [event]\n- [time]: [event]",
+      "html": "TIMELINE -> <div class=\"police-timeline\"> with <h3> and <ul>",
+      "style": ".police-timeline -> vertical line, timestamps, staggered"
+    },
+    {
+      "name": "dispatch_entry",
+      "content": "DISPATCH: [time]: [dispatch note]",
+      "html": "DISPATCH -> <p class=\"dispatch-entry\">",
+      "style": ".dispatch-entry -> monospace, timestamped, terminal feel"
+    },
+    {
+      "name": "unit_assignment",
+      "content": "UNIT: [unit]: [assignment]",
+      "html": "UNIT -> <p class=\"unit-assignment\">",
+      "style": ".unit-assignment -> monospace, small, muted"
+    },
+    {
+      "name": "status_box",
+      "content": "STATUS: [case status: OPEN/CLOSED/UNSOLVED]",
+      "html": "STATUS -> <div class=\"status-box\"> with <p>",
+      "style": ".status-box -> bold, red or green, bordered"
+    },
+    {
+      "name": "evidence_log",
+      "content": "EVIDENCE: [title]\n- [item]: [description]\n- [item]: [description]",
+      "html": "EVIDENCE -> <div class=\"evidence-log\"> with <h3> and <ul>",
+      "style": ".evidence-log -> bordered, numbered, official"
+    },
+    {
+      "name": "witness_statement",
+      "content": "WITNESS: [a witness statement]\nSOURCE: [witness name]",
+      "html": "WITNESS -> <blockquote class=\"witness-statement\"> with <cite>",
+      "style": ".witness-statement -> italic, bordered, official"
+    },
+    {
+      "name": "confidential_stamp",
+      "content": "CONFIDENTIAL: [a 'CONFIDENTIAL' stamp line]",
+      "html": "CONFIDENTIAL -> <p class=\"confidential-stamp\">",
+      "style": ".confidential-stamp -> rotated red stamp text, bold"
+    }
+  ]
+}

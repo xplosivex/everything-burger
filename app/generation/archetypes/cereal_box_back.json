@@ -1,0 +1,105 @@
+{
+  "name": "cereal box back",
+  "content_styles": [
+    "Write like the back of a cereal box about the topic. A maze, a word search, a 'fun fact', a puzzle, and a prize offer. Voice is cheerful, educational, and absurdly enthusiastic.",
+    "Write like a cereal box side panel. A 'nutrition facts' table, a game, a 'collect all' offer, and a mascot's message. Voice is bright and slightly desperate.",
+    "Write like a cereal box contest entry form. A 'win a prize' offer, rules, a mail-in form, and a 'no purchase necessary' note. Voice is corporate and cheerful."
+  ],
+  "layouts": [
+    "Build a cereal box back: a header, a maze description, a word search, a 'fun fact', a puzzle, and a prize offer. One continuous panel.",
+    "Build a side panel: a header, a nutrition table, a game, a 'collect all' offer, and a mascot's message. One continuous panel.",
+    "Build a contest form: a header, a 'win a prize' offer, rules, a mail-in form, and a 'no purchase necessary' note. One continuous form."
+  ],
+  "themes": [
+    "Cereal look: bright primary colors, a bold mascot accent, a playful sans-serif, and a fun feel. Unified and breakfast-y.",
+    "Retro cereal look: muted 70s colors, a vintage mascot accent, a groovy font, and a nostalgic feel. Unified and retro.",
+    "Contest look: white background, red and blue accents, a bold sans-serif, and a corporate feel. Unified and official."
+  ],
+  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "elements": [
+    {
+      "name": "maze",
+      "content": "MAZE: [a description of a maze to solve]",
+      "html": "MAZE -> <div class=\"maze\"> with <p>",
+      "style": ".maze -> bordered, playful, puzzle feel"
+    },
+    {
+      "name": "word_search",
+      "content": "WORDSEARCH: [title]\n- [word]\n- [word]",
+      "html": "WORDSEARCH -> <div class=\"word-search\"> with <h3> and <ul>",
+      "style": ".word-search -> grid feel, bordered, playful"
+    },
+    {
+      "name": "fun_fact",
+      "content": "FUNFACT: [a cereal-box fun fact]",
+      "html": "FUNFACT -> <p class=\"fun-fact\">",
+      "style": ".fun-fact -> italic, playful, bright"
+    },
+    {
+      "name": "puzzle",
+      "content": "PUZZLE: [a puzzle description]",
+      "html": "PUZZLE -> <p class=\"puzzle\">",
+      "style": ".puzzle -> bordered, playful, puzzle feel"
+    },
+    {
+      "name": "prize_offer",
+      "content": "PRIZE: [a 'win a prize' offer]",
+      "html": "PRIZE -> <div class=\"prize-offer\"> with <p>",
+      "style": ".prize-offer -> bold, bright, exciting"
+    },
+    {
+      "name": "mascot_message",
+      "content": "MASCOT: [the mascot's message]",
+      "html": "MASCOT -> <blockquote class=\"mascot-message\"> with <cite>",
+      "style": ".mascot-message -> italic, bold, playful"
+    },
+    {
+      "name": "nutrition_facts",
+      "content": "NUTRITION: [a nutrition facts table]",
+      "html": "NUTRITION -> <table class=\"nutrition-facts\"> with <tbody>",
+      "style": ".nutrition-facts -> small table, bordered, label feel"
+    },
+    {
+      "name": "collect_all",
+      "content": "COLLECT: [a 'collect all' offer]",
+      "html": "COLLECT -> <p class=\"collect-all\">",
+      "style": ".collect-all -> bold, bright, exciting"
+    },
+    {
+      "name": "contest_rules",
+      "content": "RULES: [title]\n- [rule]\n- [rule]",
+      "html": "RULES -> <div class=\"contest-rules\"> with <h3> and <ul>",
+      "style": ".contest-rules -> small text, bordered, corporate"
+    },
+    {
+      "name": "mail_in_form",
+      "content": "MAILIN: [a mail-in form description]",
+      "html": "MAILIN -> <p class=\"mail-in-form\">",
+      "style": ".mail-in-form -> bordered, form feel, corporate"
+    },
+    {
+      "name": "no_purchase",
+      "content": "NOPURCHASE: [a 'no purchase necessary' note]",
+      "html": "NOPURCHASE -> <p class=\"no-purchase\">",
+      "style": ".no-purchase -> tiny text, muted, legal feel"
+    },
+    {
+      "name": "cereal_footer",
+      "content": "CEREALFOOTER: [a cereal box footer]",
+      "html": "CEREALFOOTER -> <p class=\"cereal-footer\">",
+      "style": ".cereal-footer -> small text, centered, muted"
+    },
+    {
+      "name": "ingredients",
+      "content": "INGREDIENTS: [a fake ingredients list]",
+      "html": "INGREDIENTS -> <p class=\"ingredients\">",
+      "style": ".ingredients -> small text, muted, label feel"
+    },
+    {
+      "name": "serving_suggestion",
+      "content": "SERVING: [a 'serving suggestion' line]",
+      "html": "SERVING -> <p class=\"serving-suggestion\">",
+      "style": ".serving-suggestion -> small italic text, muted"
+    }
+  ]
+}

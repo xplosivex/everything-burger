@@ -1,0 +1,118 @@
+{
+  "name": "resume",
+  "content_styles": [
+    "Write like a resume for the topic. Objective, experience, skills, and references. Voice is professional, buzzword-heavy, and absurdly qualified for nonsense.",
+    "Write like a cover letter for the topic. A greeting, a 'why I'm perfect' section, experience highlights, and a sign-off. Voice is eager and overqualified.",
+    "Write like a LinkedIn profile for the topic. A headline, an about section, experience, skills, and endorsements. Voice is professional and self-promoting."
+  ],
+  "layouts": [
+    "Build a resume: a header with name and contact, an objective section, an experience list, a skills list, and a references section. Single column, clean, professional document.",
+    "Build a cover letter: a header, a greeting, a 'why me' section, experience highlights, and a sign-off. Single column, professional.",
+    "Build a profile: a header, an about section, an experience list, a skills list, and endorsements. Single column, clean."
+  ],
+  "themes": [
+    "Resume look: white background, dark gray text, a single accent color for headings, clean sans-serif, and thin section rules. Unified and professional.",
+    "Modern resume look: white background, a bold accent color, clean sans-serif, and a two-tone header. Unified and contemporary.",
+    "Classic resume look: white background, black text, serif headings, and thin rules. Unified and traditional."
+  ],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
+  "elements": [
+    {
+      "name": "objective",
+      "content": "OBJECTIVE: [a buzzword-heavy objective statement]",
+      "html": "OBJECTIVE -> <p class=\"objective\">",
+      "style": ".objective -> italic, centered, professional"
+    },
+    {
+      "name": "experience",
+      "content": "EXPERIENCE: [title]\n- [role]: [absurd achievement]\n- [role]: [absurd achievement]",
+      "html": "EXPERIENCE -> <div class=\"experience\"> with <h3> and <ul>",
+      "style": ".experience -> bordered, bold roles, professional"
+    },
+    {
+      "name": "skills",
+      "content": "SKILLS: [title]\n- [skill]\n- [skill]",
+      "html": "SKILLS -> <div class=\"skills\"> with <h3> and <ul>",
+      "style": ".skills -> tag-style items, bordered, clean"
+    },
+    {
+      "name": "references",
+      "content": "REFERENCES: [title]\n- [reference]\n- [reference]",
+      "html": "REFERENCES -> <div class=\"references\"> with <h3> and <ul>",
+      "style": ".references -> small text, muted, professional"
+    },
+    {
+      "name": "contact_info",
+      "content": "CONTACT: [a fake contact line]",
+      "html": "CONTACT -> <p class=\"contact-info\">",
+      "style": ".contact-info -> small text, centered, muted"
+    },
+    {
+      "name": "education",
+      "content": "EDUCATION: [a fake education entry]",
+      "html": "EDUCATION -> <p class=\"education\">",
+      "style": ".education -> small text, muted, professional"
+    },
+    {
+      "name": "achievements",
+      "content": "ACHIEVEMENTS: [title]\n- [achievement]\n- [achievement]",
+      "html": "ACHIEVEMENTS -> <div class=\"achievements\"> with <h3> and <ul>",
+      "style": ".achievements -> bordered, bold, award feel"
+    },
+    {
+      "name": "summary",
+      "content": "SUMMARY: [a professional summary paragraph]",
+      "html": "SUMMARY -> <p class=\"summary\">",
+      "style": ".summary -> italic, professional, clean"
+    },
+    {
+      "name": "certifications",
+      "content": "CERTIFICATIONS: [title]\n- [certification]\n- [certification]",
+      "html": "CERTIFICATIONS -> <div class=\"certifications\"> with <h3> and <ul>",
+      "style": ".certifications -> small text, bordered, clean"
+    },
+    {
+      "name": "volunteer",
+      "content": "VOLUNTEER: [a volunteer experience entry]",
+      "html": "VOLUNTEER -> <p class=\"volunteer\">",
+      "style": ".volunteer -> small text, muted, professional"
+    },
+    {
+      "name": "languages",
+      "content": "LANGUAGES: [title]\n- [language]\n- [language]",
+      "html": "LANGUAGES -> <div class=\"languages\"> with <h3> and <ul>",
+      "style": ".languages -> small text, bordered, clean"
+    },
+    {
+      "name": "interests",
+      "content": "INTERESTS: [title]\n- [interest]\n- [interest]",
+      "html": "INTERESTS -> <div class=\"interests\"> with <h3> and <ul>",
+      "style": ".interests -> small text, bordered, playful"
+    },
+    {
+      "name": "signature",
+      "content": "SIGNATURE: [a 'sincerely' sign-off]",
+      "html": "SIGNATURE -> <p class=\"signature\">",
+      "style": ".signature -> script font, centered, formal"
+    },
+    {
+      "name": "headline",
+      "content": "HEADLINE: [a LinkedIn-style headline]",
+      "html": "HEADLINE -> <p class=\"headline\">",
+      "style": ".headline -> bold, centered, professional"
+    }
+  ]
+}

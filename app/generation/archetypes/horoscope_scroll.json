@@ -1,0 +1,118 @@
+{
+  "name": "horoscope scroll",
+  "content_styles": [
+    "Write like a horoscope column. Zodiac cards, lucky numbers, mystical predictions, and cosmic warnings. Voice is mystical, vague, and confidently nonsensical about the topic.",
+    "Write like a fortune teller's reading. A 'the cards say' framing, predictions, lucky numbers, and a warning. Voice is mysterious and dramatic.",
+    "Write like a cosmic newsletter. A 'this week in the stars' framing, zodiac predictions, a cosmic warning, and a 'blessed be' closer. Voice is spiritual and chatty."
+  ],
+  "layouts": [
+    "Build a horoscope page: a mystical header, a row of zodiac cards each with a sign, prediction, and lucky number, and a cosmic footer. Cards flow as one scroll.",
+    "Build a reading: a mystical header, a 'the cards say' section, prediction cards, a lucky numbers list, and a warning box. One continuous scroll.",
+    "Build a cosmic newsletter: a header, zodiac sections, a cosmic warning, and a 'blessed be' footer. One flowing scroll."
+  ],
+  "themes": [
+    "Mystical look: deep purple and indigo background, gold and star accents, serif headings, and a starry night feel. One unified cosmic palette.",
+    "Tarot look: dark background, gold accents, card borders, and a mystical serif. Unified and mysterious.",
+    "Cosmic look: navy background, silver and white accents, star patterns, and a clean sans-serif. Unified and celestial."
+  ],
+  "image_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "zodiac_card",
+      "content": "ZODIAC: [sign]\n[prediction for the sign]",
+      "html": "ZODIAC -> <div class=\"zodiac-card\"> with <h3> and <p>",
+      "style": ".zodiac-card -> bordered card, star accents, mystical"
+    },
+    {
+      "name": "lucky_numbers",
+      "content": "LUCKY: [title]\n- [number]\n- [number]",
+      "html": "LUCKY -> <div class=\"lucky-numbers\"> with <h3> and <ul>",
+      "style": ".lucky-numbers -> gold numbers, bordered, mystical"
+    },
+    {
+      "name": "cosmic_warning",
+      "content": "COSMICWARNING: [a vague cosmic warning]",
+      "html": "COSMICWARNING -> <div class=\"cosmic-warning\"> with <p>",
+      "style": ".cosmic-warning -> purple box, gold border, ominous"
+    },
+    {
+      "name": "prediction",
+      "content": "PREDICTION: [a vague mystical prediction]",
+      "html": "PREDICTION -> <p class=\"prediction\">",
+      "style": ".prediction -> italic, centered, mystical"
+    },
+    {
+      "name": "the_cards_say",
+      "content": "CARDS: [a 'the cards say' reading]",
+      "html": "CARDS -> <p class=\"the-cards-say\">",
+      "style": ".the-cards-say -> bold, centered, tarot feel"
+    },
+    {
+      "name": "blessed_be",
+      "content": "BLESSED: [a 'blessed be' closer]",
+      "html": "BLESSED -> <p class=\"blessed-be\">",
+      "style": ".blessed-be -> italic, centered, spiritual"
+    },
+    {
+      "name": "moon_phase",
+      "content": "MOON: [a moon phase reading]",
+      "html": "MOON -> <p class=\"moon-phase\">",
+      "style": ".moon-phase -> centered, celestial, muted"
+    },
+    {
+      "name": "compatibility",
+      "content": "COMPATIBILITY: [a compatibility reading]",
+      "html": "COMPATIBILITY -> <p class=\"compatibility\">",
+      "style": ".compatibility -> centered, heart accent, mystical"
+    },
+    {
+      "name": "cosmic_advice",
+      "content": "ADVICE: [vague cosmic advice]",
+      "html": "ADVICE -> <p class=\"cosmic-advice\">",
+      "style": ".cosmic-advice -> italic, centered, wise"
+    },
+    {
+      "name": "star_sign",
+      "content": "STARSIGN: [a 'your star sign' line]",
+      "html": "STARSIGN -> <p class=\"star-sign\">",
+      "style": ".star-sign -> bold, centered, gold"
+    },
+    {
+      "name": "retrograde",
+      "content": "RETROGRADE: [a 'mercury retrograde' warning]",
+      "html": "RETROGRADE -> <p class=\"retrograde\">",
+      "style": ".retrograde -> bold, red accent, urgent"
+    },
+    {
+      "name": "cosmic_newsletter",
+      "content": "NEWSLETTER: [a 'this week in the stars' intro]",
+      "html": "NEWSLETTER -> <p class=\"cosmic-newsletter\">",
+      "style": ".cosmic-newsletter -> italic, centered, chatty"
+    },
+    {
+      "name": "tarot_spread",
+      "content": "TAROT: [a tarot card reading]",
+      "html": "TAROT -> <div class=\"tarot-spread\"> with <p>",
+      "style": ".tarot-spread -> bordered, card feel, mystical"
+    },
+    {
+      "name": "cosmic_footer",
+      "content": "COSMICFOOTER: [a cosmic sign-off line]",
+      "html": "COSMICFOOTER -> <p class=\"cosmic-footer\">",
+      "style": ".cosmic-footer -> small text, centered, muted"
+    }
+  ]
+}

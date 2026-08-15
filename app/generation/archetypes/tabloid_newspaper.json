@@ -1,0 +1,130 @@
+{
+  "name": "tabloid newspaper",
+  "content_styles": [
+    "Write like a screaming tabloid front page. Shouty all-caps headlines, breathless EXCLUSIVE boxes, dramatic subheads, and a gossipy voice that treats the topic as the scandal of the century. Short punchy paragraphs, pull-quotes, and a 'sources say' energy throughout.",
+    "Write like a sleazy celebrity gossip rag. A scandalous lead story, italicized 'insider' quotes, a 'you won't believe' framing, and a breathless voice that treats the topic as a celebrity meltdown. Short paragraphs, bold subheads, and a 'sources close to the topic' energy.",
+    "Write like a supermarket checkout tabloid. A wild headline, a 'world exclusive' claim, numbered 'shocking facts', and a voice that is conspiratorial and thrilled. Every section should feel like it's one step from a UFO headline."
+  ],
+  "layouts": [
+    "Build a newspaper front page: a giant masthead header, a bold lead headline, multi-column body text (CSS columns), an EXCLUSIVE sidebar box, and a footer with a fake edition line. Content flows as one continuous article.",
+    "Build a tabloid spread: a huge screaming headline, a lead image slot, two-column body text, a 'world exclusive' callout box, and a footer with a fake price and date. One continuous front page.",
+    "Build a newspaper page: a masthead, a banner headline, a three-column body with a pull-quote box in the middle, a sidebar 'related scandal' box, and a footer. Flows as one article."
+  ],
+  "themes": [
+    "Newsprint look: off-white paper background, black serif headlines, red accent for EXCLUSIVE boxes, thin black rules between columns. One unified newspaper palette.",
+    "Cheap tabloid look: bright yellow background, black bold headlines, red and blue accent boxes, a slightly grainy paper feel, and a bold sans-serif for headlines. Unified and loud.",
+    "Retro newspaper look: cream paper, dark brown ink, a red masthead, serif body text, and thin column rules. Unified and vintage."
+  ],
+  "image_ranges": [
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      1,
+      3
+    ]
+  ],
+  "elements": [
+    {
+      "name": "exclusive_box",
+      "content": "EXCLUSIVE: [a scandalous claim presented as a world exclusive]",
+      "html": "EXCLUSIVE -> <div class=\"exclusive-box\"> with a bold red label and text",
+      "style": ".exclusive-box -> red border, bold label, dramatic background"
+    },
+    {
+      "name": "screaming_headline",
+      "content": "HEADLINE: [ALL-CAPS SHOUTY HEADLINE]",
+      "html": "HEADLINE -> <h2 class=\"screaming-headline\">",
+      "style": ".screaming-headline -> huge bold uppercase text, red accent"
+    },
+    {
+      "name": "insider_quote",
+      "content": "INSIDER: [quote from a 'source close to the topic']\nSOURCE: [anonymous insider]",
+      "html": "INSIDER -> <blockquote class=\"insider-quote\"> with <cite>",
+      "style": ".insider-quote -> italic, decorative quote marks, subtle background"
+    },
+    {
+      "name": "shocking_facts",
+      "content": "SHOCKING: [title]\n- [shocking fact]\n- [shocking fact]\n- [shocking fact]",
+      "html": "SHOCKING -> <div class=\"shocking-facts\"> with <h3> and <ul>",
+      "style": ".shocking-facts -> numbered bold items, red numbers"
+    },
+    {
+      "name": "gossip_column",
+      "content": "GOSSIP: [a paragraph of breathless gossip about the topic]",
+      "html": "GOSSIP -> <div class=\"gossip-column\"> with <p>",
+      "style": ".gossip-column -> italic text, dashed left border"
+    },
+    {
+      "name": "page_three",
+      "content": "PAGETHREE: [a wild, slightly unhinged sidebar story]",
+      "html": "PAGETHREE -> <aside class=\"page-three\"> with <p>",
+      "style": ".page-three -> offset sidebar, bold border, loud background"
+    },
+    {
+      "name": "sources_say",
+      "content": "SOURCESSAY: [a claim attributed to 'sources']",
+      "html": "SOURCESSAY -> <p class=\"sources-say\">",
+      "style": ".sources-say -> small caps, muted color, centered"
+    },
+    {
+      "name": "scandal_timeline",
+      "content": "TIMELINE: [title]\n- [date]: [scandal beat]\n- [date]: [scandal beat]",
+      "html": "TIMELINE -> <div class=\"scandal-timeline\"> with <h3> and <ul>",
+      "style": ".scandal-timeline -> vertical line with dots, staggered entries"
+    },
+    {
+      "name": "you_wont_believe",
+      "content": "WONTBELIEVE: [a 'you won't believe' teaser paragraph]",
+      "html": "WONTBELIEVE -> <p class=\"wont-believe\">",
+      "style": ".wont-believe -> bold, centered, dramatic spacing"
+    },
+    {
+      "name": "editorial_rant",
+      "content": "RANT: [an escalating editorial rant about the topic]",
+      "html": "RANT -> <div class=\"editorial-rant\"> with <p>",
+      "style": ".editorial-rant -> escalating text size, angry red accents"
+    },
+    {
+      "name": "celebrity_angle",
+      "content": "CELEB: [the topic framed as a celebrity story]",
+      "html": "CELEB -> <div class=\"celebrity-angle\"> with <p>",
+      "style": ".celebrity-angle -> gold accents, paparazzi feel"
+    },
+    {
+      "name": "poll_man_on_street",
+      "content": "STREETPOLL: [title]\n- [option]: [percent]%\n- [option]: [percent]%",
+      "html": "STREETPOLL -> <div class=\"street-poll\"> with <h3> and <ul>",
+      "style": ".street-poll -> bar-style percentages, bold colors"
+    },
+    {
+      "name": "correction_box",
+      "content": "CORRECTION: [a hilariously wrong 'correction' of a previous claim]",
+      "html": "CORRECTION -> <div class=\"correction-box\"> with <p>",
+      "style": ".correction-box -> small text, bordered, apologetic gray"
+    },
+    {
+      "name": "next_issue_teaser",
+      "content": "NEXTISSUE: [a teaser for a 'next issue' story]",
+      "html": "NEXTISSUE -> <p class=\"next-issue\">",
+      "style": ".next-issue -> italic, centered, teaser styling"
+    },
+    {
+      "name": "price_tag",
+      "content": "PRICE: [a fake cover price and edition line]",
+      "html": "PRICE -> <p class=\"price-tag\">",
+      "style": ".price-tag -> small, muted, footer feel"
+    },
+    {
+      "name": "banner_alert",
+      "content": "BANNER: [a dramatic breaking banner claim]",
+      "html": "BANNER -> <div class=\"banner-alert\"> with <p>",
+      "style": ".banner-alert -> red banner, all-caps, urgent"
+    }
+  ]
+}
