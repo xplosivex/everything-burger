@@ -7,6 +7,7 @@ from app.generation.pipeline import generate_html_optimized
 from app.generation.iterations import generate_iteration, generate_watcher_verdict
 from app.routes.helpers import update_quest_progress, update_achievement_progress
 from app.routes.generation import try_reward_item
+from app.queue import enqueue
 from app.extensions import socketio
 
 logger = logging.getLogger(__name__)
@@ -75,6 +76,10 @@ def run_iterate(app, task_id, page_uuid, parent_iteration_id, prompt, user_id):
             )
             db.session.add(iteration)
             db.session.commit()
+
+            # Score the new iteration with the Watcher (it re-evaluates the
+            # parent's previous verdict for context).
+            enqueue('watcher_verdict', {'iteration_id': iteration.id})
 
             iterator = User.query.get(user_id)
             iterator.xp += 25
