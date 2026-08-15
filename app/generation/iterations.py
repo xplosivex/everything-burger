@@ -41,8 +41,9 @@ def generate_iteration(parent_html, modification_prompt, original_prompt):
     return data['html']
 
 
-def generate_watcher_verdict(iteration_id):
-    with current_app.app_context():
+def generate_watcher_verdict(iteration_id, app=None):
+    ctx = app.app_context() if app is not None else current_app.app_context()
+    with ctx:
         iteration = PageIteration.query.get(iteration_id)
         if not iteration:
             return

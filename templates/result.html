@@ -195,7 +195,7 @@
             regenerateButton.disabled = true;
         });
 
-        const socket = io();
+        const socket = io({ transports: ['polling'] });
         const taskId = '{{ task_id }}';
 
         const initialContent = {{ html_content | tojson }};

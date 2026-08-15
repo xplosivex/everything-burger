@@ -21,13 +21,13 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 | Category | Technology |
 |---|---|
 | Framework | Flask 3.x |
-| Realtime | Flask-SocketIO + gevent |
+| Realtime | Flask-SocketIO (threading / long-polling) |
 | ORM / Migrations | Flask-SQLAlchemy + Flask-Migrate (Alembic) |
-| Server | gevent WSGIServer (WebSocket handler) |
+| Server | Waitress (threaded WSGI) |
 | AI | Mistral AI SDK |
 | Search | SerpAPI (Google) |
 | Scraping / Images | BeautifulSoup4, Pillow, Selenium (headless Chrome) |
-| Database | SQLite |
+| Database | SQLite (WAL mode) |
 | Frontend | Tailwind CSS (CDN), Socket.IO client, Google Fonts |
 
 ## Requirements
@@ -78,11 +78,23 @@ flask db upgrade
 
 ### 4. Run it
 
+Pick the startup profile that matches how many people you expect to serve:
+
+| Profile | Command | Concurrency |
+|---|---|---|
+| Small (~25 users) | `python run.py 1` | 8 request threads, 4 background workers |
+| Medium (~150 users) | `python run.py 2` | 24 request threads, 12 background workers |
+| Large (~1000 users) | `python run.py 3` | 80 request threads, 32 background workers |
+
+You can also set `EB2_PROFILE=1|2|3` in the environment. It defaults to profile 2.
+
 ```bash
-python run.py
+python run.py 2
 ```
 
 Then open <http://localhost:8000> and create an account.
+
+> **Production server:** the app is served by **Waitress** (a production-grade threaded WSGI server). The profile scales waitress's request threads, the background worker pool (page generation, watcher verdicts, iterations), and the SQLAlchemy connection pool. For production, run it behind a reverse proxy (nginx/Caddy) with TLS and set `BASE_URL` to your real domain.
 
 ## Configuration Reference
 
@@ -107,7 +119,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ```
 .
-├── run.py                  # Entry point: gevent WSGIServer + WebSocket handler
+├── run.py                  # Entry point: waitress + startup profile selection (1|2|3)
 ├── app/
 │   ├── __init__.py         # App factory: config, extensions, blueprint registration
 │   ├── config.py           # Environment-based configuration (API keys, models, SMTP)
@@ -152,14 +164,16 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ## How It Works
 
-1. **Generate** — you submit a prompt on the dashboard. A gevent greenlet runs the 3-stage Mistral pipeline (content → structure → Tailwind styling), fetching real images/news/videos/shopping results from Google in parallel.
+1. **Generate** — you submit a prompt on the dashboard. A background worker runs the 3-stage Mistral pipeline (content → structure → Tailwind styling), fetching real images/news/videos/shopping results from Google in parallel.
 2. **Reward** — completing a generation rolls for item drops, grants crumbs/XP, and checks achievements and daily quests.
 3. **Iterate** — every page can be regenerated. Each version is stored as a `PageIteration`, and a "Watcher" AI scores it with a mood, summary, and points.
 4. **Play** — spend crumbs in the Emporium, use/sell/trade items, trade up rarities, and show off your best pages on your profile.
 
 ## Deployment Notes
 
-- The built-in server (`python run.py`) is a gevent WSGIServer with WebSocket support — suitable for small-to-medium deployments.
+- The built-in server (`python run.py`) serves the app through **Waitress**, a production-grade threaded WSGI server. Pick the startup profile (1 = small, 2 = medium, 3 = large) to match your expected traffic.
+- Background work (page generation, watcher verdicts, iterations) runs on a bounded thread pool sized by the chosen profile, so heavy load can't exhaust the machine.
+- The SQLite database runs in **WAL mode** with a busy timeout, so concurrent readers and a single writer proceed without lock errors.
 - For production, put it behind a reverse proxy (nginx/Caddy) with TLS, and set `BASE_URL` to your real domain.
 - Sessions are signed with `SECRET_KEY` — set a fixed value in `.env` so users stay logged in across restarts.
 - The SQLite database lives in `instance/database.db`. Back it up regularly.

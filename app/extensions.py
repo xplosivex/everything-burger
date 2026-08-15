@@ -7,5 +7,7 @@ from app.models import db
 
 csrf = CSRFProtect()
 limiter = Limiter(key_func=get_remote_address, default_limits=[])
-socketio = SocketIO(cors_allowed_origins="*", async_mode='gevent', transport='websocket')
+# Waitress does not support the WebSocket upgrade, so Socket.IO runs over
+# long-polling only. This is transparent to the socket.io client.
+socketio = SocketIO(async_mode='threading', cors_allowed_origins="*", transports=['polling'])
 migrate = Migrate()

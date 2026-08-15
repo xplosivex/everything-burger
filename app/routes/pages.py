@@ -4,8 +4,7 @@ import time
 import uuid
 import tempfile
 import logging
-import gevent
-from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app
 from sqlalchemy import func
 from selenium import webdriver
 from app.extensions import limiter
@@ -14,6 +13,7 @@ from app.utils import login_required, flash_message
 from app.generation.iterations import generate_watcher_verdict
 from app.generation.pipeline import get_prompt_length
 from app.routes.helpers import update_quest_progress, has_achievement
+from app.threads import submit
 
 logger = logging.getLogger(__name__)
 
@@ -301,7 +301,7 @@ def save_page():
     db.session.flush()
     page.current_iteration_id = root_iteration.id
     db.session.commit()
-    gevent.spawn(generate_watcher_verdict, root_iteration.id)
+    submit(generate_watcher_verdict, root_iteration.id, current_app._get_current_object())
 
     page_uuid = page.uuid # Get UUID before closing session
 

@@ -1,10 +1,11 @@
 import random
 import logging
-import gevent
+from concurrent.futures import ThreadPoolExecutor
 from serpapi import GoogleSearch
 from app.config import SERP_API_KEY
 
 logger = logging.getLogger(__name__)
+
 
 def fetch_image_for_tag(img_tag):
     """Fetch a real image URL for an <img> tag based on its alt text."""
@@ -37,9 +38,13 @@ def fetch_image_for_tag(img_tag):
         logger.error(f"Image fetch failed for '{alt}': {e}")
 
 
-def fetch_all_images(soup):
-    """Fetch images in parallel using gevent."""
+def fetch_all_images(soup, max_workers=8):
+    """Fetch images in parallel using a thread pool."""
     img_tags = soup.find_all('img')
-    workers = [gevent.spawn(fetch_image_for_tag, img) for img in img_tags]
-    gevent.joinall(workers)
+    if not img_tags:
+        return 0
+    # Cap the number of concurrent image fetches to avoid hammering SerpAPI.
+    workers = min(len(img_tags), max_workers)
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        list(pool.map(fetch_image_for_tag, img_tags))
     return len(img_tags)

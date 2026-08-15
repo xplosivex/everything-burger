@@ -6,10 +6,10 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from app.extensions import limiter, socketio
 from app.models import db, User, Item, ItemType, Page, PageIteration, WatcherVerdict, Achievement, UserAchievement, ACHIEVEMENTS, update_achievement_progress, has_achievement, get_item_for_user, calculate_item_duration, Comment, Vote
 from app.utils import login_required, flash_message
-from app.state import generated_content, count_active_generations
+from app.state import put, get, update, contains, count_active_generations
 from app.generation.pipeline import generate_html_optimized, get_prompt_length
 from app.routes.helpers import update_quest_progress
-import gevent
+from app.threads import submit
 
 logger = logging.getLogger(__name__)
 
@@ -237,13 +237,13 @@ def _handle_generation(prompt, user_id, task_id):
         return redirect(url_for('generation.dashboard'))
 
     with current_app.app_context():
-        generated_content[task_id] = {
+        put(task_id, {
             'html': None,
             'prompt': prompt,
             'completed': False,
             'error': None,
             'user_id': user_id  # Add user_id to track ownership
-        }
+        })
 
         user = db.session.get(User, user_id)
         user.pages_generated += 1
@@ -283,17 +283,15 @@ def _handle_generation(prompt, user_id, task_id):
 
         try_reward_item(user_id, prompt)
 
-    def generate_async():
-        with current_app.app_context():
+    def generate_async(app):
+        with app.app_context():
             try:
                 result = generate_html_optimized(prompt, user_id)
                 if not result or len(result.strip()) < 100:
-                    generated_content[task_id]['error'] = "Generation produced insufficient content"
-                    generated_content[task_id]['completed'] = True
+                    update(task_id, error="Generation produced insufficient content", completed=True)
                     return
 
-                generated_content[task_id]['html'] = result
-                generated_content[task_id]['completed'] = True
+                update(task_id, html=result, completed=True)
 
                 socketio.emit('generation_complete', {
                     'html': result,
@@ -303,8 +301,7 @@ def _handle_generation(prompt, user_id, task_id):
                 })
             except Exception as e:
                 logger.error(f"Generation failed for task {task_id}: {e}")
-                generated_content[task_id]['error'] = str(e)
-                generated_content[task_id]['completed'] = True
+                update(task_id, error=str(e), completed=True)
                 socketio.emit('generation_complete', {
                     'html': None,
                     'prompt': prompt,
@@ -313,7 +310,7 @@ def _handle_generation(prompt, user_id, task_id):
                     'message': str(e)
                 })
 
-    gevent.spawn(generate_async)
+    submit(generate_async, current_app._get_current_object())
     return redirect(url_for('generation.result', task_id=task_id))
 
 @generation_bp.route('/generate', methods=['POST'])
@@ -334,15 +331,16 @@ def generate():
 @limiter.limit('60 per minute')
 def regenerate(task_id):
     logger.info(f"Regeneration requested for task {task_id}")
-    if task_id not in generated_content:
+    if not contains(task_id):
         logger.warning(f"Task {task_id} not found for regeneration")
         return redirect(url_for('generation.dashboard'))
 
-    if generated_content[task_id]['user_id'] != session['user_id']:
+    content = get(task_id)
+    if content['user_id'] != session['user_id']:
         flash_message('Unauthorized access to generation result', 'error')
         return redirect(url_for('generation.dashboard'))
 
-    prompt = generated_content[task_id]['prompt']
+    prompt = content['prompt']
     new_task_id = str(uuid.uuid4())
     user_id = session['user_id']
     logger.info(f"Created new task {new_task_id} for regeneration")
@@ -352,12 +350,12 @@ def regenerate(task_id):
 @login_required
 def result(task_id):
     logger.info(f"Result page requested for task {task_id}")
-    if task_id not in generated_content:
+    if not contains(task_id):
         logger.info(f"Task {task_id} not found")
         flash_message('Invalid or expired task ID', 'error')
         return redirect(url_for('generation.dashboard'))
 
-    content = generated_content[task_id]
+    content = get(task_id)
     
     # Verify the generation belongs to the current user
     if content['user_id'] != session['user_id']:
@@ -368,7 +366,6 @@ def result(task_id):
         html_content = f"An error occurred: {content['error']}"
     else:
         html_content = "Generation in progress..." if not content['completed'] else content['html']
-
 
     return render_template('result.html',
                          html_content=html_content,

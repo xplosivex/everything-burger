@@ -62,7 +62,7 @@
         progPct.textContent = Math.floor(prog) + '%';
     }, 600);
 
-    const socket = io();
+    const socket = io({ transports: ['polling'] });
     socket.on('iteration_complete', function(data) {
         if (data.task_id === TASK_ID) {
             clearInterval(progTimer);

@@ -1,6 +1,6 @@
 import uuid
 import logging
-from flask import Blueprint, render_template, request, url_for, session, jsonify
+from flask import Blueprint, render_template, request, url_for, session, jsonify, current_app
 from app.extensions import socketio
 from app.models import db, User, Page, PageIteration, WatcherVerdict
 from app.utils import login_required
@@ -8,7 +8,7 @@ from app.generation.iterations import generate_iteration, generate_watcher_verdi
 from app.generation.pipeline import get_prompt_length
 from app.routes.helpers import update_quest_progress, update_achievement_progress
 from app.routes.generation import try_reward_item
-import gevent
+from app.threads import submit
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ def iterate_page(page_uuid):
     task_id = str(uuid.uuid4())
     user_id = session['user_id']
 
-    def iterate_async():
+    def iterate_async(app):
         with app.app_context():
             try:
                 html = generate_iteration(
@@ -78,7 +78,7 @@ def iterate_page(page_uuid):
                 db.session.commit()
 
                 try_reward_item(user_id, modification_prompt)
-                gevent.spawn(generate_watcher_verdict, iteration.id)
+                submit(generate_watcher_verdict, iteration.id, app)
 
                 socketio.emit('iteration_complete', {
                     'task_id': task_id,
@@ -90,7 +90,7 @@ def iterate_page(page_uuid):
                 logger.error(f"iterate_async error: {e}")
                 socketio.emit('iteration_error', {'task_id': task_id, 'error': str(e)})
 
-    gevent.spawn(iterate_async)
+    submit(iterate_async, current_app._get_current_object())
     return jsonify({'task_id': task_id, 'redirect': url_for('iterations.iteration_loading', task_id=task_id, page_uuid=page_uuid)})
 
 
