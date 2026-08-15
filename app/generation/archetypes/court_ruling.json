@@ -114,5 +114,6 @@
       "html": "BAIL -> <p class=\"bail-ruling\">",
       "style": ".bail-ruling -> bold, centered, formal"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: formal legal document. White paper, black serif text, a red seal accent, bold section headings, thin rules between sections, a bordered verdict box, and a monospace case number."
 }

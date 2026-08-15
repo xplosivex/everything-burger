@@ -15,7 +15,20 @@
     "Booth look: dark purple background, gold accents, a crystal-ball feel, and a mystical serif. Unified and mysterious.",
     "Poster look: white background, bold accent colors, framed fortunes, and a clean sans-serif. Unified and motivational."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "fortune",
@@ -89,5 +102,6 @@
       "html": "COOKIEBORDER -> <hr class=\"cookie-border\">",
       "style": ".cookie-border -> decorative divider, gold accent"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: mystical paper. Warm cream background, red/gold accents, a paper-texture feel, centered fortunes, gold lucky numbers, and a serif font."
 }

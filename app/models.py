@@ -721,6 +721,8 @@ class Page(db.Model):
     html_content = db.Column(db.Text, nullable=False)
     thumbnail_url = db.Column(db.String(500))
     prompt = db.Column(db.Text)  # Store the original prompt used to generate
+    archetype = db.Column(db.String(100))  # Archetype key used to generate this page
+    meta_json = db.Column(db.Text, nullable=True)  # Nerd stats for the original generation
 
     # Metrics and status
     visibility = db.Column(db.String(20), default='public')  # Values: 'public', 'unlisted', 'private'
@@ -789,6 +791,7 @@ class PageIteration(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     iteration_number = db.Column(db.Integer, nullable=False, default=0)
+    meta_json = db.Column(db.Text, nullable=True)  # Nerd stats: archetype/twists/modifiers chosen
 
     page = db.relationship('Page', foreign_keys=[page_id], backref=db.backref('iterations', cascade='all, delete-orphan'))
     author = db.relationship('User', backref='iterations')

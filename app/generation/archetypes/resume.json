@@ -114,5 +114,6 @@
       "html": "HEADLINE -> <p class=\"headline\">",
       "style": ".headline -> bold, centered, professional"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: clean professional. White background, dark gray text, a single accent color for headings, clean sans-serif, thin section rules, and a two-tone header. Minimal and sharp."
 }

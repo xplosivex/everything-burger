@@ -114,5 +114,6 @@
       "html": "DIDYOUMAKE -> <p class=\"did-you-make\">",
       "style": ".did-you-make -> italic, centered, friendly"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: warm recipe card. Cream paper background, a dashed-border ingredients box, serif headings, a handwritten-feel chef note, warm red/green accents, and a subtle food-stain texture. Appetizing and cozy."
 }

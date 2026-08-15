@@ -102,5 +102,6 @@
       "html": "ROUND -> <p class=\"round-note\">",
       "style": ".round-note -> small text, centered, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: festive game night. White background, red/blue accents, a bold BINGO header, bordered grid cells, a star FREE space, and a celebratory feel."
 }

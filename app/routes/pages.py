@@ -198,8 +198,16 @@ def view_page(uuid):
 
     prompt_length = get_prompt_length(session['user_id']) if session.get('user_id') else 175
 
+    page_meta = None
+    if page.meta_json:
+        try:
+            page_meta = json.loads(page.meta_json)
+        except (TypeError, ValueError):
+            page_meta = None
+
     context = {
         'page': page,
+        'page_meta': page_meta,
         'is_owner': session.get('user_id') == page.creator_id if session.get('user_id') else False,
         'crumb_balance': crumb_balance,
         'user': user,
@@ -230,6 +238,8 @@ def save_page():
     description = request.form.get('description', '')
     html_content = request.form.get('html_content')
     prompt = request.form.get('prompt', '')
+    archetype = request.form.get('archetype', '')
+    meta_raw = request.form.get('meta', '')
     visibility = request.form.get('visibility', 'public')
     tags = request.form.get('tags', '')
 
@@ -279,6 +289,8 @@ def save_page():
         description=description,
         html_content=html_content,
         prompt=prompt,
+        archetype=archetype or None,
+        meta_json=meta_raw or None,
         visibility=visibility,
         tags=tags,
         thumbnail_url=thumbnail_url,
@@ -294,7 +306,8 @@ def save_page():
         html_content=html_content,
         prompt=prompt,
         author_id=session['user_id'],
-        iteration_number=0
+        iteration_number=0,
+        meta_json=meta_raw or None
     )
     db.session.add(root_iteration)
     db.session.flush()

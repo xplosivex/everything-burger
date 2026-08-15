@@ -15,7 +15,20 @@
     "Bulletin look: corkboard background, paper notes, a warm accent, and a handwritten feel. Unified and hopeful.",
     "Inventory look: white background, small text, a gray accent, and a clean sans-serif. Unified and matter-of-fact."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "log_number",
@@ -101,5 +114,6 @@
       "html": "BINNUM -> <p class=\"bin-number\">",
       "style": ".bin-number -> monospace, small, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: bureaucratic log. White background, monospace text, bordered entries, a status color, and a matter-of-fact feel."
 }

@@ -15,7 +15,20 @@
     "CVS look: white background, red accents, monospace text, and a very long feel. Unified and corporate.",
     "Market look: cream background, handwritten-feel text, a warm accent, and a rustic feel. Unified and warm."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "itemized_purchase",
@@ -101,5 +114,6 @@
       "html": "PAYMENT -> <p class=\"payment-method\">",
       "style": ".payment-method -> monospace, small, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: thermal receipt. White background, monospace text, dotted leaders, a bold total, a barcode strip, and a long itemized feel."
 }

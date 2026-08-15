@@ -139,53 +139,79 @@
     <!-- Iterations & Watcher Panel -->
     <div class="container mx-auto px-4 py-6">
 
-        <!-- The Watcher's Verdict -->
-        <div id="watcher-panel" class="mb-4 rounded-xl overflow-hidden border border-purple-200 bg-white shadow-sm">
-            <button id="watcher-toggle"
-                    class="w-full px-5 py-3 bg-purple-50 border-b border-purple-200 retro-text text-left flex justify-between items-center hover:bg-purple-100 transition-colors">
-                <span class="flex items-center gap-2 text-purple-700 font-bold tracking-widest">&#128065; THE WATCHER'S VERDICT</span>
-                <span id="watcher-chevron" class="transform transition-transform duration-200 text-purple-400">&#9660;</span>
+        <!-- Generation Details (master collapsible) -->
+        <div id="gen-details" class="mb-4 rounded-xl overflow-hidden border border-gray-300 bg-white shadow-lg">
+            <button id="gen-details-toggle"
+                    class="w-full px-5 py-3 bg-gray-800 text-white retro-text text-left flex justify-between items-center hover:bg-gray-700 transition-colors">
+                <span class="flex items-center gap-2 font-bold tracking-widest">&#128269; GENERATION DETAILS</span>
+                <span id="gen-details-chevron" class="transform transition-transform duration-200">&#9660;</span>
             </button>
-            <div id="watcher-body" class="hidden p-5">
-                <div id="watcher-pending" class="flex items-center gap-2 animate-pulse">
-                    <span class="retro-text text-purple-400 text-sm italic">The Watcher stirs...</span>
-                </div>
-                <div id="watcher-ready" class="hidden">
-                    <div id="watcher-mood" class="retro-text text-2xl font-black tracking-widest text-purple-700 mb-3"></div>
-                    <p id="watcher-summary" class="text-gray-700 text-sm leading-relaxed mb-4"></p>
-                    <ul id="watcher-points" class="space-y-1.5 list-none"></ul>
-                </div>
-            </div>
-        </div>
+            <div id="gen-details-body" class="hidden p-4 space-y-4">
 
-        <!-- Iterations -->
-        <div class="rounded-xl border border-indigo-700 bg-white shadow-lg overflow-hidden">
-            <button id="iterations-toggle"
-                    class="w-full px-5 py-3 bg-indigo-600 text-white retro-text text-left flex justify-between items-center hover:bg-indigo-700 transition-colors">
-                <span>&#8518; ITERATIONS</span>
-                <span id="iterations-chevron" class="transform transition-transform duration-200">&#9660;</span>
-            </button>
-            <div id="iterations-body" class="hidden">
-                <div id="iteration-tree" class="p-4 border-b border-gray-200 max-h-64 overflow-y-auto text-sm font-mono"></div>
-                {% if session.get('user_id') %}
-                <form id="iterate-form" class="p-4 flex flex-col gap-2" onsubmit="submitIterate(event)">
+                <!-- The Watcher's Verdict -->
+                <div id="watcher-panel" class="rounded-xl overflow-hidden border border-purple-200 bg-white shadow-sm">
+                    <button id="watcher-toggle"
+                            class="w-full px-5 py-3 bg-purple-50 border-b border-purple-200 retro-text text-left flex justify-between items-center hover:bg-purple-100 transition-colors">
+                        <span class="flex items-center gap-2 text-purple-700 font-bold tracking-widest">&#128065; THE WATCHER'S VERDICT</span>
+                        <span id="watcher-chevron" class="transform transition-transform duration-200 text-purple-400">&#9660;</span>
+                    </button>
+                    <div id="watcher-body" class="hidden p-5">
+                        <div id="watcher-pending" class="flex items-center gap-2 animate-pulse">
+                            <span class="retro-text text-purple-400 text-sm italic">The Watcher stirs...</span>
+                        </div>
+                        <div id="watcher-ready" class="hidden">
+                            <div id="watcher-mood" class="retro-text text-2xl font-black tracking-widest text-purple-700 mb-3"></div>
+                            <p id="watcher-summary" class="text-gray-700 text-sm leading-relaxed mb-4"></p>
+                            <ul id="watcher-points" class="space-y-1.5 list-none"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nerd Stats -->
+                <div id="nerd-panel" class="rounded-xl overflow-hidden border border-cyan-200 bg-white shadow-sm">
+                    <button id="nerd-toggle"
+                            class="w-full px-5 py-3 bg-cyan-50 border-b border-cyan-200 retro-text text-left flex justify-between items-center hover:bg-cyan-100 transition-colors">
+                        <span class="flex items-center gap-2 text-cyan-700 font-bold tracking-widest">&#129504; NERD STATS</span>
+                        <span id="nerd-chevron" class="transform transition-transform duration-200 text-cyan-400">&#9660;</span>
+                    </button>
+                    <div id="nerd-body" class="hidden p-5">
+                        <div id="nerd-content" class="text-sm text-gray-700 space-y-3">
+                            <p class="text-gray-400 italic">Select an iteration to see what was randomly chosen for it.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Iterations -->
+                <div class="rounded-xl overflow-hidden border border-indigo-700 bg-white shadow-sm">
+                    <button id="iterations-toggle"
+                            class="w-full px-5 py-3 bg-indigo-600 text-white retro-text text-left flex justify-between items-center hover:bg-indigo-700 transition-colors">
+                        <span>&#8518; ITERATIONS</span>
+                        <span id="iterations-chevron" class="transform transition-transform duration-200">&#9660;</span>
+                    </button>
+                    <div id="iterations-body" class="hidden">
+                        <div id="iteration-tree" class="p-4 border-b border-gray-200 max-h-64 overflow-y-auto text-sm font-mono"></div>
+                        {% if session.get('user_id') %}
+                        <form id="iterate-form" class="p-4 flex flex-col gap-2" onsubmit="submitIterate(event)">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <div class="flex gap-2">
-                        <input id="iterate-prompt" type="text" maxlength="{{ prompt_length }}"
-                               placeholder="Describe your modification..."
-                               oninput="document.getElementById('iter-char-count').textContent = this.value.length + '/{{ prompt_length }}'"
-                               class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                        <input type="hidden" id="parent-iteration-id" value="{{ page.current_iteration_id or '' }}">
-                        <button type="submit" id="iterate-btn"
-                                class="retro-text bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm whitespace-nowrap">
-                            Iterate
-                        </button>
+                            <div class="flex gap-2">
+                                <input id="iterate-prompt" type="text" maxlength="{{ prompt_length }}"
+                                       placeholder="Describe your modification..."
+                                       oninput="document.getElementById('iter-char-count').textContent = this.value.length + '/{{ prompt_length }}'"
+                                       class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                <input type="hidden" id="parent-iteration-id" value="{{ page.current_iteration_id or '' }}">
+                                <button type="submit" id="iterate-btn"
+                                        class="retro-text bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm whitespace-nowrap">
+                                    Iterate
+                                </button>
+                            </div>
+                            <div class="text-right text-xs text-gray-400 retro-text">
+                                <span id="iter-char-count">0/{{ prompt_length }}</span>
+                            </div>
+                        </form>
+                        {% endif %}
                     </div>
-                    <div class="text-right text-xs text-gray-400 retro-text">
-                        <span id="iter-char-count">0/{{ prompt_length }}</span>
-                    </div>
-                </form>
-                {% endif %}
+                </div>
+
             </div>
         </div>
     </div>
@@ -194,6 +220,7 @@
     const PAGE_UUID = "{{ page.uuid }}";
     const CURRENT_ITERATION_ID = {{ page.current_iteration_id or 'null' }};
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').content;
+    const PAGE_META = {{ page_meta | tojson if page_meta else 'null' }};
 
     let activeIterationId = CURRENT_ITERATION_ID;
     let watcherPollTimer = null;
@@ -248,9 +275,36 @@
             .then(data => {
                 const frame = document.getElementById('content-frame');
                 frame.srcdoc = '<html><head><style>body{margin:0;padding:0;max-width:100%;overflow-x:hidden}.content-wrapper{padding:0 2rem;max-width:100%}img{max-width:100%;height:auto}*{box-sizing:border-box;word-wrap:break-word}</style><script src="https://cdn.tailwindcss.com"><\/script></head><body><div class="content-wrapper">' + data.html_content + '</div></body></html>';
+                renderNerdStats(data.meta);
                 loadIterationTree();
                 loadWatcherVerdict(id);
             });
+    }
+
+    // ---- Nerd stats ----
+    function renderNerdStats(meta) {
+        const container = document.getElementById('nerd-content');
+        if (!container) return;
+        if (!meta) {
+            container.innerHTML = '<p class="text-gray-400 italic">No generation data for this iteration.</p>';
+            return;
+        }
+        const rows = [
+            ['Archetype', meta.archetype || '?'],
+            ['Twists', (meta.twists || []).map(t => `&ldquo;${t}&rdquo;`).join('<br>') || 'none'],
+            ['Modifiers', (meta.modifiers || []).map(m => `&ldquo;${m}&rdquo;`).join('<br>') || 'none'],
+            ['Elements', (meta.elements || []).join(', ') || 'none'],
+            ['Image count', meta.image_count],
+            ['Temperature', meta.temperature],
+            ['Image multiplier', meta.image_multiplier],
+            ['Seeded from parent', meta.seed ? 'yes' : 'no'],
+        ];
+        container.innerHTML = rows.map(([k, v]) =>
+            `<div class="flex flex-col sm:flex-row sm:gap-2 border-b border-gray-100 pb-2">
+                <span class="text-cyan-700 font-bold sm:w-40 shrink-0">${k}</span>
+                <span class="text-gray-700">${v}</span>
+            </div>`
+        ).join('');
     }
 
     // ---- Watcher verdict ----
@@ -339,25 +393,65 @@
     {% endif %}
 
     // ---- Toggle ----
-    document.getElementById('watcher-toggle').addEventListener('click', function() {
-        const body = document.getElementById('watcher-body');
-        const chevron = document.getElementById('watcher-chevron');
+    function togglePanel(toggleId, bodyId, chevronId) {
+        const body = document.getElementById(bodyId);
+        const chevron = document.getElementById(chevronId);
         body.classList.toggle('hidden');
         chevron.style.transform = body.classList.contains('hidden') ? '' : 'rotate(180deg)';
+    }
+
+    document.getElementById('gen-details-toggle').addEventListener('click', function() {
+        const body = document.getElementById('gen-details-body');
+        const chevron = document.getElementById('gen-details-chevron');
+        const opening = body.classList.contains('hidden');
+        body.classList.toggle('hidden');
+        chevron.style.transform = opening ? 'rotate(180deg)' : '';
+        if (opening) {
+            // Auto-open the Watcher's verdict and load the iteration tree
+            const watcherBody = document.getElementById('watcher-body');
+            if (watcherBody.classList.contains('hidden')) {
+                watcherBody.classList.remove('hidden');
+                document.getElementById('watcher-chevron').style.transform = 'rotate(180deg)';
+            }
+            loadIterationTree();
+        } else {
+            // Closing the master closes all sub-panels
+            ['watcher-body', 'nerd-body', 'iterations-body'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            ['watcher-chevron', 'nerd-chevron', 'iterations-chevron'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.transform = '';
+            });
+        }
+    });
+
+    document.getElementById('watcher-toggle').addEventListener('click', function() {
+        togglePanel('watcher-toggle', 'watcher-body', 'watcher-chevron');
+    });
+
+    document.getElementById('nerd-toggle').addEventListener('click', function() {
+        togglePanel('nerd-toggle', 'nerd-body', 'nerd-chevron');
     });
 
     document.getElementById('iterations-toggle').addEventListener('click', function() {
-        const body = document.getElementById('iterations-body');
-        const chevron = document.getElementById('iterations-chevron');
-        body.classList.toggle('hidden');
-        chevron.style.transform = body.classList.contains('hidden') ? '' : 'rotate(180deg)';
-        if (!body.classList.contains('hidden')) loadIterationTree();
+        togglePanel('iterations-toggle', 'iterations-body', 'iterations-chevron');
+        if (!document.getElementById('iterations-body').classList.contains('hidden')) loadIterationTree();
     });
 
     // ---- Init ----
     document.addEventListener('DOMContentLoaded', function() {
-        if (CURRENT_ITERATION_ID && document.getElementById('watcher-pending')) {
-            loadWatcherVerdict(CURRENT_ITERATION_ID);
+        if (CURRENT_ITERATION_ID) {
+            if (document.getElementById('watcher-pending')) {
+                loadWatcherVerdict(CURRENT_ITERATION_ID);
+            }
+            fetch(`/iteration/${CURRENT_ITERATION_ID}`)
+                .then(r => r.json())
+                .then(data => renderNerdStats(data.meta))
+                .catch(() => {});
+        } else if (PAGE_META) {
+            renderNerdStats(PAGE_META);
         }
     });
     </script>

@@ -102,5 +102,6 @@
       "html": "CHARITY -> <p class=\"charity-note\">",
       "style": ".charity-note -> small text, muted, formal"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: somber memorial. White background, black serif text, a thin black border frame, a small portrait frame, muted gray accents, and a centered, respectful layout."
 }

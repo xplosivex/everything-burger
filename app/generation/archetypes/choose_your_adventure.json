@@ -114,5 +114,6 @@
       "html": "PAGENUM -> <p class=\"page-number\">",
       "style": ".page-number -> small text, centered, book feel"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: immersive adventure. Parchment background, dark brown text, option cards with borders and hover effects, a compass accent, a fantasy serif, and a map-like texture."
 }

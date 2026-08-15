@@ -114,5 +114,6 @@
       "html": "APOLOGY -> <p class=\"apology\">",
       "style": ".apology -> italic, centered, contrite"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: urgent government notice. White background, a red header banner, black text, yellow warning boxes with bold borders, a monospace recall number, and an official document feel."
 }

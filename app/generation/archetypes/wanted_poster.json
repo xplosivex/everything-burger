@@ -102,5 +102,6 @@
       "html": "TERMS -> <p class=\"reward-terms\">",
       "style": ".reward-terms -> small text, muted, legal feel"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: aged Old West poster. Sepia paper background with a vignette, a huge black WANTED header with a double border, a portrait frame with a rough border, a red reward stamp, and a distressed vintage serif. Everything centered with generous margins."
 }

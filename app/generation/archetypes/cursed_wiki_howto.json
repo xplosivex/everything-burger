@@ -15,7 +15,20 @@
     "Cursed wikiHow look: white background, green accents, slightly off-kilter headings, and a clean sans-serif. Unified and unsettling.",
     "Vandalized look: white background, green accents, red insertions, and a clean sans-serif. Unified and chaotic."
   ],
-  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "image_ranges": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "things_you_need",
@@ -101,5 +114,6 @@
       "html": "CURSED -> <p class=\"cursed-note\">",
       "style": ".cursed-note -> small text, italic, unsettling"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: unsettling tutorial. White background, green accents, slightly off-kilter headings, red vandal insertions, and a clean but wrong feel."
 }

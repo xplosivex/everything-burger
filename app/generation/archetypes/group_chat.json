@@ -114,5 +114,6 @@
       "html": "WHOIS -> <p class=\"who-is-this\">",
       "style": ".who-is-this -> italic, muted, confused"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: modern chat app. Light gray background, blue and green message bubbles with rounded corners, small timestamps, reaction rows, a chat header, and a phone-app feel."
 }

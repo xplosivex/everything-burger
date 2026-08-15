@@ -114,5 +114,6 @@
       "html": "RESOLVED -> <p class=\"resolved\">",
       "style": ".resolved -> green text, bold, official"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: corporate inbox. White background, gray reply blocks with increasing indentation, blue links, a red RE: accent, a monospace ticket number, and a clean sans-serif."
 }

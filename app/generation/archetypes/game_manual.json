@@ -126,5 +126,6 @@
       "html": "INSERTCOIN -> <p class=\"insert-coin\">",
       "style": ".insert-coin -> blinking-feel text, centered, arcade"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: retro arcade manual. Dark navy background with a subtle grid, neon cyan/magenta accents, chunky pixel-style headings, yellow WARNING boxes with bold borders, bordered diagram frames, and a chunky sans-serif."
 }

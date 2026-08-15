@@ -114,5 +114,6 @@
       "html": "SURVIVALFOOTER -> <p class=\"survival-footer\">",
       "style": ".survival-footer -> small text, centered, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: rugged field manual. Olive/khaki colors, stencil-style headings, numbered steps, yellow protip boxes, a rugged texture, and a military feel."
 }

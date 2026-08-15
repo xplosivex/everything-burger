@@ -126,5 +126,6 @@
       "html": "BANNER -> <div class=\"banner-alert\"> with <p>",
       "style": ".banner-alert -> red banner, all-caps, urgent"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: screaming tabloid energy. A bold masthead with a red banner, huge black all-caps headlines with drop shadows, multi-column text with thin black rules, an EXCLUSIVE box with a red starburst badge, yellow-highlight pull-quotes, and a grainy newsprint texture. Use a display serif for headlines and a condensed sans for body."
 }

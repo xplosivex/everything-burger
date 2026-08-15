@@ -117,6 +117,11 @@ def _decode(raw):
                 out[k] = int(v)
             except (TypeError, ValueError):
                 out[k] = v
+        elif k == 'meta':
+            try:
+                out[k] = json.loads(v)
+            except (TypeError, ValueError):
+                out[k] = None
         elif v == '':
             out[k] = None
     return out

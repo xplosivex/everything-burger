@@ -102,5 +102,6 @@
       "html": "CROSSREF -> <p class=\"cross-reference\">",
       "style": ".cross-reference -> small text, blue link, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: reference book. White background, black serif text, a bold entry word, small pronunciation marks, thin rules, and a clean reference layout."
 }

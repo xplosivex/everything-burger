@@ -126,5 +126,6 @@
       "html": "BOARDTITLE -> <h2 class=\"corkboard-title\">",
       "style": ".corkboard-title -> marker-style, bold, centered"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: corkboard chaos. Brown cork background, cream paper notes with slight rotations and pushpin dots, red string accents, marker-style handwriting fonts, polaroid photo frames, and redacted bars on classified notes."
 }

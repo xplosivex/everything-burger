@@ -3,26 +3,38 @@ from app.ai import complete
 
 logger = logging.getLogger(__name__)
 
-STYLING_SYSTEM_PROMPT = """You are a Tailwind CSS expert who makes FUN, visually cohesive web pages.
-Style the provided HTML using ONLY Tailwind utility classes.
+STYLING_SYSTEM_PROMPT = """You are a world-class visual designer and Tailwind CSS expert. Your job is to make
+the provided HTML look like a stunning, hand-crafted artifact -- NOT a generic web page.
+Style it using ONLY Tailwind utility classes.
 
 === FORMAT ===
 
-Apply ONE unified theme to the whole page in the style of a **{ARCHETYPE_NAME}**.
+Apply ONE bold, cohesive visual identity to the whole page in the style of a **{ARCHETYPE_NAME}**.
 
 {ARCHETYPE_THEME}
 
-=== THEME RULES ===
+{ARCHETYPE_VISUAL}
 
-1. ONE unified look: a single background, one accent palette, one font pairing, and a clear
-   typographic hierarchy for the whole page
-2. Differentiate content TYPOGRAPHICALLY (headings, pull-quotes, lists, captions) -- NOT with
-   different colored boxes per section
-3. Style any .serp-section elements to match the theme so injected content blends in
-4. Add the Tailwind CDN: <script src="https://cdn.tailwindcss.com"></script>
-5. Make it responsive (sm:, md:, lg: breakpoints)
-6. Use rounded corners, shadows, and spacing generously
-7. The page should look like a single designed artifact, NOT a stack of random colored cards
+=== VISUAL IDENTITY RULES ===
+
+1. ONE unmistakable look: a single background treatment, one accent palette, one font pairing,
+   and a clear typographic hierarchy. The page must be instantly recognizable as its format.
+2. Make it RICH, not bland. Use at least 4 of these techniques across the page:
+   - Textured or patterned backgrounds (gradients, radial glows, repeating patterns via
+     background-image utilities, noise via layered gradients)
+   - Decorative borders and frames (double borders, corner accents, dashed/ornate rules)
+   - Ornamental dividers between sections (styled <hr>, emoji rows, gradient lines)
+   - Distinctive typography (display fonts, letter-spacing, drop shadows, text gradients)
+   - Cards, plaques, or frames with depth (shadows, rings, inset borders, tilt)
+   - Hover/transition flourishes on interactive elements
+   - Stamps, seals, badges, or ribbons as accent elements
+   - Asymmetric or editorial layouts (offset columns, overlapping elements, rotated accents)
+3. Differentiate content TYPOGRAPHICALLY and with subtle container treatments -- NOT with
+   a rainbow of unrelated colored boxes. Every element should feel part of the same design.
+4. Style any .serp-section elements to match the theme so injected content blends in seamlessly.
+5. Add the Tailwind CDN: <script src="https://cdn.tailwindcss.com"></script>
+6. Make it responsive (sm:, md:, lg: breakpoints).
+7. The page should look like a single designed artifact that someone would screenshot and share.
 
 CRITICAL:
 - DO NOT remove any content, text, images, or HTML elements
@@ -46,11 +58,12 @@ def apply_styling(html: str, archetype: dict = None, modifiers: list = None) -> 
 
     system = STYLING_SYSTEM_PROMPT.replace('{ARCHETYPE_NAME}', archetype['name'])
     system = system.replace('{ARCHETYPE_THEME}', archetype['theme'])
+    system = system.replace('{ARCHETYPE_VISUAL}', archetype.get('visual_style', ''))
     if elements:
-        system = system.replace('=== THEME RULES ===', f'{elements}\n\n=== THEME RULES ===')
+        system = system.replace('=== VISUAL IDENTITY RULES ===', f'{elements}\n\n=== VISUAL IDENTITY RULES ===')
     if modifiers:
         modifier_section = '=== MODIFIERS (style these into the page) ===\n' + '\n'.join(f'- {m}' for m in modifiers) + '\n=== END MODIFIERS ==='
-        system = system.replace('=== THEME RULES ===', f'{modifier_section}\n\n=== THEME RULES ===')
+        system = system.replace('=== VISUAL IDENTITY RULES ===', f'{modifier_section}\n\n=== VISUAL IDENTITY RULES ===')
 
     styled = complete(
         'styling',
@@ -58,7 +71,7 @@ def apply_styling(html: str, archetype: dict = None, modifiers: list = None) -> 
             {"role": "system", "content": system},
             {"role": "user", "content": html}
         ],
-        max_tokens=12000,
+        max_tokens=16000,
         temperature=0.4,
         top_p=0.95
     )

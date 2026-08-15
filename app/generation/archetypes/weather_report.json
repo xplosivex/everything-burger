@@ -114,5 +114,6 @@
       "html": "METEOROLOGIST -> <blockquote class=\"meteorologist-note\"> with <cite>",
       "style": ".meteorologist-note -> italic, bordered, cheerful"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: bright forecast. Sky blue background, white cards, sun/cloud accents, bold temperature numbers, a radar frame, and a clean friendly sans-serif."
 }

@@ -15,7 +15,20 @@
     "Public radio look: white background, blue accents, a formal sans-serif, and a clean feel. Unified and earnest.",
     "Pirate radio look: dark background, neon accents, a chaotic feel, and a bold sans-serif. Unified and rebellious."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "host_intro",
@@ -89,5 +102,6 @@
       "html": "RADIOFOOTER -> <p class=\"radio-footer\">",
       "style": ".radio-footer -> small text, centered, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: late-night broadcast. Dark background, warm amber accents, a microphone feel, caller blocks with borders, and a clean sans-serif."
 }

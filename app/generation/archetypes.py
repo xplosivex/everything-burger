@@ -67,23 +67,43 @@ def build_element_style(elements: list) -> str:
     return '\n'.join(lines)
 
 
-def select_archetype() -> dict:
-    """Pick a random archetype and resolve one random variant of its pools."""
-    archetype = random.choice(list(ARCHETYPES.values()))
+def _resolve(archetype: dict, key: str) -> dict:
+    """Resolve one random variant of an archetype's pools."""
     pool = archetype['elements']
     count = random.randint(3, min(9, len(pool)))
     resolved = {
+        'key': key,
         'name': archetype['name'],
         'content_style': random.choice(archetype['content_styles']),
         'layout': random.choice(archetype['layouts']),
         'theme': random.choice(archetype['themes']),
+        'visual_style': archetype.get('visual_style', ''),
         'params': {
             'image_count': random.choice(archetype['image_ranges']),
             'elements': random.sample(pool, k=count),
         },
     }
-    logger.info(f"Selected archetype: {resolved['name']} ({count} elements)")
     return resolved
+
+
+def select_archetype() -> dict:
+    """Pick a random archetype and resolve one random variant of its pools."""
+    key = random.choice(list(ARCHETYPES.keys()))
+    resolved = _resolve(ARCHETYPES[key], key)
+    logger.info(f"Selected archetype: {resolved['name']} ({len(resolved['params']['elements'])} elements)")
+    return resolved
+
+
+def get_archetype(key: str) -> dict:
+    """Resolve a random variant of a specific archetype by its key."""
+    if key not in ARCHETYPES:
+        raise KeyError(f"Unknown archetype key: {key}")
+    return _resolve(ARCHETYPES[key], key)
+
+
+def random_archetype_key() -> str:
+    """Pick a random archetype key (for backfilling pages without one)."""
+    return random.choice(list(ARCHETYPES.keys()))
 
 
 def select_twists() -> list:

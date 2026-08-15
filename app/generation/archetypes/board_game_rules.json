@@ -15,7 +15,20 @@
     "Party game look: bright background, bold colors, playful headings, and a fun sans-serif. Unified and festive.",
     "Strategy look: dark background, gold accents, bold headings, and a serious sans-serif. Unified and analytical."
   ],
-  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "image_ranges": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "objective",
@@ -101,5 +114,6 @@
       "html": "RULEWARNING -> <div class=\"rule-warning\"> with <p>",
       "style": ".rule-warning -> red box, bold, urgent"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: precise rulebook. White background, black text, bold section headings, a single accent color, bordered boxes, and a clean sans-serif."
 }

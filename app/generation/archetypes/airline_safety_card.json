@@ -15,7 +15,20 @@
     "Airline look: navy background, white text, gold accents, and a polished sans-serif. Unified and premium.",
     "Retro airline look: muted colors, a vintage font, and a nostalgic feel. Unified and retro."
   ],
-  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "image_ranges": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "brace_position",
@@ -101,5 +114,6 @@
       "html": "ENJOY -> <p class=\"enjoy-flight\">",
       "style": ".enjoy-flight -> italic, centered, warm"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: instructional diagram. White background, red/blue accents, diagram frames, a brace-position illustration, and a clean instructional sans-serif."
 }

@@ -114,5 +114,6 @@
       "html": "TOURNAMENT -> <h2 class=\"tournament-title\">",
       "style": ".tournament-title -> bold, centered, dramatic"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: competitive bracket. Dark background, neon accent lines connecting matchups, bold white text, a gold champion box, and a high-stakes feel."
 }

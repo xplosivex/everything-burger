@@ -126,5 +126,6 @@
       "html": "HISTORY -> <section class=\"history-section\"> with <h2> and <p>",
       "style": ".history-section -> standard section, serif headings"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: clean encyclopedia. A white page with a subtle gray sidebar, blue link-colored accents, a bordered infobox with a light gray background, a table of contents box, red [citation needed] superscript tags, and a small edit pencil accent. Serif body, sans headings."
 }

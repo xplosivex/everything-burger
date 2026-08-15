@@ -114,5 +114,6 @@
       "html": "POSTERFOOTER -> <p class=\"poster-footer\">",
       "style": ".poster-footer -> tiny text, centered, credits feel"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: cinematic poster. Dark background, a huge bold title treatment, a tagline in italics, gold/red accents, a credits block in small caps, and a dramatic centered composition."
 }

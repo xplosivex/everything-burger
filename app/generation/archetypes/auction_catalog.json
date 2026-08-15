@@ -15,7 +15,20 @@
     "Storage auction look: white background, bold text, red 'starting bid' accents, and a fast sans-serif. Unified and fast-talking.",
     "Estate sale look: muted background, small text, price tags, and a slightly worn feel. Unified and nostalgic."
   ],
-  "image_ranges": [[2, 4], [3, 5], [1, 3]],
+  "image_ranges": [
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      1,
+      3
+    ]
+  ],
   "elements": [
     {
       "name": "lot_number",
@@ -89,5 +102,6 @@
       "html": "AUCTIONFOOTER -> <p class=\"auction-footer\">",
       "style": ".auction-footer -> small text, centered, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: refined auction house. Cream background, black serif text, gold accents, lot numbers, framed images, and an elegant catalog feel."
 }

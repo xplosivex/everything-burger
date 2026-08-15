@@ -114,5 +114,6 @@
       "html": "FINEPRINT -> <p class=\"fine-print\">",
       "style": ".fine-print -> tiny text, muted, legal feel"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: loud late-night pitch. Bright yellow/red background, huge bold black text, a limited-time banner, big price tags with strikethrough, testimonial boxes with star accents, and a flashing-energy feel."
 }

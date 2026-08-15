@@ -7,7 +7,7 @@ from app.config import SERP_API_KEY
 from app.generation.content import generate_content
 from app.generation.structure import build_html_structure
 from app.generation.styling import apply_styling
-from app.generation.archetypes import select_archetype, select_twists, select_modifiers
+from app.generation.archetypes import select_archetype, get_archetype, select_twists, select_modifiers
 from app.generation.images import fetch_all_images
 from app.generation.serp import generate_search_queries, inject_serp_sections
 from app.generation.effects import apply_effects
@@ -28,7 +28,8 @@ def get_prompt_length(user_id):
             length += int(float(effect.effect_value))
     return length
 
-def generate_html_optimized(prompt: str, user_id: int) -> str:
+def generate_html_optimized(prompt: str, user_id: int, archetype_key: str = None,
+                            seed_text: str = None, award: bool = True) -> str:
     # Gather active effects
     active_effects = Item.get_active_effects(user_id)
 
@@ -44,8 +45,12 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
         if effect.effect_type == 'image_count':
             image_multiplier *= float(effect.effect_value)
 
-    # Pick this generation's archetype, twists, and modifiers
-    archetype = select_archetype()
+    # Pick this generation's archetype (or reuse a stored one for iterations),
+    # plus fresh twists and modifiers
+    if archetype_key:
+        archetype = get_archetype(archetype_key)
+    else:
+        archetype = select_archetype()
     twists = select_twists()
     modifiers = select_modifiers()
     logger.info(f"Archetype: {archetype['name']}, twists: {twists}, modifiers: {modifiers}")
@@ -57,14 +62,28 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
     if image_multiplier > 1:
         image_count = int(image_count * image_multiplier)
 
+    # Nerd stats: everything that was randomly chosen for this generation
+    meta = {
+        'archetype': archetype['name'],
+        'archetype_key': archetype['key'],
+        'twists': twists,
+        'modifiers': modifiers,
+        'elements': [e['name'] for e in archetype['params']['elements']],
+        'image_count': image_count,
+        'temperature': round(temperature, 2),
+        'image_multiplier': image_multiplier,
+        'seed': bool(seed_text),
+    }
+
     # -- STAGE 1: Content Generation --
     logger.info("=== Stage 1: Generating content ===")
-    content = generate_content(prompt, active_effects, temperature, archetype, image_count)
+    content = generate_content(prompt, active_effects, temperature, archetype, image_count, seed_text)
 
     # Validate content was actually produced
     if len(content) < 150:
         logger.warning(f"Stage 1 produced only {len(content)} chars, retrying...")
-        content = generate_content(prompt, active_effects, temperature=0.9, archetype=archetype, image_count=image_count)
+        content = generate_content(prompt, active_effects, temperature=0.9, archetype=archetype,
+                                   image_count=image_count, seed_text=seed_text)
 
     # -- STAGE 2: HTML Structure --
     logger.info("=== Stage 2: Building HTML structure ===")
@@ -105,12 +124,11 @@ def generate_html_optimized(prompt: str, user_id: int) -> str:
 
     final_html = str(soup.find('html') or soup)
 
-    # Award rewards
-    award_generation_rewards(user_id, final_html)
-
-    # Check achievements
-    check_generation_achievements(soup, user_id, prompt, num_images)
+    # Award rewards (skipped for iterations, which grant their own XP/crumbs)
+    if award:
+        award_generation_rewards(user_id, final_html)
+        check_generation_achievements(soup, user_id, prompt, num_images)
 
     logger.info(f"=== Generation complete: {len(final_html)} chars ===")
-    return final_html
+    return final_html, archetype['key'], meta
 

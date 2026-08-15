@@ -114,5 +114,6 @@
       "html": "CLOSING -> <p class=\"closing-bell\">",
       "style": ".closing-bell -> bold, centered, dramatic"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: high-stakes terminal. Dark background, green/red price accents, monospace numbers, a scrolling ticker feel, analyst note cards, and a Bloomberg-terminal vibe."
 }

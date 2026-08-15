@@ -15,7 +15,20 @@
     "Demon look: near-black background, red and gold accents, a gothic serif, and a sinister feel. Unified and theatrical.",
     "Warning look: dark background, yellow warning accents, a bold sans-serif, and an urgent feel. Unified and alarming."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "cursed_prediction",
@@ -101,5 +114,6 @@
       "html": "LASTWARNING -> <p class=\"last-warning\">",
       "style": ".last-warning -> bold, red, urgent"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: ominous cosmic. Dark purple/red background, flickering accents, gothic serif, cursed zodiac cards, and a sinister glow."
 }

@@ -1,3 +1,4 @@
+import json
 import logging
 
 from app.models import db, User, Page, PageIteration
@@ -15,12 +16,12 @@ def run_generate(app, task_id, prompt, user_id):
     """Generate a page in the background and push the result to the client."""
     with app.app_context():
         try:
-            result = generate_html_optimized(prompt, user_id)
+            result, archetype_key, meta = generate_html_optimized(prompt, user_id)
             if not result or len(result.strip()) < 100:
                 update(task_id, error="Generation produced insufficient content", completed=True)
                 return
 
-            update(task_id, html=result, completed=True)
+            update(task_id, html=result, archetype=archetype_key, meta=meta, completed=True)
             socketio.emit('generation_complete', {
                 'html': result,
                 'prompt': prompt,
@@ -46,10 +47,20 @@ def run_iterate(app, task_id, page_uuid, parent_iteration_id, prompt, user_id):
             page = Page.query.filter_by(uuid=page_uuid).first_or_404()
             parent_iteration = PageIteration.query.get_or_404(parent_iteration_id)
 
-            html = generate_iteration(
-                parent_html=parent_iteration.html_content,
-                modification_prompt=prompt,
-                original_prompt=page.prompt
+            # Re-run the archetype pipeline with the page's stored archetype,
+            # seeding the content stage with the existing page text so the
+            # modification is applied while the format is preserved.
+            from bs4 import BeautifulSoup as _BS
+            soup = _BS(parent_iteration.html_content, 'html.parser')
+            for tag in soup(['script', 'style', 'head']):
+                tag.decompose()
+            seed_text = soup.get_text(separator='\n', strip=True)[:15000]
+
+            html, _, meta = generate_html_optimized(
+                prompt, user_id,
+                archetype_key=page.archetype,
+                seed_text=seed_text,
+                award=False
             )
             iteration = PageIteration(
                 page_id=page.id,
@@ -57,7 +68,8 @@ def run_iterate(app, task_id, page_uuid, parent_iteration_id, prompt, user_id):
                 html_content=html,
                 prompt=prompt,
                 author_id=user_id,
-                iteration_number=parent_iteration.iteration_number + 1
+                iteration_number=parent_iteration.iteration_number + 1,
+                meta_json=json.dumps(meta)
             )
             db.session.add(iteration)
             db.session.commit()

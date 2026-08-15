@@ -15,7 +15,20 @@
     "Intake look: white background, gray form fields, a single accent, and a formal sans-serif. Unified and bureaucratic.",
     "Support group look: warm background, soft accents, a friendly sans-serif, and a comforting feel. Unified and warm."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "client_name",
@@ -101,5 +114,6 @@
       "html": "CONFIDENTIAL -> <p class=\"confidential-note\">",
       "style": ".confidential-note -> small text, muted, formal"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: clinical intake. White background, black text, a muted accent, bordered form sections, a signature line, and a professional feel."
 }

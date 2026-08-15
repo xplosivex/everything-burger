@@ -114,5 +114,6 @@
       "html": "MENUBORDER -> <hr class=\"menu-border\">",
       "style": ".menu-border -> decorative divider, accent color"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: elegant menu. Cream background, dark text, a single accent color (burgundy/green), serif headings, a decorative border, dotted leaders, and an appetizing feel."
 }

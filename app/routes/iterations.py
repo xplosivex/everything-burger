@@ -1,4 +1,5 @@
 import uuid
+import json
 import logging
 from flask import Blueprint, render_template, request, url_for, session, jsonify
 from app.models import User, Page, PageIteration, WatcherVerdict
@@ -87,13 +88,20 @@ def get_iteration(iteration_id):
     page = iteration.page
     if page.visibility == 'private' and page.creator_id != session.get('user_id'):
         return jsonify({'error': 'Forbidden'}), 403
+    meta = None
+    if iteration.meta_json:
+        try:
+            meta = json.loads(iteration.meta_json)
+        except (TypeError, ValueError):
+            meta = None
     return jsonify({
         'id': iteration.id,
         'html_content': iteration.html_content,
         'prompt': iteration.prompt,
         'author': iteration.author.username if iteration.author else 'Unknown',
         'created_at': iteration.created_at.isoformat(),
-        'iteration_number': iteration.iteration_number
+        'iteration_number': iteration.iteration_number,
+        'meta': meta
     })
 
 

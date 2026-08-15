@@ -17,6 +17,8 @@
 
                 <input type="hidden" name="html_content" id="html-content-input" value="{{ html_content }}">
                 <input id="prompt-input" type="hidden" name="prompt" value="{{ prompt }}">
+                <input type="hidden" name="archetype" value="{{ archetype or '' }}">
+                <input type="hidden" name="meta" value="{{ meta | tojson if meta else '' }}">
                 <div class="mb-4">
                     <input type="text" name="title" placeholder="Page Title" maxlength="35" required class="w-full text-sm p-2 border border-gray-300 rounded">
                 </div>

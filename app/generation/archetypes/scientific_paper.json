@@ -120,5 +120,6 @@
       "html": "DATA -> <p class=\"data-availability\">",
       "style": ".data-availability -> small text, muted, formal"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: academic journal. White background, black serif text, blue section headings, a gray abstract box with a border, a striped results table, small footnotes, and a formal double-spaced feel."
 }

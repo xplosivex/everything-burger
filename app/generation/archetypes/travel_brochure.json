@@ -114,5 +114,6 @@
       "html": "BROCHUREFOOTER -> <p class=\"brochure-footer\">",
       "style": ".brochure-footer -> small text, centered, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: sunny getaway. Bright sky/ocean colors, white cards, bold sans-serif headings, image frames, a book-now footer, and an aspirational glossy feel."
 }

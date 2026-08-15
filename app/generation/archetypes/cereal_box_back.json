@@ -15,7 +15,20 @@
     "Retro cereal look: muted 70s colors, a vintage mascot accent, a groovy font, and a nostalgic feel. Unified and retro.",
     "Contest look: white background, red and blue accents, a bold sans-serif, and a corporate feel. Unified and official."
   ],
-  "image_ranges": [[1, 3], [2, 4], [0, 2]],
+  "image_ranges": [
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "maze",
@@ -101,5 +114,6 @@
       "html": "SERVING -> <p class=\"serving-suggestion\">",
       "style": ".serving-suggestion -> small italic text, muted"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: bright breakfast. Bold primary colors, a mascot accent, a maze/puzzle frame, a nutrition table, and a playful sans-serif."
 }

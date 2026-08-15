@@ -15,7 +15,20 @@
     "Case file look: manila folder background, black text, red 'CONFIDENTIAL' stamps, and a typewriter font. Unified and bureaucratic.",
     "Dispatch look: dark background, green monospace text, timestamped entries, and a terminal feel. Unified and urgent."
   ],
-  "image_ranges": [[0, 1], [0, 2], [1, 2]],
+  "image_ranges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ]
+  ],
   "elements": [
     {
       "name": "case_number",
@@ -101,5 +114,6 @@
       "html": "CONFIDENTIAL -> <p class=\"confidential-stamp\">",
       "style": ".confidential-stamp -> rotated red stamp text, bold"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: official form. White paper, black text, a blue header, monospace case number, bordered sections, a signature line, and a bureaucratic feel."
 }

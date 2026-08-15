@@ -60,8 +60,12 @@ RULES:
 
 
 def generate_content(prompt: str, active_effects: list, temperature: float = 0.85,
-                     archetype: dict = None, image_count: int = 3) -> str:
-    """Stage 1: Generate entertaining, varied content from the user's prompt."""
+                     archetype: dict = None, image_count: int = 3, seed_text: str = None) -> str:
+    """Stage 1: Generate entertaining, varied content from the user's prompt.
+
+    When seed_text is provided (iterations), the prompt becomes a modification
+    of existing content rather than a fresh generation.
+    """
 
     if archetype is None:
         from app.generation.archetypes import select_archetype
@@ -88,34 +92,49 @@ def generate_content(prompt: str, active_effects: list, temperature: float = 0.8
         if style_instructions:
             system = style_instructions + "\n\n" + system
 
-    # Flavor injections -- push the model toward different vibes each time
-    flavor_angles = [
-        "Include a completely unhinged fake testimonial.",
-        "Add a dramatic WARNING box about something absurd.",
-        "Include a fake poll with ridiculous answer options.",
-        "Add made-up statistics that sound just real enough to be funny.",
-        "Include a fake breaking news alert.",
-        "Add a ranking/top list with spicy hot takes.",
-        "Include a ridiculous fake advertisement.",
-        "Add a timeline of fictional events.",
-        "Include a DEBATE section with two opposing absurd takes.",
-        "Add comparison content that's unexpected.",
-        "Include a conspiracy-theory-style fun fact.",
-        "Add fake expert quotes from people with ridiculous job titles.",
-        "Include a fake error message or loading screen.",
-        "Add a choose-your-own-adventure moment.",
-        "Include a fake dictionary entry for a made-up word.",
-        "Add a nature-documentary-style field guide entry.",
-        "Include a fake coupon or promotional offer.",
-        "Include a mic-drop one-liner.",
-        "Add a before-and-after comparison.",
-        "Include a fake flowchart decision tree.",
-        "Add a rant that escalates hilariously.",
-        "Include a scoreboard or leaderboard.",
-    ]
-    selected_flavors = random.sample(flavor_angles, k=random.randint(2, 4))
+    if seed_text:
+        enhanced_prompt = f"""You are modifying an existing page. Keep it in the format of a **{archetype['name']}**.
 
-    enhanced_prompt = f"""Create a fun, skimmable page about: {prompt}
+Here is the existing page content:
+
+{seed_text}
+
+The user wants this modification:
+{prompt}
+
+Rewrite the page as ONE complete, flowing piece in the {archetype['name']} format, applying the
+modification while preserving the existing content, tone, and structure. Keep the same topic and
+most of the existing material -- only change what the modification asks for. Reference earlier
+content in later parts. Reuse names, callback to jokes, escalate the absurdity."""
+    else:
+        # Flavor injections -- push the model toward different vibes each time
+        flavor_angles = [
+            "Include a completely unhinged fake testimonial.",
+            "Add a dramatic WARNING box about something absurd.",
+            "Include a fake poll with ridiculous answer options.",
+            "Add made-up statistics that sound just real enough to be funny.",
+            "Include a fake breaking news alert.",
+            "Add a ranking/top list with spicy hot takes.",
+            "Include a ridiculous fake advertisement.",
+            "Add a timeline of fictional events.",
+            "Include a DEBATE section with two opposing absurd takes.",
+            "Add comparison content that's unexpected.",
+            "Include a conspiracy-theory-style fun fact.",
+            "Add fake expert quotes from people with ridiculous job titles.",
+            "Include a fake error message or loading screen.",
+            "Add a choose-your-own-adventure moment.",
+            "Include a fake dictionary entry for a made-up word.",
+            "Add a nature-documentary-style field guide entry.",
+            "Include a fake coupon or promotional offer.",
+            "Include a mic-drop one-liner.",
+            "Add a before-and-after comparison.",
+            "Include a fake flowchart decision tree.",
+            "Add a rant that escalates hilariously.",
+            "Include a scoreboard or leaderboard.",
+        ]
+        selected_flavors = random.sample(flavor_angles, k=random.randint(2, 4))
+
+        enhanced_prompt = f"""Create a fun, skimmable page about: {prompt}
 
 Your angle/premise for this page (pick ONE and commit to it throughout):
 Think of a specific funny take, framing, or "bit" for this topic. Not just "here's stuff about [topic]"
@@ -133,7 +152,7 @@ in later parts. Reuse character names, callback to jokes, escalate the absurdity
             {"role": "system", "content": system},
             {"role": "user", "content": enhanced_prompt}
         ],
-        max_tokens=4000,
+        max_tokens=6000,
         temperature=temperature,
         top_p=0.92
     )

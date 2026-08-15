@@ -343,4 +343,6 @@ def result(task_id):
     return render_template('result.html',
                          html_content=html_content,
                          prompt=content['prompt'],
+                         archetype=content.get('archetype', ''),
+                         meta=content.get('meta'),
                          task_id=task_id)

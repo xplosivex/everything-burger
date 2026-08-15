@@ -114,5 +114,6 @@
       "html": "PROFILEPROMPT -> <p class=\"profile-prompt\">",
       "style": ".profile-prompt -> italic, bordered, playful"
     }
-  ]
+  ],
+  "visual_style": "VISUAL: flirty app card. White background, a single bold accent color (pink/orange), rounded cards, photo frames, a swipe-action footer, and a modern sans-serif."
 }
