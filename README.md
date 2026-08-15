@@ -2,13 +2,15 @@
 
 **The burger that does everything.**
 
-Everything Burger is a gamified, AI-powered webpage generator. Type any prompt — no matter how nonsensical — and the app uses your AI backend of choice (**Mistral**, OpenAI, Claude, or Ollama) to generate a complete, styled HTML5 page, enriched with real Google search results (images, news, videos, and shopping) via **SerpAPI** when a key is configured.
+Everything Burger is a gamified, AI-powered webpage generator. Type any prompt — no matter how nonsensical — and the app uses your AI backend of choice (**Mistral**, OpenAI, Claude, or Ollama) to generate a complete, styled HTML5 page. Every generation picks a random **page archetype** (a tabloid newspaper, a wanted poster, a yearbook, a court ruling, a grocery receipt, and 36 more), so the same prompt never produces the same format twice. Pages are enriched with real Google search results (images, news, videos, and shopping) via **SerpAPI** when a key is configured.
 
 The whole thing is wrapped in an RPG-style progression system: generating pages earns you **crumbs** (in-app currency), **XP**, and **levels**. Crumbs buy **items** (consumables, artifacts, and trinkets) from the Emporium, which you can use, sell, trade, or trade up for rarer loot. You also earn **achievements**, complete **daily quests**, and compete on a community feed of generated pages with votes and comments.
 
 ## Features
 
-- **AI page generation** — a 3-stage pipeline (content → structure → styling) using Mistral AI models, with live progress via WebSockets
+- **AI page generation** — a 3-stage pipeline (content → structure → styling) driven by 40 random page archetypes, with live progress via WebSockets
+- **Archetype system** — each generation picks a random archetype (tabloid, wiki article, wanted poster, game manual, yearbook, court ruling, and more), each with its own content voice, layout, theme, and format-specific elements
+- **Twists & modifiers** — 1–2 random twists shape the writing voice; 1–3 random modifiers (weighted) add quirky structural/styling flourishes to every page
 - **Real search enrichment** — images, news, videos, and shopping results pulled from Google via SerpAPI
 - **Page iterations** — regenerate and iterate on any page, with a "Watcher" AI that scores each version
 - **RPG economy** — crumbs, XP, levels, daily quests, and achievements
@@ -133,6 +135,8 @@ Each backend has sensible defaults per stage; override them in `.env` to balance
 
 The system prompts that drive generation are hardcoded in `app/generation/` (content, structure, and styling modules). Tweak them to change how pages are generated.
 
+The **archetype catalog** lives in `app/generation/archetypes/` as JSON files — one per archetype (40 total), plus `twists.json` (100 writing twists) and `modifiers.json` (300 structural/styling modifiers). Each archetype file defines its content styles, layouts, themes, image-count ranges, and a pool of 10–20 format-specific elements (each with content, HTML, and styling fragments). Add a new `.json` file there and it's automatically available to generation.
+
 ## Project Structure
 
 ```
@@ -150,11 +154,11 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 │   ├── tasks.py            # Background task handlers (generate, iterate, watcher)
 │   ├── state.py            # Redis-backed generation task state
 │   ├── generation/         # AI page generation pipeline
-│   │   ├── blocks.py       # Content block definitions (staple/common/exotic)
-│   │   ├── palette.py      # Weighted block palette selection
-│   │   ├── content.py      # Stage 1: content generation (Mistral)
-│   │   ├── structure.py    # Stage 2: HTML structure (Mistral)
-│   │   ├── styling.py      # Stage 3: Tailwind styling (Mistral)
+│   │   ├── archetypes/      # JSON data: 40 archetype files + twists.json + modifiers.json
+│   │   ├── archetypes.py    # Archetype/twist/modifier loading + selection
+│   │   ├── content.py       # Stage 1: content generation (archetype voice + twists)
+│   │   ├── structure.py    # Stage 2: HTML structure (archetype layout + modifiers)
+│   │   ├── styling.py      # Stage 3: Tailwind styling (archetype theme + modifiers)
 │   │   ├── images.py       # Google image fetching (SerpAPI)
 │   │   ├── serp.py         # News/video/shopping enrichment (SerpAPI)
 │   │   ├── effects.py      # Item effect application to generated HTML
@@ -185,7 +189,12 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ## How It Works
 
-1. **Generate** — you submit a prompt on the dashboard. The request is pushed onto a Redis queue; an embedded worker runs the 3-stage pipeline (content → structure → Tailwind styling) using your configured AI backend (Mistral, OpenAI, Claude, or Ollama), fetching real images/news/videos/shopping results from Google in parallel when a SerpAPI key is present, and pushes the result to your page via Socket.IO.
+1. **Generate** — you submit a prompt on the dashboard. The request is pushed onto a Redis queue; an embedded worker runs the 3-stage pipeline using your configured AI backend (Mistral, OpenAI, Claude, or Ollama):
+   - **Pick a format** — a random archetype is chosen (tabloid, wiki article, wanted poster, yearbook, court ruling, grocery receipt, and 36 more), plus 1–2 writing twists and 1–3 structural modifiers.
+   - **Content** — the model writes the whole page in the archetype's voice, following the twists and a random premise/angle.
+   - **Structure** — the model builds ONE cohesive HTML5 document in the archetype's layout (columns, TOC, centered poster, etc.), including 3–9 randomly selected format-specific elements.
+   - **Styling** — the model applies one unified theme (single background, one accent palette, one font pairing) so the page reads as a single designed artifact.
+   - Real images/news/videos/shopping results are fetched from Google in parallel when a SerpAPI key is present, and the result is pushed to your page via Socket.IO.
 2. **Reward** — completing a generation rolls for item drops, grants crumbs/XP, and checks achievements and daily quests.
 3. **Iterate** — every page can be regenerated. Each version is stored as a `PageIteration`, and a "Watcher" AI scores it with a mood, summary, and points.
 4. **Play** — spend crumbs in the Emporium, use/sell/trade items, trade up rarities, and show off your best pages on your profile.
@@ -203,6 +212,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 ## Known Limitations
 
 - **Modular architecture** — the app is split into `app/generation/` (AI pipeline) and `app/routes/` (blueprints), with models, config, and helpers in separate modules.
+- **Archetype data is JSON** — the archetype catalog, twists, and modifiers live in `app/generation/archetypes/*.json`. Adding a new archetype is just dropping in a new JSON file, but the content/layout/theme fragments are prompt text, so output quality depends on how well the model follows them.
 - **Redis dependency** — the task queue and generation state require Redis; the app will not start without it.
 - **SQLite** — fine for a personal project; swap to PostgreSQL for heavy multi-user traffic.
 - **No test suite** — the project has no automated tests yet.
