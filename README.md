@@ -2,6 +2,8 @@
 
 **The burger that does everything.**
 
+> **Public instance:** a live deployment can be found at **https://everythingburger.ai** (if it's up when you click). Sign up at **https://everythingburger.ai/signup**. Note: email-based password recovery isn't wired up, so remember your login or make a new account if you forget.
+
 Everything Burger is a gamified, AI-powered webpage generator. Type any prompt — no matter how nonsensical — and the app uses your AI backend of choice (**Mistral**, OpenAI, Claude, or Ollama) to generate a complete, styled HTML5 page. Every generation picks a random **page archetype** (a tabloid newspaper, a wanted poster, a yearbook, a court ruling, a grocery receipt, and 36 more), so the same prompt never produces the same format twice. Pages are enriched with real Google search results (images, news, videos, and shopping) via **SerpAPI** when a key is configured.
 
 The whole thing is wrapped in an RPG-style progression system: generating pages earns you **crumbs** (in-app currency), **XP**, and **levels**. Crumbs buy **items** (consumables, artifacts, and trinkets) from the Emporium, which you can use, sell, trade, or trade up for rarer loot. You also earn **achievements**, complete **daily quests**, and compete on a community feed of generated pages with votes and comments.
