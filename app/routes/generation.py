@@ -3,13 +3,13 @@ import random
 import logging
 from sqlalchemy import func, text
 from flask import Blueprint, render_template, request, redirect, url_for, session, current_app
-from app.extensions import limiter, socketio
+from app.extensions import limiter
 from app.models import db, User, Item, ItemType, Page, PageIteration, WatcherVerdict, Achievement, UserAchievement, ACHIEVEMENTS, update_achievement_progress, has_achievement, get_item_for_user, calculate_item_duration, Comment, Vote
 from app.utils import login_required, flash_message
-from app.state import put, get, update, contains, count_active_generations
-from app.generation.pipeline import generate_html_optimized, get_prompt_length
+from app.state import put, get, contains, count_active_generations
+from app.generation.pipeline import get_prompt_length
 from app.routes.helpers import update_quest_progress
-from app.threads import submit
+from app.queue import enqueue
 
 logger = logging.getLogger(__name__)
 
@@ -283,34 +283,7 @@ def _handle_generation(prompt, user_id, task_id):
 
         try_reward_item(user_id, prompt)
 
-    def generate_async(app):
-        with app.app_context():
-            try:
-                result = generate_html_optimized(prompt, user_id)
-                if not result or len(result.strip()) < 100:
-                    update(task_id, error="Generation produced insufficient content", completed=True)
-                    return
-
-                update(task_id, html=result, completed=True)
-
-                socketio.emit('generation_complete', {
-                    'html': result,
-                    'prompt': prompt,
-                    'task_id': task_id,
-                    'status': 'success'
-                })
-            except Exception as e:
-                logger.error(f"Generation failed for task {task_id}: {e}")
-                update(task_id, error=str(e), completed=True)
-                socketio.emit('generation_complete', {
-                    'html': None,
-                    'prompt': prompt,
-                    'task_id': task_id,
-                    'status': 'error',
-                    'message': str(e)
-                })
-
-    submit(generate_async, current_app._get_current_object())
+    enqueue('generate', {'task_id': task_id, 'prompt': prompt, 'user_id': user_id})
     return redirect(url_for('generation.result', task_id=task_id))
 
 @generation_bp.route('/generate', methods=['POST'])

@@ -4,16 +4,15 @@ import time
 import uuid
 import tempfile
 import logging
-from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
 from sqlalchemy import func
 from selenium import webdriver
 from app.extensions import limiter
 from app.models import db, User, Page, Vote, Comment, PageIteration, WatcherVerdict, Item
 from app.utils import login_required, flash_message
-from app.generation.iterations import generate_watcher_verdict
 from app.generation.pipeline import get_prompt_length
 from app.routes.helpers import update_quest_progress, has_achievement
-from app.threads import submit
+from app.queue import enqueue
 
 logger = logging.getLogger(__name__)
 
@@ -301,7 +300,7 @@ def save_page():
     db.session.flush()
     page.current_iteration_id = root_iteration.id
     db.session.commit()
-    submit(generate_watcher_verdict, root_iteration.id, current_app._get_current_object())
+    enqueue('watcher_verdict', {'iteration_id': root_iteration.id})
 
     page_uuid = page.uuid # Get UUID before closing session
 

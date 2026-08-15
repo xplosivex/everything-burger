@@ -25,6 +25,9 @@ SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
 SMTP_ENABLED = bool(SMTP_SERVER and SMTP_USERNAME and SMTP_PASSWORD)
 
+# Redis connection used for the task queue and generation state.
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+
 # Public base URL used in password reset links (e.g. https://yourdomain.com)
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:8000")
 

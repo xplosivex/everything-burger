@@ -4,7 +4,7 @@ import logging
 from waitress import serve
 
 from app import create_app
-from app.threads import init_thread_pool
+from app.worker import start_workers
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -88,9 +88,10 @@ def main():
 
     app = create_app()
 
-    # Initialize the background worker pool used for page generation,
-    # watcher verdicts, and iteration rewrites.
-    init_thread_pool(profile['bg_workers'])
+    # Start the embedded queue workers. Jobs (page generation, iteration
+    # rewrites, watcher verdicts) are pushed onto Redis by the web app and
+    # consumed here, so work survives restarts and doesn't block requests.
+    _, _workers = start_workers(app, profile['bg_workers'])
 
     host = os.environ.get('HOST', '0.0.0.0')
     port = int(os.environ.get('PORT', '8000'))
@@ -99,8 +100,9 @@ def main():
     print(f"  EVERYTHING BURGER 2")
     print(f"  Profile: {profile_num} ({profile['name']})")
     print(f"  Request threads : {profile['waitress_threads']}")
-    print(f"  Background work : {profile['bg_workers']}")
+    print(f"  Queue workers   : {profile['bg_workers']}")
     print(f"  DB pool         : {profile['db_pool']} (+{profile['db_overflow']})")
+    print(f"  Redis           : {os.environ.get('REDIS_URL', 'redis://localhost:6379/0')}")
     print(f"  Listening on    : http://{host}:{port}")
     print("=" * 60)
 

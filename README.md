@@ -24,6 +24,7 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 | Realtime | Flask-SocketIO (threading / long-polling) |
 | ORM / Migrations | Flask-SQLAlchemy + Flask-Migrate (Alembic) |
 | Server | Waitress (threaded WSGI) |
+| Queue / State | Redis |
 | AI | Mistral AI SDK |
 | Search | SerpAPI (Google) |
 | Scraping / Images | BeautifulSoup4, Pillow, Selenium (headless Chrome) |
@@ -33,6 +34,7 @@ The whole thing is wrapped in an RPG-style progression system: generating pages 
 ## Requirements
 
 - **Python 3.10+** (developed on 3.14)
+- **Redis** — the task queue and generation state live in Redis. Run it with `redis-server` (or `podman run -d -p 6379:6379 redis:7-alpine`).
 - **Chrome / Chromium** installed (used by Selenium to screenshot generated pages for thumbnails)
 - API keys for the services you want to use (see below)
 
@@ -94,7 +96,7 @@ python run.py 2
 
 Then open <http://localhost:8000> and create an account.
 
-> **Production server:** the app is served by **Waitress** (a production-grade threaded WSGI server). The profile scales waitress's request threads, the background worker pool (page generation, watcher verdicts, iterations), and the SQLAlchemy connection pool. For production, run it behind a reverse proxy (nginx/Caddy) with TLS and set `BASE_URL` to your real domain.
+> **Startup:** `python run.py` boots waitress and embedded queue workers in a single process. Jobs are pushed to Redis by the web app and consumed by the workers, so background work survives restarts. For production, run it behind a reverse proxy (nginx/Caddy) with TLS and set `BASE_URL` to your real domain.
 
 ## Configuration Reference
 
@@ -119,7 +121,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ```
 .
-├── run.py                  # Entry point: waitress + startup profile selection (1|2|3)
+├── run.py                  # Entry point: waitress + embedded Redis queue workers + profile (1|2|3)
 ├── app/
 │   ├── __init__.py         # App factory: config, extensions, blueprint registration
 │   ├── config.py           # Environment-based configuration (API keys, models, SMTP)
@@ -127,7 +129,10 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 │   ├── models.py           # SQLAlchemy models + item/achievement/quest definitions
 │   ├── utils.py            # login_required decorator, flash_message helper
 │   ├── email.py            # SMTP password-reset + welcome emails
-│   ├── state.py            # In-memory generation state
+│   ├── queue.py            # Redis task queue (enqueue/dequeue)
+│   ├── worker.py           # Embedded queue worker threads (consume jobs)
+│   ├── tasks.py            # Background task handlers (generate, iterate, watcher)
+│   ├── state.py            # Redis-backed generation task state
 │   ├── generation/         # AI page generation pipeline
 │   │   ├── blocks.py       # Content block definitions (staple/common/exotic)
 │   │   ├── palette.py      # Weighted block palette selection
@@ -164,7 +169,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 
 ## How It Works
 
-1. **Generate** — you submit a prompt on the dashboard. A background worker runs the 3-stage Mistral pipeline (content → structure → Tailwind styling), fetching real images/news/videos/shopping results from Google in parallel.
+1. **Generate** — you submit a prompt on the dashboard. The request is pushed onto a Redis queue; an embedded worker runs the 3-stage Mistral pipeline (content → structure → Tailwind styling), fetching real images/news/videos/shopping results from Google in parallel, and pushes the result to your page via Socket.IO.
 2. **Reward** — completing a generation rolls for item drops, grants crumbs/XP, and checks achievements and daily quests.
 3. **Iterate** — every page can be regenerated. Each version is stored as a `PageIteration`, and a "Watcher" AI scores it with a mood, summary, and points.
 4. **Play** — spend crumbs in the Emporium, use/sell/trade items, trade up rarities, and show off your best pages on your profile.
@@ -172,7 +177,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 ## Deployment Notes
 
 - The built-in server (`python run.py`) serves the app through **Waitress**, a production-grade threaded WSGI server. Pick the startup profile (1 = small, 2 = medium, 3 = large) to match your expected traffic.
-- Background work (page generation, watcher verdicts, iterations) runs on a bounded thread pool sized by the chosen profile, so heavy load can't exhaust the machine.
+- Background work (page generation, iteration rewrites, watcher verdicts) is pushed onto a **Redis queue** and consumed by embedded worker threads sized by the chosen profile. The task queue and task state live in Redis, so pending work survives restarts.
 - The SQLite database runs in **WAL mode** with a busy timeout, so concurrent readers and a single writer proceed without lock errors.
 - For production, put it behind a reverse proxy (nginx/Caddy) with TLS, and set `BASE_URL` to your real domain.
 - Sessions are signed with `SECRET_KEY` — set a fixed value in `.env` so users stay logged in across restarts.
@@ -182,7 +187,7 @@ The system prompts that drive generation are hardcoded in `app/generation/` (con
 ## Known Limitations
 
 - **Modular architecture** — the app is split into `app/generation/` (AI pipeline) and `app/routes/` (blueprints), with models, config, and helpers in separate modules.
-- **In-memory generation state** — pending/completed generations are stored in a process-local dict and lost on restart.
+- **Redis dependency** — the task queue and generation state require Redis; the app will not start without it.
 - **SQLite** — fine for a personal project; swap to PostgreSQL for heavy multi-user traffic.
 - **No test suite** — the project has no automated tests yet.
 

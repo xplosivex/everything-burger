@@ -1,14 +1,10 @@
 import uuid
 import logging
-from flask import Blueprint, render_template, request, url_for, session, jsonify, current_app
-from app.extensions import socketio
-from app.models import db, User, Page, PageIteration, WatcherVerdict
+from flask import Blueprint, render_template, request, url_for, session, jsonify
+from app.models import User, Page, PageIteration, WatcherVerdict
 from app.utils import login_required
-from app.generation.iterations import generate_iteration, generate_watcher_verdict
 from app.generation.pipeline import get_prompt_length
-from app.routes.helpers import update_quest_progress, update_achievement_progress
-from app.routes.generation import try_reward_item
-from app.threads import submit
+from app.queue import enqueue
 
 logger = logging.getLogger(__name__)
 
@@ -42,55 +38,13 @@ def iterate_page(page_uuid):
     task_id = str(uuid.uuid4())
     user_id = session['user_id']
 
-    def iterate_async(app):
-        with app.app_context():
-            try:
-                html = generate_iteration(
-                    parent_html=parent_iteration.html_content,
-                    modification_prompt=modification_prompt,
-                    original_prompt=page.prompt
-                )
-                iteration = PageIteration(
-                    page_id=page.id,
-                    parent_iteration_id=parent_iteration.id,
-                    html_content=html,
-                    prompt=modification_prompt,
-                    author_id=user_id,
-                    iteration_number=parent_iteration.iteration_number + 1
-                )
-                db.session.add(iteration)
-                db.session.commit()
-
-                iterator = User.query.get(user_id)
-                iterator.xp += 25
-                iterator.current_crumbs += 10
-                iterator.lifetime_crumbs += 10
-
-                if page.creator_id != user_id:
-                    owner = User.query.get(page.creator_id)
-                    if owner:
-                        owner.xp += 10
-                    update_achievement_progress(page.creator_id, 'fork_in_the_road', 1)
-
-                user_iteration_count = db.session.query(PageIteration).filter_by(author_id=user_id).count()
-                update_achievement_progress(user_id, 'branching_out', user_iteration_count)
-                update_quest_progress(user_id, 'iterate_pages')
-                db.session.commit()
-
-                try_reward_item(user_id, modification_prompt)
-                submit(generate_watcher_verdict, iteration.id, app)
-
-                socketio.emit('iteration_complete', {
-                    'task_id': task_id,
-                    'iteration_id': iteration.id,
-                    'page_uuid': page_uuid
-                })
-
-            except Exception as e:
-                logger.error(f"iterate_async error: {e}")
-                socketio.emit('iteration_error', {'task_id': task_id, 'error': str(e)})
-
-    submit(iterate_async, current_app._get_current_object())
+    enqueue('iterate', {
+        'task_id': task_id,
+        'page_uuid': page_uuid,
+        'parent_iteration_id': parent_iteration_id,
+        'prompt': modification_prompt,
+        'user_id': user_id,
+    })
     return jsonify({'task_id': task_id, 'redirect': url_for('iterations.iteration_loading', task_id=task_id, page_uuid=page_uuid)})
 
 
