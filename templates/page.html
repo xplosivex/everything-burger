@@ -244,17 +244,19 @@
         const byId = {};
         iterations.forEach(it => byId[it.id] = it);
 
+        const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
         function nodeHtml(it, depth) {
             const indent = depth * 16;
             const active = it.id === activeIterationId ? 'bg-indigo-100 font-bold' : 'hover:bg-gray-100';
-            const prompt = it.prompt ? `"${it.prompt}"` : '(original)';
+            const prompt = it.prompt ? `"${esc(it.prompt)}"` : '(original)';
             return `<div class="cursor-pointer rounded px-2 py-1 ${active} flex items-center gap-1"
                         style="margin-left:${indent}px"
                         onclick="selectIteration(${it.id})"
                         data-iteration-id="${it.id}">
                 <span class="text-indigo-400">&#8518;</span>
                 <span class="text-gray-700">${prompt}</span>
-                <span class="text-gray-400 text-xs ml-auto shrink-0">${it.author}</span>
+                <span class="text-gray-400 text-xs ml-auto shrink-0">${esc(it.author)}</span>
             </div>`;
         }
 
