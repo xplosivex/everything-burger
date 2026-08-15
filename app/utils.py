@@ -9,7 +9,10 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
-            flash_message('Please log in to access this page', 'error')
+            # Don't flash an error for the site root: hitting / when logged
+            # out is the normal landing flow, not a failed page access.
+            if request.path != '/':
+                flash_message('Please log in to access this page', 'error')
             return redirect(url_for('auth.login'))
         return f(*args, **kwargs)
     return decorated_function
