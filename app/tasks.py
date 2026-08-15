@@ -26,7 +26,9 @@ def run_generate(app, task_id, prompt, user_id):
                 'html': result,
                 'prompt': prompt,
                 'task_id': task_id,
-                'status': 'success'
+                'status': 'success',
+                'archetype': archetype_key,
+                'meta': meta
             })
         except Exception as e:
             logger.error(f"Generation failed for task {task_id}: {e}")

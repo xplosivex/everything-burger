@@ -338,6 +338,12 @@
                 clearInterval(window._progressTimer);
                 document.getElementById('gen-progress-bar').style.width = '100%';
                 document.getElementById('gen-progress-pct').textContent = '100%';
+                // Populate hidden fields from the socket payload (the page rendered
+                // while generation was in progress, so they were empty on load)
+                const archetypeInput = document.querySelector('input[name="archetype"]');
+                const metaInput = document.querySelector('input[name="meta"]');
+                if (archetypeInput) archetypeInput.value = data.archetype || '';
+                if (metaInput && data.meta) metaInput.value = JSON.stringify(data.meta);
                 // Build content with data.html (not initialContent which is still the placeholder)
                 const paddedContent = buildPaddedContent(data.html);
                 setTimeout(() => {
