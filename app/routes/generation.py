@@ -175,10 +175,6 @@ def try_reward_item(user_id, prompt=None):
             db.session.commit()
             logger.info(f"Successfully saved item {item.id} to database")
 
-            # Replace socket emit with flash_message
-            flash_message(f'You received a {item.rarity.value.lower()} {item.type.value.lower()}: {item.name}!', 'success')
-            logger.info(f"Sent item received message to user {user_id}")
-
             # Add XP based on item rarity
             user = db.session.query(User).get(user_id)
             rarity_xp = {
@@ -193,6 +189,10 @@ def try_reward_item(user_id, prompt=None):
             # Check for quality items quest
             if item.quality > 75:
                 update_quest_progress(user_id, 'quality_items')
+
+            # Notify the user (no-op in background workers without a request context)
+            flash_message(f'You received a {item.rarity.value.lower()} {item.type.value.lower()}: {item.name}!', 'success')
+            logger.info(f"Sent item received message to user {user_id}")
 
         except Exception as e:
             logger.error(f"Error rewarding random item: {str(e)}")

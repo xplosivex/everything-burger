@@ -1,6 +1,6 @@
 import logging
 from functools import wraps
-from flask import session, redirect, url_for, flash, request
+from flask import session, redirect, url_for, flash, request, has_request_context
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +20,11 @@ def login_required(f):
 
 def flash_message(message, category):
     from datetime import datetime
+    # Background workers (e.g. item rewards during iteration) have no request
+    # context, so there's no session to write to. Skip silently there.
+    if not has_request_context():
+        logger.debug(f"Skipping flash_message outside request context: {message}")
+        return
     if 'user_id' in session:
         # For logged-in users, store in persistent messages
         if 'persistent_messages' not in session:
