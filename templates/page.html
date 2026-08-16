@@ -208,6 +208,7 @@
                 <div class="p-4 border-b border-gray-200 text-sm text-gray-600 leading-relaxed">
                     <p class="mb-1"><strong>How iterations work:</strong> each branch below is a version of this page. Click a branch to view it, then type a modification below to create a new version from that branch. The page keeps its format (archetype) across iterations, but twists and modifiers are re-rolled each time.</p>
                     <p class="mb-1">Clicking a branch also loads its <strong>nerd stats</strong> and <strong>Watcher's verdict</strong> in the Generation Details panel above, if it's expanded.</p>
+                    <p class="mb-1">Clicking a branch updates the URL to point at that version, so you can <strong>copy and share the link</strong> to that exact iteration.</p>
                 </div>
                 <div id="iteration-tree" class="p-4 border-b border-gray-200 text-sm font-mono"></div>
                 {% if session.get('user_id') %}
@@ -288,6 +289,10 @@
         activeIterationId = id;
         const parentInput = document.getElementById('parent-iteration-id');
         if (parentInput) parentInput.value = id;
+        // Update the URL so the link points at this exact iteration (shareable)
+        const url = new URL(window.location.href);
+        url.searchParams.set('iter', id);
+        history.replaceState({}, '', url);
         fetch(`/iteration/${id}`)
             .then(r => r.json())
             .then(data => {
@@ -475,13 +480,21 @@
 
     // ---- Init ----
     document.addEventListener('DOMContentLoaded', function() {
-        if (CURRENT_ITERATION_ID) {
+        // If the URL has ?iter=N, show that iteration; otherwise the current one
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlIter = urlParams.get('iter');
+        const iterToLoad = urlIter ? parseInt(urlIter, 10) : CURRENT_ITERATION_ID;
+        if (iterToLoad) {
             if (document.getElementById('watcher-pending')) {
-                loadWatcherVerdict(CURRENT_ITERATION_ID);
+                loadWatcherVerdict(iterToLoad);
             }
-            fetch(`/iteration/${CURRENT_ITERATION_ID}`)
+            fetch(`/iteration/${iterToLoad}`)
                 .then(r => r.json())
-                .then(data => renderNerdStats(data.meta))
+                .then(data => {
+                    renderNerdStats(data.meta);
+                    const frame = document.getElementById('content-frame');
+                    frame.srcdoc = '<html><head><style>body{margin:0;padding:0;max-width:100%;overflow-x:hidden}.content-wrapper{padding:0 2rem;max-width:100%}img{max-width:100%;height:auto}*{box-sizing:border-box;word-wrap:break-word}</style><script src="https://cdn.tailwindcss.com"><\/script></head><body><div class="content-wrapper">' + data.html_content + '</div></body></html>';
+                })
                 .catch(() => {});
         }
     });

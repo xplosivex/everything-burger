@@ -225,8 +225,17 @@ def view_page(uuid):
 
     from app.config import BASE_URL
     page_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}"
-    thumb_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}/thumbnail"
+
+    # If ?iter=N is present, use that iteration's prompt for the embed
+    iter_param = request.args.get('iter', type=int)
     og_description = page.description or page.prompt or 'A page generated with Everything Burger.'
+    if iter_param:
+        iter_row = PageIteration.query.filter_by(id=iter_param, page_id=page.id).first()
+        if iter_row and iter_row.prompt:
+            og_description = iter_row.prompt
+        page_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}?iter={iter_param}"
+
+    thumb_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}/thumbnail"
 
     context = {
         'page': page,
