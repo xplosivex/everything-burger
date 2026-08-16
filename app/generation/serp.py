@@ -26,7 +26,7 @@ def generate_search_queries(html_content: str) -> list:
                 {"role": "user", "content": text}
             ],
             temperature=0.55,
-            max_tokens=500,
+            max_tokens=2000,
             json_mode=True
         )
 
@@ -77,9 +77,10 @@ def fetch_serp_content(query: str, search_type: str) -> dict | None:
 
 
 def inject_serp_sections(soup, search_queries: list):
-    """Inject news/video/shopping sections into the HTML."""
+    """Inject news/video/shopping sections into the HTML, scattered through the
+    page content rather than all stacked at the bottom."""
     content_types = ['videos', 'news', 'shopping']
-    num_sections = random.choices([0, 1, 2], weights=[20, 40, 40])[0]
+    num_sections = random.choices([0, 1, 2, 3], weights=[15, 35, 35, 15])[0]
 
     if num_sections == 0:
         return
@@ -87,22 +88,42 @@ def inject_serp_sections(soup, search_queries: list):
     selected = random.sample(content_types, k=num_sections)
     logger.info(f"Injecting SERP sections: {selected}")
 
+    sections = []
     for content_type in selected:
         query = random.choice(search_queries)
         results = fetch_serp_content(query, content_type)
-
         if not results:
             continue
-
         section_html = _build_serp_section(soup, content_type, results, query)
         if section_html:
-            main = soup.find('main') or soup.find('body')
-            if main:
-                footer = soup.find('footer')
-                if footer:
-                    footer.insert_before(section_html)
-                else:
-                    main.append(section_html)
+            sections.append(section_html)
+
+    if not sections:
+        return
+
+    main = soup.find('main') or soup.find('body')
+    if not main:
+        return
+
+    # Insert before random content blocks so SERP sections blend into the flow.
+    # Exclude the footer so nothing lands after the page's closing element.
+    content_blocks = ['p', 'h1', 'h2', 'h3', 'h4', 'ul', 'ol', 'table',
+                      'blockquote', 'figure', 'section', 'div', 'aside']
+    anchors = [
+        c for c in main.find_all(content_blocks)
+        if c.name not in ('footer', 'script', 'style')
+        and len(c.get_text(strip=True)) > 0
+    ]
+    if not anchors:
+        return
+
+    random.shuffle(anchors)
+    for section_html in sections:
+        if not anchors:
+            main.append(section_html)
+            continue
+        anchor = anchors.pop()
+        anchor.insert_before(section_html)
 
 
 def _build_serp_section(soup, content_type, results, query):
@@ -115,7 +136,7 @@ def _build_serp_section(soup, content_type, results, query):
     section.append(title_tag)
 
     if content_type == 'news':
-        items = results.get('news_results', [])[:3]
+        items = results.get('news_results', [])[:4]
         for item in items:
             link_url = item.get('highlight', {}).get('link') or item.get('link')
             if not link_url:
@@ -123,15 +144,15 @@ def _build_serp_section(soup, content_type, results, query):
             _append_news_card(soup, section, item, link_url)
 
     elif content_type == 'videos':
-        items = [v for v in results.get('video_results', []) if v.get('link')][:2]
-        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-2 gap-4'})
+        items = [v for v in results.get('video_results', []) if v.get('link')][:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-4'})
         for item in items:
             _append_video_card(soup, container, item)
         section.append(container)
 
     elif content_type == 'shopping':
-        items = [p for p in results.get('shopping_results', []) if p.get('product_link')][:2]
-        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-2 gap-6'})
+        items = [p for p in results.get('shopping_results', []) if p.get('product_link')][:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-6'})
         for item in items:
             _append_product_card(soup, container, item)
         section.append(container)

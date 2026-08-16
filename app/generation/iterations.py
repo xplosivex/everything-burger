@@ -31,7 +31,7 @@ def generate_iteration(parent_html, modification_prompt, original_prompt):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
         ],
-        max_tokens=16000,
+        max_tokens=32000,
         temperature=0.7,
         json_mode=True
     ))
@@ -87,7 +87,7 @@ def generate_watcher_verdict(iteration_id, app=None):
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}
                 ],
-                max_tokens=800,
+                max_tokens=4000,
                 temperature=0.9,
                 json_mode=True
             ))
