@@ -51,10 +51,10 @@ _DEFAULT_MODELS = {
         'summary': 'claude-haiku-4-5',
     },
     'ollama': {
-        'content': 'llama3.2',
-        'structure': 'llama3.2',
-        'styling': 'llama3.2',
-        'summary': 'llama3.2',
+        'content': 'deepseek-v4-flash',
+        'structure': 'deepseek-v4-flash',
+        'styling': 'deepseek-v4-flash',
+        'summary': 'deepseek-v4-flash',
     },
 }
 
@@ -190,7 +190,7 @@ def _complete_ollama(stage, messages, max_tokens, temperature, json_mode):
     if format_arg:
         payload['format'] = format_arg
     url = OLLAMA_BASE_URL.rstrip('/') + '/api/chat'
-    resp = httpx.post(url, json=payload, headers=headers, timeout=120)
+    resp = httpx.post(url, json=payload, headers=headers, timeout=600)
     resp.raise_for_status()
     data = resp.json()
     return (data.get('message', {}) or {}).get('content', '').strip()

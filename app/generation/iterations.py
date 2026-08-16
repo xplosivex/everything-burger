@@ -31,7 +31,7 @@ def generate_iteration(parent_html, modification_prompt, original_prompt):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
         ],
-        max_tokens=8000,
+        max_tokens=16000,
         temperature=0.7,
         json_mode=True
     ))

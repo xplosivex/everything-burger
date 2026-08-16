@@ -67,7 +67,7 @@ def build_html_structure(content: str, archetype: dict = None, modifiers: list =
             {"role": "system", "content": system},
             {"role": "user", "content": content}
         ],
-        max_tokens=9000,
+        max_tokens=18000,
         temperature=0.3,
         top_p=0.95
     )

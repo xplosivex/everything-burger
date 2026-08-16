@@ -71,7 +71,7 @@ def apply_styling(html: str, archetype: dict = None, modifiers: list = None) -> 
             {"role": "system", "content": system},
             {"role": "user", "content": html}
         ],
-        max_tokens=16000,
+        max_tokens=32000,
         temperature=0.4,
         top_p=0.95
     )

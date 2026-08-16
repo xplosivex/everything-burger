@@ -152,7 +152,7 @@ in later parts. Reuse character names, callback to jokes, escalate the absurdity
             {"role": "system", "content": system},
             {"role": "user", "content": enhanced_prompt}
         ],
-        max_tokens=6000,
+        max_tokens=12000,
         temperature=temperature,
         top_p=0.92
     )
