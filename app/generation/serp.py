@@ -38,20 +38,31 @@ def generate_search_queries(html_content: str) -> list:
         return ["Recommended Content"]
 
 
+# SerpAPI engines we can query, mapped to their result key.
+ENGINE_MAP = {
+    'news': ('google_news', 'news_results'),
+    'videos': ('google_videos', 'video_results'),
+    'shopping': ('google_shopping', 'shopping_results'),
+    'jobs': ('google_jobs', 'jobs_results'),
+    'recipes': ('google_recipes', 'recipes_results'),
+    'books': ('google_books', 'books_results'),
+    'movies': ('google_movies', 'showtimes'),
+    'events': ('google_events', 'events_results'),
+    'local': ('google_local', 'local_results'),
+    'related_questions': ('google_related_questions', 'related_questions'),
+    'scholar': ('google_scholar', 'organic_results'),
+}
+
+
 def fetch_serp_content(query: str, search_type: str) -> dict | None:
-    """Fetch news, video, or shopping results from SerpAPI."""
+    """Fetch enrichment results from any supported SerpAPI engine."""
     if not SERP_API_KEY:
         return None
-    engine_map = {
-        'news': ('google_news', 'news_results'),
-        'videos': ('google_videos', 'video_results'),
-        'shopping': ('google_shopping', 'shopping_results'),
-    }
 
-    if search_type not in engine_map:
+    if search_type not in ENGINE_MAP:
         return None
 
-    engine, results_key = engine_map[search_type]
+    engine, results_key = ENGINE_MAP[search_type]
 
     try:
         params = {
@@ -62,7 +73,7 @@ def fetch_serp_content(query: str, search_type: str) -> dict | None:
             "gl": "us",
             "safe": "off",
         }
-        if search_type != 'news':
+        if search_type not in ('news', 'movies', 'events', 'local'):
             params["google_domain"] = "google.com"
 
         search = GoogleSearch(params)
@@ -79,7 +90,7 @@ def fetch_serp_content(query: str, search_type: str) -> dict | None:
 def inject_serp_sections(soup, search_queries: list):
     """Inject news/video/shopping sections into the HTML, scattered through the
     page content rather than all stacked at the bottom."""
-    content_types = ['videos', 'news', 'shopping']
+    content_types = list(ENGINE_MAP.keys())
     num_sections = random.choices([0, 1, 2, 3], weights=[15, 35, 35, 15])[0]
 
     if num_sections == 0:
@@ -157,6 +168,54 @@ def _build_serp_section(soup, content_type, results, query):
             _append_product_card(soup, container, item)
         section.append(container)
 
+    elif content_type == 'jobs':
+        items = results.get('jobs_results', [])[:3]
+        for item in items:
+            _append_job_card(soup, section, item)
+
+    elif content_type == 'recipes':
+        items = results.get('recipes_results', [])[:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-4'})
+        for item in items:
+            _append_recipe_card(soup, container, item)
+        section.append(container)
+
+    elif content_type == 'books':
+        items = results.get('books_results', [])[:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-4'})
+        for item in items:
+            _append_book_card(soup, container, item)
+        section.append(container)
+
+    elif content_type == 'movies':
+        items = results.get('showtimes', [])[:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-4'})
+        for item in items:
+            _append_movie_card(soup, container, item)
+        section.append(container)
+
+    elif content_type == 'events':
+        items = results.get('events_results', [])[:3]
+        for item in items:
+            _append_event_card(soup, section, item)
+
+    elif content_type == 'local':
+        items = [p for p in results.get('local_results', []) if p.get('place_id') or p.get('title')][:3]
+        container = soup.new_tag('div', **{'class': 'grid grid-cols-1 md:grid-cols-3 gap-4'})
+        for item in items:
+            _append_local_card(soup, container, item)
+        section.append(container)
+
+    elif content_type == 'related_questions':
+        items = results.get('related_questions', [])[:4]
+        for item in items:
+            _append_related_question(soup, section, item)
+
+    elif content_type == 'scholar':
+        items = results.get('organic_results', [])[:3]
+        for item in items:
+            _append_scholar_card(soup, section, item)
+
     return section
 
 
@@ -168,6 +227,14 @@ def _generate_section_title(content_type, query):
         'news': [f"Latest on {topic}", f"{topic} Headlines", f"What's New in {topic}"],
         'videos': [f"Watch: {topic}", f"{topic} in Action", f"Explore {topic}"],
         'shopping': [f"Shop {topic}", f"Top {topic} Picks", f"{topic} Essentials"],
+        'jobs': [f"Open Roles: {topic}", f"{topic} Jobs", f"Now Hiring: {topic}"],
+        'recipes': [f"Recipes for {topic}", f"Cook: {topic}", f"{topic} Dishes"],
+        'books': [f"Books on {topic}", f"Read: {topic}", f"{topic} in Print"],
+        'movies': [f"Now Showing: {topic}", f"{topic} on the Big Screen", f"Movie Times: {topic}"],
+        'events': [f"Events: {topic}", f"Upcoming {topic}", f"{topic} Happenings"],
+        'local': [f"Nearby: {topic}", f"Local {topic}", f"{topic} in Your Area"],
+        'related_questions': [f"People Also Ask: {topic}", f"Questions About {topic}", f"{topic} FAQ"],
+        'scholar': [f"Research: {topic}", f"Academic {topic}", f"{topic} Papers"],
     }
     return random.choice(patterns.get(content_type, [f"Related {topic}"]))
 
@@ -216,6 +283,151 @@ def _append_video_card(soup, parent, item):
         info.append(span)
 
     div.append(info)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_job_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline mb-4'})
+    div = soup.new_tag('div', **{'class': 'p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all'})
+    h4 = soup.new_tag('h4', **{'class': 'font-semibold mb-1'})
+    h4.string = item.get('title', 'Untitled Job')
+    div.append(h4)
+    if item.get('company_name'):
+        p = soup.new_tag('p', **{'class': 'text-sm font-medium opacity-80'})
+        p.string = item['company_name']
+        div.append(p)
+    if item.get('description'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70 mt-1'})
+        p.string = item['description'][:200]
+        div.append(p)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_recipe_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline'})
+    div = soup.new_tag('div', **{'class': 'rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all'})
+    if item.get('thumbnail'):
+        img = soup.new_tag('img', src=item['thumbnail'], **{'class': 'w-full h-40 object-cover'})
+        div.append(img)
+    info = soup.new_tag('div', **{'class': 'p-3'})
+    h4 = soup.new_tag('h4', **{'class': 'font-medium mb-1'})
+    h4.string = item.get('title', 'Untitled Recipe')
+    info.append(h4)
+    if item.get('ingredients') or item.get('source'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70'})
+        p.string = item.get('source') or (', '.join(item.get('ingredients', [])[:4]))
+        info.append(p)
+    div.append(info)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_book_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline'})
+    div = soup.new_tag('div', **{'class': 'rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all'})
+    if item.get('thumbnail'):
+        img = soup.new_tag('img', src=item['thumbnail'], **{'class': 'w-full h-48 object-cover'})
+        div.append(img)
+    info = soup.new_tag('div', **{'class': 'p-3'})
+    h4 = soup.new_tag('h4', **{'class': 'font-medium mb-1'})
+    h4.string = item.get('title', 'Untitled Book')
+    info.append(h4)
+    if item.get('description'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70'})
+        p.string = item['description'][:160]
+        info.append(p)
+    div.append(info)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_movie_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline'})
+    div = soup.new_tag('div', **{'class': 'rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all'})
+    if item.get('thumbnail'):
+        img = soup.new_tag('img', src=item['thumbnail'], **{'class': 'w-full h-48 object-cover'})
+        div.append(img)
+    info = soup.new_tag('div', **{'class': 'p-3'})
+    h4 = soup.new_tag('h4', **{'class': 'font-medium mb-1'})
+    h4.string = item.get('title', 'Untitled Movie')
+    info.append(h4)
+    if item.get('theater'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70'})
+        p.string = f"At {item['theater']}"
+        info.append(p)
+    div.append(info)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_event_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline mb-4'})
+    div = soup.new_tag('div', **{'class': 'p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all'})
+    h4 = soup.new_tag('h4', **{'class': 'font-semibold mb-1'})
+    h4.string = item.get('title', 'Untitled Event')
+    div.append(h4)
+    if item.get('date'):
+        p = soup.new_tag('p', **{'class': 'text-sm font-medium opacity-80'})
+        p.string = item['date']['when']
+        div.append(p)
+    if item.get('address'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70 mt-1'})
+        p.string = ', '.join([item['address'].get('venue') or '', item['address'].get('city') or '']).strip(', ')
+        div.append(p)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_local_card(soup, parent, item):
+    a = soup.new_tag('a', href=f"https://www.google.com/maps/place/?q=place_id:{item.get('place_id')}" if item.get('place_id') else '#',
+                     target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline'})
+    div = soup.new_tag('div', **{'class': 'p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all'})
+    h4 = soup.new_tag('h4', **{'class': 'font-medium mb-1'})
+    h4.string = item.get('title', 'Untitled Place')
+    div.append(h4)
+    if item.get('rating'):
+        p = soup.new_tag('p', **{'class': 'text-sm opacity-80'})
+        p.string = f"Rating: {item['rating']} ({item.get('reviews')} reviews)"
+        div.append(p)
+    if item.get('address'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70 mt-1'})
+        p.string = item['address']
+        div.append(p)
+    a.append(div)
+    parent.append(a)
+
+
+def _append_related_question(soup, parent, item):
+    details = soup.new_tag('details', **{'class': 'mb-2 rounded-lg border border-gray-200'})
+    summary = soup.new_tag('summary', **{'class': 'px-4 py-3 font-medium cursor-pointer'})
+    summary.string = item.get('question', 'Related question')
+    details.append(summary)
+    if item.get('answer'):
+        div = soup.new_tag('div', **{'class': 'px-4 py-3 text-sm opacity-80'})
+        div.append(BeautifulSoup(item['answer'], 'html.parser'))
+        details.append(div)
+    parent.append(details)
+
+
+def _append_scholar_card(soup, parent, item):
+    a = soup.new_tag('a', href=item.get('link') or '#', target='_blank', rel='noopener noreferrer',
+                     **{'class': 'block hover:no-underline mb-4'})
+    div = soup.new_tag('div', **{'class': 'p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all'})
+    h4 = soup.new_tag('h4', **{'class': 'font-medium mb-1'})
+    h4.string = item.get('title', 'Untitled Paper')
+    div.append(h4)
+    if item.get('publication_info', {}).get('summary'):
+        p = soup.new_tag('p', **{'class': 'text-xs opacity-70'})
+        p.string = item['publication_info']['summary']
+        div.append(p)
     a.append(div)
     parent.append(a)
 
