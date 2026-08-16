@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="noindex, nofollow, noarchive">
     <title>{{ page.title }} - Everything Burger</title>
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Everything Burger">
+    <meta property="og:title" content="{{ page.title }} - Everything Burger">
+    <meta property="og:description" content="{{ og_description }}">
+    <meta property="og:url" content="{{ page_url }}">
+    {% if thumb_url %}<meta property="og:image" content="{{ thumb_url }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="800">{% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title }} - Everything Burger">
+    <meta name="twitter:description" content="{{ og_description }}">
+    {% if thumb_url %}<meta name="twitter:image" content="{{ thumb_url }}">{% endif %}
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

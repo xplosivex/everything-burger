@@ -4,7 +4,8 @@ import time
 import uuid
 import tempfile
 import logging
-from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
+import base64
+from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify, Response
 from sqlalchemy import func
 from selenium import webdriver
 from app.extensions import limiter
@@ -17,6 +18,30 @@ from app.queue import enqueue
 logger = logging.getLogger(__name__)
 
 pages_bp = Blueprint('pages', __name__)
+
+
+@pages_bp.route('/page/<uuid>/thumbnail')
+def page_thumbnail(uuid):
+    """Serve a page's thumbnail as a real image (Discord embeds can't fetch
+    base64 data URIs). Returns the raw PNG stored in thumbnail_url."""
+    page = db.session.query(Page).filter_by(uuid=uuid).first()
+    if not page or not page.thumbnail_url:
+        return ('', 404)
+    # thumbnail_url is stored as "data:image/png;base64,..."
+    prefix, sep, b64 = page.thumbnail_url.partition(',')
+    if not sep:
+        return ('', 404)
+    mime = 'image/png'
+    if 'jpeg' in prefix or 'jpg' in prefix:
+        mime = 'image/jpeg'
+    elif 'gif' in prefix:
+        mime = 'image/gif'
+    try:
+        raw = base64.b64decode(b64)
+    except Exception:
+        return ('', 400)
+    return Response(raw, mimetype=mime,
+                    headers={'Cache-Control': 'public, max-age=3600'})
 
 @pages_bp.route('/pages')
 @login_required
@@ -198,8 +223,16 @@ def view_page(uuid):
 
     prompt_length = get_prompt_length(session['user_id']) if session.get('user_id') else 175
 
+    from app.config import BASE_URL
+    page_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}"
+    thumb_url = f"{BASE_URL.rstrip('/')}/page/{page.uuid}/thumbnail"
+    og_description = page.description or page.prompt or 'A page generated with Everything Burger.'
+
     context = {
         'page': page,
+        'page_url': page_url,
+        'thumb_url': thumb_url,
+        'og_description': og_description,
         'is_owner': session.get('user_id') == page.creator_id if session.get('user_id') else False,
         'crumb_balance': crumb_balance,
         'user': user,
